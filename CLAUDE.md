@@ -94,13 +94,26 @@ playground/open_duck_mini_v2/
 
 Fichiers inclus : `joints_properties.xml`, `sensors.xml`. `xmls/config.json` = configuration onshape-to-robot ayant servi à générer le MJCF.
 
+## Versions épinglées (`pyproject.toml`)
+
+`uv.lock` étant ignoré par git, les bornes de `pyproject.toml` sont la seule garantie de reproductibilité.
+Résolution vérifiée le 30/09/2026 (`uv pip compile --no-build`, métadonnées seules, Linux x86_64, Python 3.11 et 3.12) :
+`playground` 0.0.5, `mujoco` / `mujoco-mjx` 3.3.7, `jax` / `jaxlib` 0.9.2, `brax` 0.14.2, `flax` 0.12.6, `orbax-checkpoint` 0.12.6,
+`tensorflow` 2.21.0, `tf2onnx` 1.17.0.
+
+| Contrainte | Raison |
+|---|---|
+| `playground==0.0.5` | 0.1.0+ supprime `_src/collision.py` (importé par `joystick.py` et `standing.py`) et renomme `mjx_env.init` en `make_data` |
+| `mujoco`, `mujoco-mjx` `>=3.3.3,<3.4` | 0.0.5 lit `data._impl.contact` et `mjx_model.light_type` (apparus en 3.3.3) mais déclare `>=3.2.7` ; 0.1.0 passe à `>=3.4` en même temps que la rupture d'API. `mujoco-mjx` 3.3.x n'exige que `mujoco>=3.3.x` : borner les deux. Sans borne : 3.14.0 |
+| `jax`, `jaxlib` `<0.10` | jax 0.10.0 retire `jnp.clip(a_min=, a_max=)`, encore utilisé par mujoco-mjx 3.3.x (`forward.py` filtre d'actionneur, `passive.py` fluide, `collision_driver.py` paires). Chemins non tracés pour Open Duck aujourd'hui (actionneurs `position` sans dynamique, ni fluide ni `<pair>`), mais latents. Sans borne : 0.11.2 |
+| `brax` non borné | API utilisée identique de 0.12.1 à 0.14.2 : arguments de `ppo.train`, `make_ppo_networks(policy_obs_key, value_obs_key)`, MLP de politique `hidden_i` en `tanh_normal` (attendu par `export_onnx.py`), tuple `params` de `policy_params_fn` |
+
+- Premier import de `mujoco_playground` : `git clone` complet de `mujoco_menagerie` dans `site-packages/external_deps/` (git + réseau requis). Non utilisé par Open Duck.
+- `randomize.py` lit `model.dof_hasfrictionloss`, déplacé dans `model._impl` depuis mjx 3.3.3 : `DeprecationWarning` attendu, sans effet.
+
 ## Pièges connus (constatés le 30/09/2026, non corrigés)
 
-- **Dépendance non épinglée** : `playground>=0.0.3` sans lockfile versionné. PyPI propose aujourd'hui `playground` 0.2.0, où
-  `mujoco_playground/_src/collision.py` n'existe plus (supprimé depuis 0.1.0) ; `joystick.py` l'importe
-  (`from mujoco_playground._src.collision import geoms_colliding`). Le dernier commit amont date du 11/08/2025, époque de 0.0.5.
-  Piste avant le premier entraînement : épingler `playground==0.0.5` et vérifier la résolution de `brax` / `mujoco`.
-- `mujoco`, `brax`, `flax`, `orbax`, `tensorboardX` ne sont pas déclarés : ils arrivent en transitif via `playground`.
+- `brax`, `flax`, `orbax-checkpoint`, `tensorboardX` sont importés par `common/runner.py` mais non déclarés : ils arrivent en transitif (`playground` → `brax` → le reste).
 - `README.md` amont cite des fichiers XML qui n'existent plus (`scene_mjx_*`, `open_duck_mini_v2_no_head.xml`).
 - Fichier vide `aze` à la racine (reliquat amont).
 - Pas de fichier `LICENSE` dans ce dépôt ; 5 sources sur 22 portent un en-tête Apache 2.0 (DeepMind, Antoine Pirrone, Steve Nguyen) :

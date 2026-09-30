@@ -6,13 +6,20 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "framesviewer>=1.0.2",
-    "jax[cuda12]>=0.5.0",
-    "jaxlib>=0.5.0",
+    # jax 0.10.0 removed jnp.clip(a_min=, a_max=), still used by mujoco-mjx 3.3.x.
+    "jax[cuda12]>=0.5.0,<0.10",
+    "jaxlib>=0.5.0,<0.10",
     "jaxtyping>=0.2.38",
     "matplotlib>=3.10.0",
     "mediapy>=1.2.2",
+    # mujoco-mjx 3.3.x only requires mujoco>=3.3.x: both must be bounded together.
+    # >=3.3.3: playground 0.0.5 uses mjx.Data._impl and mjx.Model.light_type.
+    # <3.4: playground 0.1.0 moved to mujoco>=3.4 with a breaking API change.
+    "mujoco>=3.3.3,<3.4",
+    "mujoco-mjx>=3.3.3,<3.4",
     "onnxruntime>=1.20.1",
-    "playground>=0.0.3",
+    # 0.1.0+ removed mujoco_playground._src.collision and renamed mjx_env.init.
+    "playground==0.0.5",
     "pygame>=2.6.1",
     "tensorflow>=2.18.0",
     "tf2onnx>=1.16.1",
