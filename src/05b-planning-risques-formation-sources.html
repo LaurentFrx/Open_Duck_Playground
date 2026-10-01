@@ -1,0 +1,275 @@
+<!-- ═══════════════════════════ PLANNING ═══════════════════════════ -->
+<section class="page" id="page-planning" data-title="Planning et jalons" data-sub="7 phases, listes de contrôle" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Feuille de route</div>
+    <h1>Sept phases, un jalon testable à chaque fois</h1>
+    <p class="lead">Le plan d'achats de septembre fixait six phases ; nous ajoutons une phase 0 d'organisation. Les mois sont indicatifs : ce qui compte, c'est que chaque phase se ferme par une fiche de test lue en réunion. Les cases ci-dessous sont mémorisées sur cet appareil ; l'état de référence reste le tableau GitHub.</p>
+  </div>
+
+  <div class="phases">
+    <div class="phase" style="--ph: var(--color-primary)"><div class="n">Phase 0</div><div class="t">Organisation</div><div class="m">oct. 2026</div><div class="amt">0 €</div><div class="m">GitHub, rôles, outils, sécurité</div></div>
+    <div class="phase" style="--ph: var(--color-consumption)"><div class="n">Phase 1</div><div class="t">Structure imprimée</div><div class="m">oct. 2026</div><div class="amt">55,70 €</div><div class="m">Pièces imprimées, assemblage à blanc</div></div>
+    <div class="phase" style="--ph: var(--color-cyan)"><div class="n">Phase 2</div><div class="t">Cerveau + banc servo</div><div class="m">nov. 2026</div><div class="amt">99,55 €</div><div class="m">IMU + bus validés · GO/NO-GO</div></div>
+    <div class="phase" style="--ph: var(--color-battery)"><div class="n">Phase 3</div><div class="t">Jambe 1</div><div class="m">déc. 2026</div><div class="amt">63,10 €</div><div class="m">Jambe pilotée, contacts lus</div></div>
+    <div class="phase" style="--ph: var(--color-lime)"><div class="n">Phase 4</div><div class="t">Jambe 2</div><div class="m">janv. 2027</div><div class="amt">99,50 €</div><div class="m">Bas du corps debout sur banc</div></div>
+    <div class="phase" style="--ph: var(--color-solar)"><div class="n">Phase 5</div><div class="t">Tête + calibration</div><div class="m">févr. 2027</div><div class="amt">95,25 €</div><div class="m">14 servos, offsets, 1re marche filaire</div></div>
+    <div class="phase" style="--ph: var(--color-hp)"><div class="n">Phase 6</div><div class="t">Énergie embarquée</div><div class="m">mars 2027</div><div class="amt">63,15 €</div><div class="m">Marche autonome sur batterie</div></div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-cal"/></svg>Phase 0 · Organisation <span class="pill p" id="pct-p0">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p0.1"><span class="t">Rôles attribués et notés dans <code>biscalab/README.md</code></span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.2"><span class="t">Organisation GitHub créée, 2 propriétaires, 2FA activée pour tous</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.3"><span class="t">Forks <code>Open_Duck_Mini</code> et <code>Open_Duck_Mini_Runtime</code>, Issues activées, labels, 7 jalons, tableau Projects</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.4"><span class="t">Arborescence <code>biscalab/</code>, <code>.gitattributes</code>, <code>.gitignore</code>, <code>CREDITS.md</code> poussés</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.5"><span class="t">GitHub Desktop installé sur chaque PC, 5 gestes répétés en séance</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.6"><span class="t">Copie Onshape BiscaLab créée ; FreeCAD réglé (compression 0, auteur)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.7"><span class="t">Groupe Signal/WhatsApp, dossier Nextcloud « Canard », référents inscrits au Discord amont</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.8"><span class="t"><code>securite.md</code> rédigé et affiché (batteries, laser, banc)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.9"><span class="t">Décisions tranchées : chargeur 2S, politique CAO, GPU disponible, hébergement du dossier</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.10"><span class="t">Issues de la phase 1 créées, issue « Achat phase 1 » validée</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-printer"/></svg>Phase 1 · Structure imprimée <span class="pill p" id="pct-p1">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p1.1"><span class="t">Filament, inserts M3 (réf. BOM), 3 × 608ZZ, consommables reçus</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.2"><span class="t">Lot de profils PrusaSlicer exporté et commité ; pièce test inserts validée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.3"><span class="t">36 STL amont vérifiés (branche v2), <code>pieces.csv</code> initialisé avec les 51 lignes</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.4"><span class="t">Plateaux 3MF créés par sous-ensemble (orientation et supports figés)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.5"><span class="t">Pieds (8 pièces, dont 2 TPU 40 %) imprimés et contrôlés</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.6"><span class="t">Jambes (18 pièces) imprimées ; gauche/droite identifiées au marqueur</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.7"><span class="t">Tronc, cou, tête (9 pièces) imprimés ; roulements et inserts posés</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.8"><span class="t">Carrosserie (9 pièces) imprimée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.9"><span class="t">Chaque sous-ensemble pesé et comparé aux masses du MJCF (fiche de test)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.10"><span class="t">Assemblage à blanc sans servos (cales de la taille d'un STS3215) ; photos dans <code>docs/photos/</code></span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-cpu"/></svg>Phase 2 · Cerveau + banc servo <span class="pill p" id="pct-p2">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p2.1"><span class="t">Pi Zero 2 W, microSD 32 Go, Waveshare, BNO055, 2 × STS3215 7,4 V C001 reçus (référence vérifiée à la réception)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.2"><span class="t">Socle de banc découpé au laser (servos + carte + Pi), alimentation labo 7,4 V limitée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.3"><span class="t">Image v0.2.3 flashée, identifiants changés, SSH et Wi-Fi fonctionnels</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.4"><span class="t">Checklist « banc servo » de la rubrique Électronique entièrement verte</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.5"><span class="t">Manette Xbox appairée, <code>pygame</code> voit les axes</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.6"><span class="t"><code>mujoco_infer.py</code> lancé sur un PC avec le MJCF corrigé par nos masses réelles : le canard simulé marche</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.7"><span class="t"><strong>GO / NO-GO</strong> noté dans le journal → commande des 12 servos restants (même lot)</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-walk"/></svg>Phases 3 et 4 · Jambes <span class="pill p" id="pct-p3">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p3.1"><span class="t">Servos 12-14 configurés avant montage (jambe droite), palonniers alignés au gabarit</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.2"><span class="t">Jambe droite montée ; orientation du hip_pitch vérifiée (position zéro)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.3"><span class="t">4 contacts SS-10 pressés dans les semelles, lus par <code>feet_contacts.py</code></span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.4"><span class="t">Jambe droite pilotée joint par joint sur le banc, jeu mesuré à chaque articulation</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.5"><span class="t">Servos 20-24 configurés, jambe gauche montée (pièces miroir : ne pas inverser)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.6"><span class="t">Tronc + deux jambes : posture debout tenue sur le banc avec <code>turn_on.py</code> (servos 10, 11, 20, 21 configurés)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.7"><span class="t">Câblage du bus en chaîne, gaine spirale, aucun câble pincé sur toute l'amplitude</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-zap"/></svg>Phase 5 · Tête, calibration, première marche <span class="pill p" id="pct-p5">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p5.1"><span class="t">Servos 30-33 configurés, cou et tête montés (roulements, inserts), micro-servos des antennes</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.2"><span class="t">IMU montée, orientation vérifiée avec <code>imu_client.py</code>, calibrée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.3"><span class="t">Offsets mesurés avec <code>find_soft_offsets.py</code>, <code>duck_config.json</code> commité</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.4"><span class="t">Potence/harnais découpé et installé au-dessus du centre de masse</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.5"><span class="t">Checklist « Calibration » de la rubrique Marche entièrement verte</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.6"><span class="t">Courant crête mesuré sur alimentation labo → calibre du BMS décidé</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.7"><span class="t">Première marche filaire filmée, fiche de test rédigée, démo au FabLab</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Phase 6 · Énergie embarquée <span class="pill p" id="pct-p6">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p6.1"><span class="t">2 × P30B, support, BMS (calibre validé), UBEC, interrupteur, chargeur 2S, jacks, XT30 reçus</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.2"><span class="t">Pack assemblé hors robot, cellules à la même tension, BMS testé (coupure basse, équilibrage), sac ignifuge pour la charge</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.3"><span class="t"><code>check_voltage.py</code> sous batterie : tension vue par les servos en charge, pas d'erreur CRC</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.4"><span class="t">Marche sur batterie, potence puis libre ; autonomie mesurée (minutes de marche) et notée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.5"><span class="t">Carrosserie fermée, <code>battery_pack_lid</code> en place, interrupteur accessible</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.6"><span class="t">Release GitHub « canard-biscalab v1.0 » : STL modifiés, 3MF, config, fiches de test, vidéo</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><svg><use href="#i-copy"/></svg>Partager l'état des listes</h3>
+    <p class="sub">Les cases sont enregistrées dans ce navigateur seulement. Pour synchroniser avec un collègue : copier l'export, le coller dans l'import de l'autre appareil.</p>
+    <div class="row">
+      <button class="btn primary" type="button" id="btn-export"><svg><use href="#i-copy"/></svg>Exporter (copier)</button>
+      <button class="btn" type="button" id="btn-import">Importer depuis le texte ci-dessous</button>
+      <button class="btn" type="button" id="btn-reset">Tout décocher</button>
+    </div>
+    <textarea class="io" id="io" placeholder="L'export apparaît ici. Pour importer, coller un export puis cliquer « Importer »."></textarea>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RISQUES ═══════════════════════════ -->
+<section class="page" id="page-risques" data-title="Risques et sécurité" data-sub="Registre, parades" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Anticiper</div>
+    <h1>Registre des risques</h1>
+    <p class="lead">Tout ce que la communauté a déjà rencontré, et ce que notre contexte ajoute. Chaque ligne a une parade et une phase où on la vérifie. À relire au début de chaque phase.</p>
+  </div>
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risque</th><th>Impact</th><th>Prob.</th><th>Parade</th><th>Phase</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Mauvaise variante de servo</strong> (12 V, 1/191, 1/147)</td><td><span class="pill bad">fort</span> politique inutilisable, réentraînement + nouvelle identification BAM</td><td>moyen</td><td>Référence C001 7,4 V 1/345 écrite dans l'issue Achat ; contrôle à réception ; 2 servos d'abord</td><td>2</td></tr>
+          <tr><td><strong>Chute de tension sous charge</strong> (cellules molles, câbles fins)</td><td><span class="pill bad">fort</span> erreurs CRC, chutes du robot (issue #49)</td><td>moyen</td><td>Molicel P30B ≥ 25 A, XT30, câbles courts ; test <code>check_voltage</code> en charge</td><td>6</td></tr>
+          <tr><td><strong>Firmwares de servos hétérogènes</strong></td><td><span class="pill warn">moyen</span> « Parsing error in set_kps() » (Runtime #26)</td><td>moyen</td><td>Même lot ; vérifier la version au banc ; mise à jour Feetech sous Windows si besoin</td><td>2, 3</td></tr>
+          <tr><td><strong>Python 3.13 sur image récente</strong></td><td><span class="pill warn">moyen</span> onnxruntime 1.18.1 introuvable (Runtime #38)</td><td>fort</td><td>Image v0.2.3 (Bookworm) ou <code>uv</code> + Python 3.11</td><td>2</td></tr>
+          <tr><td><strong>Casse pendant <code>find_soft_offsets</code></strong></td><td><span class="pill warn">moyen</span> pièces cassées (Runtime #32)</td><td>moyen</td><td>Robot sur support, un joint à la fois, pièces de rechange imprimées d'avance (sheets, spacers)</td><td>5</td></tr>
+          <tr><td><strong>Contrôle de tête (bouton Y)</strong></td><td><span class="pill warn">moyen</span> « can break your duck's head »</td><td>fort si utilisé</td><td>Ne pas l'utiliser en démo ; <code>head_puppet.py</code> à la place</td><td>5+</td></tr>
+          <tr><td><strong>IMU I²C instable</strong> (clock stretching)</td><td><span class="pill warn">moyen</span> données manquantes → chute</td><td>moyen</td><td>Test 10 min au banc ; <code>i2c_arm_baudrate=10000</code> ou UART</td><td>2</td></tr>
+          <tr><td><strong>Carte Waveshare hors plage 2S</strong></td><td><span class="pill warn">moyen</span> bus instable à 7,4 V</td><td>faible (le projet l'utilise ainsi)</td><td>Mesure au banc avant la commande des 12 servos</td><td>2</td></tr>
+          <tr><td><strong>Pi Zero 2 W en rupture</strong></td><td><span class="pill warn">moyen</span> retard phase 2</td><td>fort</td><td>Commander dès la phase 0 chez Kubii ; alternative Pi 5 (<code>lgpio</code>) plus chère</td><td>0</td></tr>
+          <tr><td><strong>Masses hors tolérance</strong> (matériau, remplissage, laser)</td><td><span class="pill warn">moyen</span> instabilité, réentraînement</td><td>moyen</td><td>Suivre l'amont (PLA 15 %) ; peser ; <code>mujoco_infer</code> avec masses réelles</td><td>1, 2</td></tr>
+          <tr><td><strong>Documentation amont incomplète</strong> (vis, carte servo, expression)</td><td><span class="pill mute">faible</span> tâtonnements</td><td>certain</td><td>Guide Tnkr, journaux de construction tiers, Discord ; documenter ce que nous trouvons</td><td>1-5</td></tr>
+          <tr><td><strong>Douane / délais</strong> hors UE</td><td><span class="pill mute">faible</span> surcoût, retard</td><td>moyen</td><td>Fournisseurs UE ; un seul écart assumé possible (servos), décision du bureau</td><td>toutes</td></tr>
+          <tr><td><strong>Pas de GPU</strong> pour réentraîner</td><td><span class="pill mute">faible</span> si la politique fournie convient</td><td>moyen</td><td>Rester dans les specs ; sinon location cloud ou PC d'un membre</td><td>0, 5</td></tr>
+          <tr><td><strong>Fichiers CAO écrasés</strong> (deux éditeurs)</td><td><span class="pill mute">faible</span> travail perdu</td><td>moyen</td><td>Un éditeur par fichier (issue assignée), <code>pull</code> avant, <code>push</code> après</td><td>toutes</td></tr>
+          <tr><td><strong>Incendie Li-ion</strong></td><td><span class="pill bad">fort</span> sécurité des personnes et des locaux</td><td>faible</td><td>Charge surveillée en sac ignifuge, stockage 50 %, BMS, consigne affichée</td><td>6</td></tr>
+          <tr><td><strong>Laser : matériau interdit, feu</strong></td><td><span class="pill bad">fort</span> gaz toxiques, incendie</td><td>faible</td><td>Liste affichée sur la machine, présence permanente, extraction</td><td>2, 5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Batteries</h3>
+      <ul class="tight">
+        <li>Charge : surface incombustible, sac ou boîte ignifuge, présence humaine, arrêt si chauffe ou gonflement.</li>
+        <li>Stockage : ≈ 50 %, hors robot, boîte métallique, pôles protégés.</li>
+        <li>Incendie : évacuer, n'intervenir que formé et équipé.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Laser xTool P2S</h3>
+      <ul class="tight">
+        <li>Jamais seul, jamais sans extraction.</li>
+        <li>Matériaux interdits affichés : PVC, vinyle, ABS, polycarbonate, polystyrène, fibre de carbone enduite.</li>
+        <li>Extincteur CO₂ à portée ; surveiller les découpes d'acrylique.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Banc et robot</h3>
+      <ul class="tight">
+        <li>Alimentation labo limitée en courant tant que la batterie n'est pas validée.</li>
+        <li>Robot sur support ou potence pour tout script qui bouge ; mains hors des articulations.</li>
+        <li>Bouton A (pause) toujours à portée pendant une marche.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FORMATION ═══════════════════════════ -->
+<section class="page" id="page-formation" data-title="Formation et glossaire" data-sub="Tutoriels, vocabulaire" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Monter en compétence</div>
+    <h1>Formation express et glossaire</h1>
+    <p class="lead">Personne n'a besoin de tout savoir. Chaque référent apprend son outil ; les cinq gestes GitHub Desktop, eux, sont pour tout le monde.</p>
+  </div>
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-book"/></svg>Tutoriels en français</h3>
+      <ul class="links">
+        <li><a href="https://docs.github.com/fr/desktop/overview/getting-started-with-github-desktop" target="_blank" rel="noopener">Prise en main de GitHub Desktop</a> — documentation officielle en français.</li>
+        <li><a href="https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank" rel="noopener">OpenClassrooms « Gérez du code avec Git et GitHub »</a> — gratuit, 6 h.</li>
+        <li><a href="https://grafikart.fr/formations/git" target="_blank" rel="noopener">Grafikart « Comprendre Git »</a> — 18 chapitres dont un sur GitHub Desktop.</li>
+        <li><a href="https://docs.github.com/fr/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects" target="_blank" rel="noopener">GitHub Projects</a> — tableaux et roadmaps.</li>
+        <li><a href="https://wiki.freecad.org/Main_Page/fr" target="_blank" rel="noopener">Wiki FreeCAD en français</a> et <a href="https://freecad-france.com" target="_blank" rel="noopener">FreeCAD-France</a> (forum, vidéos).</li>
+        <li><a href="https://help.prusa3d.com/fr/category/prusaslicer_204" target="_blank" rel="noopener">Aide PrusaSlicer en français</a> — profils, 3MF, supports peints.</li>
+        <li><a href="https://support.xtool.com/article/2426" target="_blank" rel="noopener">xTool : compensation de kerf dans XCS</a>.</li>
+        <li><a href="https://cnckitchen.com/blog/tips-and-tricks-for-heat-set-inserts" target="_blank" rel="noopener">CNC Kitchen : inserts à chaud</a> (anglais, très visuel).</li>
+        <li><a href="https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/python-circuitpython" target="_blank" rel="noopener">Adafruit BNO055 sur Raspberry Pi</a> (anglais).</li>
+        <li><a href="https://frankfu.blog/openai/understanding-reinforcement-learning-through-openduck/" target="_blank" rel="noopener">Comprendre le RL à travers Open Duck</a> (anglais) — pour qui veut lire le Playground.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-book"/></svg>Glossaire</h3>
+      <dl class="def">
+        <dt>Fork / clone</dt><dd>Copie du dépôt sur GitHub (partagée) / copie sur un PC (locale).</dd>
+        <dt>Commit / push / pull</dt><dd>Enregistrer une version / l'envoyer sur GitHub / récupérer celles des autres.</dd>
+        <dt>Issue</dt><dd>Une tâche, un problème ou une question, avec un responsable.</dd>
+        <dt>Pull request</dt><dd>Proposition de modification relue avant fusion.</dd>
+        <dt>Milestone</dt><dd>Jalon : un groupe d'issues à boucler avant une date.</dd>
+        <dt>STL / STEP / 3MF</dt><dd>Maillage pour imprimer / géométrie exacte pour la CAO / projet d'impression complet.</dd>
+        <dt>Kerf</dt><dd>Largeur de matière brûlée par le laser (0,1 à 0,25 mm), à compenser.</dd>
+        <dt>Insert à chaud</dt><dd>Écrou laiton fondu dans le plastique pour visser en M3.</dd>
+        <dt>Servo bus série</dt><dd>Servo adressable (ID) chaîné sur un seul câble, avec retour de position.</dd>
+        <dt>IMU</dt><dd>Centrale inertielle : gyroscope + accéléromètre (+ magnétomètre), donne l'attitude.</dd>
+        <dt>BMS / UBEC</dt><dd>Protection et équilibrage du pack / régulateur 5 V à découpage.</dd>
+        <dt>2S</dt><dd>Deux cellules en série (7,4 V nominal, 8,4 V chargé).</dd>
+        <dt>RL / PPO</dt><dd>Apprentissage par renforcement / l'algorithme utilisé pour entraîner la marche.</dd>
+        <dt>Politique</dt><dd>Le réseau de neurones qui, à partir des capteurs, décide des consignes des servos.</dd>
+        <dt>MuJoCo / MJCF</dt><dd>Le simulateur physique / son format de modèle de robot (XML).</dd>
+        <dt>URDF</dt><dd>Autre format de modèle de robot, utilisé par Placo.</dd>
+        <dt>ONNX</dt><dd>Format d'échange du réseau entraîné, exécuté par <code>onnxruntime</code> sur le Pi.</dd>
+        <dt>Sim2real</dt><dd>Le passage de la simulation au robot réel, et tout ce qui peut y casser.</dd>
+        <dt>Domain randomization</dt><dd>Varier masses, frottements, gains pendant l'entraînement pour rendre la politique tolérante.</dd>
+        <dt>BAM</dt><dd>Méthode Rhoban d'identification d'un servo (gain, couple, frottements) pour la simulation.</dd>
+        <dt>Offsets</dt><dd>Écart entre le zéro mécanique réel et le zéro du servo, mesuré robot par robot.</dd>
+        <dt>Keyframe « home »</dt><dd>La posture de référence, debout, d'où partent toutes les consignes.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SOURCES ═══════════════════════════ -->
+<section class="page" id="page-sources" data-title="Sources" data-sub="Références vérifiées le 1er oct. 2026" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Références</div>
+    <h1>Sources</h1>
+    <p class="lead">Tout ce dossier repose sur les documents ci-dessous, lus le 1er octobre 2026. Les chiffres (prix, versions, paramètres) viennent des fichiers des dépôts à cette date ; ils bougent, et c'est le dépôt qui fait foi.</p>
+  </div>
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-git"/></svg>Dépôts et documents du projet</h3>
+      <ul class="src">
+        <li><a href="https://github.com/apirrone/Open_Duck_Mini" target="_blank" rel="noopener">apirrone/Open_Duck_Mini</a> (v2) : README, <code>docs/print_guide.md</code>, <code>docs/assembly_guide.md</code>, <code>docs/configure_motors.md</code>, <code>docs/sim2real.md</code>, <code>docs/prepare_robot.md</code>, <code>print/</code>, <code>print/mods/v2_Jaimes_Mods/README.md</code>, LICENSE</li>
+        <li><a href="https://github.com/apirrone/Open_Duck_Mini_Runtime" target="_blank" rel="noopener">apirrone/Open_Duck_Mini_Runtime</a> (v2) : README, <code>docs/INSTALL.md</code>, <code>setup.cfg</code>, <code>example_config.json</code>, <code>checklist.md</code>, <code>scripts/</code> (v2_rl_walk_mujoco, configure_motor, configure_all_motors, find_soft_offsets, calibrate_imu, check_motors, check_voltage, turn_on), <code>mini_bdx_runtime/</code> (rustypot_position_hwi, raw_imu, imu, feet_contacts)</li>
+        <li><a href="https://github.com/apirrone/Open_Duck_Playground" target="_blank" rel="noopener">apirrone/Open_Duck_Playground</a> : README, <code>pyproject.toml</code>, <code>joystick.py</code>, <code>custom_rewards.py</code>, <code>constants.py</code>, <code>mujoco_infer.py</code>, <code>common/randomize.py</code>, <code>common/runner.py</code>, <code>common/export_onnx.py</code>, <code>xmls/</code></li>
+        <li><a href="https://github.com/apirrone/Open_Duck_reference_motion_generator" target="_blank" rel="noopener">apirrone/Open_Duck_reference_motion_generator</a> : README, <code>auto_waddle.py</code>, <code>fit_poly.py</code>, <code>gait_generator.py</code>, <code>placo_walk_engine.py</code>, <code>medium.json</code>, <code>auto_gait.json</code></li>
+        <li><a href="https://cad.onshape.com/documents/64074dfcfa379b37d8a47762/w/3650ab4221e215a4f65eb7fe/e/0505c262d882183a25049d05" target="_blank" rel="noopener">Document Onshape public</a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1gq4iWWHEJVgAA_eemkTEsshXqrYlFxXAPwO515KpCJc" target="_blank" rel="noopener">BOM officielle (Google Sheets)</a></li>
+        <li><a href="https://github.com/Rhoban/bam" target="_blank" rel="noopener">Rhoban/bam</a> (params feetech_sts3215_7_4V, actuator.py, to_mujoco.py) · <a href="https://github.com/Rhoban/onshape-to-robot" target="_blank" rel="noopener">Rhoban/onshape-to-robot</a> et <a href="https://onshape-to-robot.readthedocs.io/en/latest/" target="_blank" rel="noopener">sa documentation</a> · <a href="https://github.com/pollen-robotics/rustypot" target="_blank" rel="noopener">pollen-robotics/rustypot</a> · <a href="https://github.com/pollen-robotics/Open_Duck_Blender" target="_blank" rel="noopener">Open_Duck_Blender</a> · <a href="https://github.com/pollen-robotics/microduck_rl" target="_blank" rel="noopener">microduck_rl</a></li>
+        <li>Issues : <a href="https://github.com/apirrone/Open_Duck_Mini/issues/48" target="_blank" rel="noopener">#48</a> (variante C001 et vitesse), <a href="https://github.com/apirrone/Open_Duck_Mini/issues/49" target="_blank" rel="noopener">#49</a> (chute de tension, CRC), <a href="https://github.com/apirrone/Open_Duck_Mini/issues/52" target="_blank" rel="noopener">#52</a> (servos 12 V aux genoux), Runtime <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/26" target="_blank" rel="noopener">#26</a> (firmware), <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/32" target="_blank" rel="noopener">#32</a> (casse en calibration), <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/38" target="_blank" rel="noopener">#38</a> (Python 3.13)</li>
+        <li>Dérivés : <a href="https://github.com/XiaohuiChen-personal/Open_Duck_Mini_Jetson" target="_blank" rel="noopener">Open_Duck_Mini_Jetson</a> · <a href="https://github.com/i1Cps/duck_mini_pro_headless" target="_blank" rel="noopener">duck_mini_pro_headless</a> · <a href="https://github.com/soyeon24/open-duck-mini-v2-build" target="_blank" rel="noopener">soyeon24/open-duck-mini-v2-build</a> · <a href="https://github.com/seanmayer/open-duck-mini-build" target="_blank" rel="noopener">seanmayer/open-duck-mini-build</a> · <a href="https://github.com/rimim/AWD" target="_blank" rel="noopener">rimim/AWD</a> · <a href="https://github.com/drfenixion/freecad.overcross" target="_blank" rel="noopener">RobotCAD</a></li>
+        <li>Communauté : <a href="https://discord.gg/UtJZsgfQGe" target="_blank" rel="noopener">Discord</a> · <a href="https://tnkr.ai/explore/docs/open-duck-mini/open-duck-mini-v2" target="_blank" rel="noopener">Guide Tnkr</a> · <a href="https://zihao-ai.feishu.cn/wiki/space/7488517034406625281" target="_blank" rel="noopener">Guide chinois (Feishu)</a> · <a href="https://www.youtube.com/watch?v=tt-g_fi-eGU" target="_blank" rel="noopener">Vidéo « 4 Days of Soldering… »</a> · <a href="https://www.youtube.com/watch?v=DajdOeYJZdk" target="_blank" rel="noopener">Short « Watch Me Build… »</a></li>
+        <li>Articles : <a href="https://hackaday.com/2025/04/05/disneys-bipedal-bdx-series-droid-gets-the-diy-treatment/" target="_blank" rel="noopener">Hackaday</a> · <a href="https://scalablehuman.com/2026/08/14/building-open-duck-mini-v2-from-software-project-to-physical-robot/" target="_blank" rel="noopener">Scalable Human</a> · <a href="https://frankfu.blog/openai/understanding-reinforcement-learning-through-openduck/" target="_blank" rel="noopener">Frank Fu</a> · <a href="https://circuitdigest.com/news/google-gemma-4-e2b-runs-locally-on-robot-duck" target="_blank" rel="noopener">CircuitDigest</a> · <a href="https://makezine.com/article/maker-news/microducks-exude-macro-charm/" target="_blank" rel="noopener">Make:</a> · <a href="https://pollen-robotics.com/microduck/blog/introducing-microduck/" target="_blank" rel="noopener">Microduck</a> · <a href="https://huggingface.co/blog/hugging-face-pollen-robotics-acquisition" target="_blank" rel="noopener">HF × Pollen</a> · <a href="https://arxiv.org/html/2502.08844v1" target="_blank" rel="noopener">MuJoCo Playground (arXiv)</a> · <a href="https://github.com/google-deepmind/mujoco_playground/blob/main/mujoco_playground/config/locomotion_params.py" target="_blank" rel="noopener">locomotion_params.py</a></li>
+        <li>Revendeurs cités : <a href="https://orobot.io/o/program/BROKER-2/open-duck-mini" target="_blank" rel="noopener">orobot.io</a> · <a href="https://aifitlab.com/products/openduckmini-open-source-version-of-the-bdx-droid" target="_blank" rel="noopener">AIFITLAB</a> · <a href="https://www.tindie.com/products/wsk/open-duck-mini-v2-robot/" target="_blank" rel="noopener">Tindie</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-cart"/></svg>Composants, fournisseurs, outils</h3>
+      <ul class="src">
+        <li>STS3215 : <a href="https://www.waveshare.com/st3215-servo.htm?sku=33014" target="_blank" rel="noopener">Waveshare</a> · <a href="https://waveshare.com/wiki/ST3215_Servo" target="_blank" rel="noopener">wiki</a> · <a href="https://core-electronics.com.au/attachments/uploads/sts3215-smart-servo-datasheet-translated.pdf" target="_blank" rel="noopener">datasheet traduite</a> · <a href="https://openelab.com/products/seeed-studio-feetech-st3215-c001" target="_blank" rel="noopener">OpenELAB</a> · <a href="https://eckstein-shop.de/Feetech-STS3215-74V-19kgcm-plastic-case-metal-gear-magnetic-code-dual-shaft-TTL-serial-servo" target="_blank" rel="noopener">Eckstein</a> · <a href="https://eu.robotshop.com/products/magnetic-encoding-servo-sts3215-74v-19kgcm" target="_blank" rel="noopener">RobotShop EU</a> · <a href="https://github.com/TheRobotStudio/SO-ARM100" target="_blank" rel="noopener">SO-ARM100 (variantes)</a> · <a href="https://pypi.org/project/feetech-servo-sdk/" target="_blank" rel="noopener">feetech-servo-sdk</a></li>
+        <li>Carte : <a href="https://www.waveshare.com/bus-servo-adapter-a.htm" target="_blank" rel="noopener">Bus Servo Adapter (A)</a> · <a href="https://www.waveshare.com/wiki/Bus_Servo_Adapter_(A)" target="_blank" rel="noopener">wiki</a></li>
+        <li>Pi Zero 2 W : <a href="https://kubii.com/en/nano-computers/3455-raspberry-pi-zero-2-w-wh.html" target="_blank" rel="noopener">Kubii</a></li>
+        <li>BNO055 : <a href="https://www.adafruit.com/product/2472" target="_blank" rel="noopener">Adafruit 2472</a> · <a href="https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-clock-stretching" target="_blank" rel="noopener">clock stretching</a> · <a href="https://learn.adafruit.com/bno055-absolute-orientation-sensor-with-raspberry-pi-and-beaglebone-black/hardware" target="_blank" rel="noopener">UART sur Pi</a> · <a href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf" target="_blank" rel="noopener">datasheet Bosch</a></li>
+        <li>Contacts SS-10 : <a href="https://befr.rs-online.com/web/p/micro-switches/6820831" target="_blank" rel="noopener">RS Components</a></li>
+        <li>GitHub : <a href="https://github.com/pricing" target="_blank" rel="noopener">tarifs</a> · <a href="https://docs.github.com/en/billing/concepts/product-billing/git-lfs" target="_blank" rel="noopener">Git LFS</a> · <a href="https://docs.github.com/fr/repositories/working-with-files/managing-large-files/about-large-files-on-github" target="_blank" rel="noopener">gros fichiers</a> · <a href="https://docs.github.com/fr/organizations/collaborating-with-groups-in-organizations/creating-a-new-organization-from-scratch" target="_blank" rel="noopener">organisation</a> · <a href="https://docs.github.com/fr/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization" target="_blank" rel="noopener">rôles</a> · <a href="https://docs.github.com/fr/authentication/securing-your-account-with-two-factor-authentication-2fa/about-mandatory-two-factor-authentication" target="_blank" rel="noopener">2FA</a> · <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks" target="_blank" rel="noopener">forks</a> · <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork" target="_blank" rel="noopener">sync fork</a> · <a href="https://github.community/t/create-issues-for-forks/118975" target="_blank" rel="noopener">issues sur un fork</a> · <a href="https://docs.github.com/fr/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop" target="_blank" rel="noopener">cloner un fork (Desktop)</a> · <a href="https://docs.github.com/fr/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository" target="_blank" rel="noopener">modèles d'issues</a> · <a href="https://docs.github.com/fr/repositories/releasing-projects-on-github/about-releases" target="_blank" rel="noopener">releases</a> · <a href="https://docs.github.com/fr/repositories/working-with-files/using-files/working-with-non-code-files" target="_blank" rel="noopener">aperçu STL/CSV</a> · <a href="https://docs.github.com/en/nonprofit/nonprofit-teams-plan/getting-started-with-the-github-team-plan-for-nonprofits" target="_blank" rel="noopener">nonprofits</a> · <a href="https://choosealicense.com/licenses/apache-2.0/" target="_blank" rel="noopener">Apache-2.0</a> · <a href="https://oshwa.org/resources/sharing-best-practices/" target="_blank" rel="noopener">OSHWA</a></li>
+        <li>FreeCAD / Onshape : <a href="https://linuxfr.org/news/freecad-1-0" target="_blank" rel="noopener">FreeCAD 1.0</a> · <a href="https://osarch.org/2026/03/25/freecad-1-1-released/" target="_blank" rel="noopener">FreeCAD 1.1</a> · <a href="https://blog.lambda.cx/posts/freecad-and-git/" target="_blank" rel="noopener">FreeCAD et git</a> · <a href="https://wiki.freecad.org/Macro_CenterOfMass" target="_blank" rel="noopener">Macro CenterOfMass</a> · <a href="https://www.onshape.com/en/pricing" target="_blank" rel="noopener">Onshape pricing</a> · <a href="https://cad.onshape.com/help/Content/Primer/branching.htm" target="_blank" rel="noopener">branches Onshape</a> · <a href="https://forum.onshape.com/discussion/10703/export-in-free-version" target="_blank" rel="noopener">export en version gratuite</a></li>
+        <li>Impression : <a href="https://www.help.prusa3d.com/article/how-to-import-and-export-custom-profiles-in-prusaslicer_382766" target="_blank" rel="noopener">profils PrusaSlicer</a> · <a href="https://help.prusa3d.com/article/saving-projects-as-3mf_1773" target="_blank" rel="noopener">projets 3MF</a> · <a href="https://help.prusa3d.com/fr/materials" target="_blank" rel="noopener">matériaux Prusa</a> · <a href="https://cnckitchen.com/blog/tips-and-tricks-for-heat-set-inserts" target="_blank" rel="noopener">inserts (CNC Kitchen)</a></li>
+        <li>Laser : <a href="https://the-gadgeteer.com/2025/01/05/xtool-p2s-55w-desktop-co2-laser-cutter-review-a-laser-cutting-and-engraving-dream-machine/" target="_blank" rel="noopener">test P2S (The Gadgeteer)</a> · <a href="https://support.xtool.com/article/287" target="_blank" rel="noopener">LightBurn et P2S</a> · <a href="https://support.xtool.com/article/2426" target="_blank" rel="noopener">kerf XCS</a> · <a href="https://wiki.1laser.com/en/knowledge-base/popularization/kerf-compensation" target="_blank" rel="noopener">mesurer le kerf</a> · <a href="https://makerspace.tulane.edu/index.php/Laser_Cutter_Materials" target="_blank" rel="noopener">matériaux interdits</a></li>
+        <li>Sécurité : <a href="https://www.epfl.ch/campus/security-safety/batteries-au-lithium/" target="_blank" rel="noopener">EPFL batteries lithium</a> · <a href="https://www.unmannedtechshop.co.uk/fr/blogs/knowledge-base/how-to-charge-lipo-batteries-safely-complete-guide" target="_blank" rel="noopener">charge LiPo en sécurité</a></li>
+        <li>Méthode : <a href="https://scrumguides.org/scrum-guide.html" target="_blank" rel="noopener">Scrum Guide (Definition of Done)</a> · <a href="https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank" rel="noopener">OpenClassrooms</a> · <a href="https://grafikart.fr/formations/git" target="_blank" rel="noopener">Grafikart</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card flat">
+    <p class="muted" style="font-size:0.85rem">Dossier de présentation et plan d'achats de septembre 2026 (documents internes du projet) repris pour le budget et les phases. Ce dossier a été rédigé le 1er octobre 2026 ; les pages non lisibles ce jour-là (guide Tnkr, vidéo YouTube, issues via l'API) sont citées sur la foi des sources secondaires.</p>
+  </div>
+</section>

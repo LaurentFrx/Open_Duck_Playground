@@ -1,0 +1,2292 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#e6f1f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1d33" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Canard" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" sizes="180x180" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('canard.theme.v1');
+          if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+
+<title>Canard BiscaLab</title>
+<meta name="description" content="Dossier de travail du projet Open Duck Mini V2 au BiscaLab : organisation, fabrication, électronique, logiciel, marche, planning." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   Canard BiscaLab — dossier de travail Open Duck Mini V2
+   Thème repris du design system Domo (Yeldra, OKLCH) — variante CLAIRE :
+   fond de page dégradé vert→bleu, cartes neutres en verre « plexiglass »
+   (arête bleue haut-gauche, ombre verte bas-droite), sidebar indigo immuable,
+   accent violet. Layout : sidebar (desktop) / rail (tablette) / tabbar (mobile).
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: light;
+  --color-primary: oklch(0.541 0.281 293);
+  --color-primary-fg: oklch(0.985 0.01 280);
+  --color-primary-hover: oklch(0.48 0.26 293);
+  --color-primary-muted: oklch(0.541 0.281 293 / 0.12);
+  --color-primary-active: var(--color-primary);
+  --color-bg: oklch(0.912 0.05 212);
+  --color-fg: oklch(0.165 0.024 286);
+  --color-card: oklch(0.995 0.006 286 / 0.8);
+  --color-card-hover: oklch(0.995 0.006 286 / 0.92);
+  --color-muted: oklch(0.922 0.02 286);
+  --color-muted-fg: oklch(0.435 0.042 286);
+  --color-border: oklch(0.86 0.024 286);
+  --color-border-strong: oklch(0.755 0.032 286);
+  --color-solar: oklch(0.795 0.184 86);
+  --color-solar-fg: oklch(0.35 0.12 86);
+  --color-solar-muted: oklch(0.795 0.184 86 / 0.14);
+  --color-consumption: oklch(0.546 0.215 262);
+  --color-consumption-muted: oklch(0.546 0.215 262 / 0.1);
+  --color-battery: oklch(0.627 0.194 149);
+  --color-battery-muted: oklch(0.627 0.194 149 / 0.12);
+  --color-hc: oklch(0.82 0.15 200);
+  --color-hp: oklch(0.74 0.19 30);
+  --color-hp-muted: oklch(0.74 0.19 30 / 0.12);
+  --color-alert: oklch(0.577 0.245 27.3);
+  --color-alert-fg: oklch(0.985 0.01 27);
+  --color-alert-muted: oklch(0.577 0.245 27.3 / 0.1);
+  --color-success: oklch(0.627 0.194 149);
+  --color-warning: oklch(0.795 0.184 86);
+  --color-glow: oklch(0.86 0.23 152);
+  --color-mandarine: oklch(0.8 0.2 60);
+  --color-ambre: oklch(0.84 0.18 78);
+  --color-cyan: oklch(0.82 0.15 200);
+  --color-magenta: oklch(0.75 0.23 350);
+  --color-lime: oklch(0.86 0.2 128);
+  --color-sidebar: oklch(0.185 0.04 286);
+  --color-sidebar-fg: oklch(0.95 0.012 286);
+  --color-sidebar-muted: oklch(0.6 0.03 286);
+  --color-sidebar-accent: oklch(0.265 0.045 286);
+  --color-sidebar-active: oklch(0.541 0.281 293 / 0.2);
+  --color-sidebar-active-border: oklch(0.541 0.281 293);
+  --color-sidebar-hover: oklch(0.245 0.045 286);
+  --color-sidebar-glass: oklch(0.185 0.04 286 / 0.9);
+  --color-topbar: oklch(1 0.002 286 / 0.82);
+  --color-topbar-border: oklch(0.9 0.013 286);
+  --color-code-bg: oklch(0.955 0.012 286);
+  --shadow-md:
+    inset 4px 4px 10px -4px oklch(0.78 0.17 262 / 0.7),
+    inset -4px -4px 10px -4px oklch(0.6 0.2 152 / 0.3),
+    10px 10px 10px -6px oklch(0.6 0.2 152 / 0.15), 20px 20px 19px -10px oklch(0.6 0.2 152 / 0.135),
+    0 0 26px -6px oklch(0.6 0.2 152 / 0.1);
+  --shadow-xs:
+    inset 2px 2px 8px -3px oklch(0.78 0.17 262 / 0.7),
+    inset -2px -2px 8px -3px oklch(0.6 0.2 152 / 0.25), 5px 5px 6px -4px oklch(0.6 0.2 152 / 0.13);
+  --ambient: linear-gradient(150deg, oklch(0.9 0.1 168) 0%, oklch(0.91 0.07 200) 48%, oklch(0.89 0.11 245) 100%);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-pill: 9999px;
+  --sidebar-w: 240px;
+  --rail-w: 72px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --color-bg: oklch(0.205 0.04 286);
+    --color-fg: oklch(0.96 0.013 286);
+    --color-primary-active: oklch(0.72 0.2 293);
+    --color-card: oklch(0.345 0.052 286 / 0.2);
+    --color-card-hover: oklch(0.39 0.054 286 / 0.34);
+    --color-muted: oklch(0.3 0.045 286);
+    --color-muted-fg: oklch(0.74 0.035 286);
+    --color-border: oklch(0.52 0.06 286);
+    --color-border-strong: oklch(0.62 0.055 286);
+    --color-topbar: oklch(0.195 0.036 286 / 0.85);
+    --color-topbar-border: oklch(0.31 0.038 286);
+    --color-sidebar-glass: oklch(0.235 0.045 286 / 0.72);
+    --color-solar: oklch(0.828 0.16 84.4);
+    --color-solar-fg: oklch(0.9 0.12 86);
+    --color-solar-muted: oklch(0.828 0.16 84.4 / 0.14);
+    --color-consumption: oklch(0.65 0.16 262);
+    --color-consumption-muted: oklch(0.65 0.16 262 / 0.12);
+    --color-battery: oklch(0.7 0.15 149);
+    --color-battery-muted: oklch(0.7 0.15 149 / 0.12);
+    --color-alert: oklch(0.704 0.17 22.2);
+    --color-alert-muted: oklch(0.704 0.17 22.2 / 0.12);
+    --color-success: oklch(0.7 0.15 149);
+    --color-code-bg: oklch(0.26 0.04 286);
+    --shadow-md:
+      inset 6px 6px 10px -4px oklch(0.78 0.17 262 / 0.6),
+      inset -6px -6px 10px -4px oklch(0.8 0.22 152 / 0.75),
+      10px 10px 10px -6px oklch(0.8 0.22 152 / 0.15),
+      20px 20px 19px -10px oklch(0.8 0.22 152 / 0.135), 0 0 26px -6px oklch(0.8 0.22 152 / 0.1);
+    --shadow-xs:
+      inset 3px 3px 6px -2px oklch(0.78 0.17 262 / 0.5),
+      inset -3px -3px 6px -2px oklch(0.8 0.22 152 / 0.6), 5px 5px 6px -4px oklch(0.8 0.22 152 / 0.15);
+    --ambient:
+      radial-gradient(48% 44% at 12% 6%, oklch(0.82 0.24 152 / 0.26), transparent 66%),
+      radial-gradient(46% 42% at 90% 16%, oklch(0.62 0.27 293 / 0.3), transparent 66%),
+      radial-gradient(60% 58% at 84% 100%, oklch(0.82 0.24 152 / 0.22), transparent 70%),
+      radial-gradient(72% 62% at 42% 58%, oklch(0.6 0.26 293 / 0.12), transparent 76%);
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: oklch(0.205 0.04 286);
+  --color-fg: oklch(0.96 0.013 286);
+  --color-primary-active: oklch(0.72 0.2 293);
+  --color-card: oklch(0.345 0.052 286 / 0.2);
+  --color-card-hover: oklch(0.39 0.054 286 / 0.34);
+  --color-muted: oklch(0.3 0.045 286);
+  --color-muted-fg: oklch(0.74 0.035 286);
+  --color-border: oklch(0.52 0.06 286);
+  --color-border-strong: oklch(0.62 0.055 286);
+  --color-topbar: oklch(0.195 0.036 286 / 0.85);
+  --color-topbar-border: oklch(0.31 0.038 286);
+  --color-sidebar-glass: oklch(0.235 0.045 286 / 0.72);
+  --color-solar: oklch(0.828 0.16 84.4);
+  --color-solar-fg: oklch(0.9 0.12 86);
+  --color-solar-muted: oklch(0.828 0.16 84.4 / 0.14);
+  --color-consumption: oklch(0.65 0.16 262);
+  --color-consumption-muted: oklch(0.65 0.16 262 / 0.12);
+  --color-battery: oklch(0.7 0.15 149);
+  --color-battery-muted: oklch(0.7 0.15 149 / 0.12);
+  --color-alert: oklch(0.704 0.17 22.2);
+  --color-alert-muted: oklch(0.704 0.17 22.2 / 0.12);
+  --color-success: oklch(0.7 0.15 149);
+  --color-code-bg: oklch(0.26 0.04 286);
+  --shadow-md:
+    inset 6px 6px 10px -4px oklch(0.78 0.17 262 / 0.6),
+    inset -6px -6px 10px -4px oklch(0.8 0.22 152 / 0.75),
+    10px 10px 10px -6px oklch(0.8 0.22 152 / 0.15),
+    20px 20px 19px -10px oklch(0.8 0.22 152 / 0.135), 0 0 26px -6px oklch(0.8 0.22 152 / 0.1);
+  --shadow-xs:
+    inset 3px 3px 6px -2px oklch(0.78 0.17 262 / 0.5),
+    inset -3px -3px 6px -2px oklch(0.8 0.22 152 / 0.6), 5px 5px 6px -4px oklch(0.8 0.22 152 / 0.15);
+  --ambient:
+    radial-gradient(48% 44% at 12% 6%, oklch(0.82 0.24 152 / 0.26), transparent 66%),
+    radial-gradient(46% 42% at 90% 16%, oklch(0.62 0.27 293 / 0.3), transparent 66%),
+    radial-gradient(60% 58% at 84% 100%, oklch(0.82 0.24 152 / 0.22), transparent 70%),
+    radial-gradient(72% 62% at 42% 58%, oklch(0.6 0.26 293 / 0.12), transparent 76%);
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --color-card: oklch(0.995 0.006 286); --color-card-hover: oklch(0.985 0.009 286); }
+  :root[data-theme='dark'] { --color-card: oklch(0.275 0.045 286); --color-card-hover: oklch(0.31 0.048 286); }
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  font-feature-settings: 'ss01', 'ss02', 'cv11';
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+.app-ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--ambient); }
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:root[data-theme='dark'] a { color: var(--color-primary-active); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) a { color: var(--color-primary-active); } }
+h1, h2, h3, h4 { margin: 0; line-height: 1.2; text-wrap: balance; letter-spacing: -0.01em; }
+h1 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem); font-weight: 800; }
+h2 { font-size: 1.25rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 700; }
+h4 { font-size: 0.875rem; font-weight: 600; }
+p { margin: 0; }
+p + p { margin-top: 0.6em; }
+ul, ol { margin: 0; padding-left: 1.25rem; }
+li + li { margin-top: 0.25rem; }
+code, pre, kbd { font-family: var(--font-mono); font-size: 0.86em; }
+code { background: var(--color-code-bg); padding: 0.08em 0.4em; border-radius: var(--radius-sm); overflow-wrap: anywhere; }
+pre { background: var(--color-code-bg); padding: 0.85rem 1rem; border-radius: var(--radius-lg); overflow-x: auto; line-height: 1.5; margin: 0; }
+pre code { background: none; padding: 0; font-size: 0.82rem; }
+kbd { background: var(--color-muted); border: 1px solid var(--color-border-strong); border-bottom-width: 2px; border-radius: 0.3rem; padding: 0 0.35em; font-size: 0.8em; }
+strong { font-weight: 650; }
+small { font-size: 0.8rem; color: var(--color-muted-fg); }
+hr { border: 0; border-top: 1px solid var(--color-border); margin: 1rem 0; }
+button { font: inherit; cursor: pointer; touch-action: manipulation; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 4px; }
+
+/* ─── Shell : sidebar / rail / tabbar ───────────────────────────────── */
+.sb {
+  position: fixed; top: 0; left: 0; z-index: 40;
+  display: none; flex-direction: column;
+  height: 100dvh; width: var(--rail-w);
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--color-sidebar); color: var(--color-sidebar-fg);
+  border-right: 1px solid oklch(0.25 0.015 280);
+}
+.sb-brand { display: flex; align-items: center; justify-content: center; gap: 10px; height: 56px; padding: 0 14px; color: inherit; text-decoration: none; }
+.sb-brand:hover { background: oklch(1 0 0 / 0.06); text-decoration: none; }
+.sb-logo { width: 30px; height: 30px; border-radius: 9px; flex: none; background: linear-gradient(135deg, var(--color-primary), oklch(0.62 0.2 262)); display: grid; place-items: center; box-shadow: 0 0 0 1px oklch(1 0 0 / 0.1) inset; }
+.sb-logo svg { width: 20px; height: 20px; }
+.sb-name { display: none; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+.sb-search { display: none; align-items: center; gap: 7px; height: 30px; margin: 4px 10px 6px; padding: 0 9px; border-radius: 7px; background: oklch(1 0 0 / 0.08); color: var(--color-sidebar-muted); }
+.sb-search svg { width: 14px; height: 14px; flex: none; }
+.sb-search input { flex: 1 1 auto; min-width: 0; background: none; border: 0; outline: none; font: inherit; font-size: 13px; color: var(--color-sidebar-fg); }
+.sb-search input::placeholder { color: var(--color-sidebar-muted); }
+.sb-list { display: flex; flex-direction: column; gap: 2px; padding: 6px 10px 12px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; flex: 1 1 auto; }
+.sb-sec { padding: 12px 10px 4px; font-size: 11px; font-weight: 600; color: var(--color-sidebar-muted); text-transform: uppercase; letter-spacing: 0.06em; display: none; }
+.sb-item { display: flex; align-items: center; justify-content: center; gap: 9px; min-height: 36px; padding: 6px 8px; border-radius: 8px; color: var(--color-sidebar-muted); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: background-color var(--duration-fast) var(--ease-default), color var(--duration-fast) var(--ease-default); }
+.sb-item:hover { background: var(--color-sidebar-hover); color: var(--color-sidebar-fg); text-decoration: none; }
+.sb-item[aria-current='page'] { background: var(--color-sidebar-active); color: var(--color-sidebar-fg); font-weight: 600; box-shadow: inset 3px 0 0 var(--color-sidebar-active-border); }
+.sb-item svg { width: 20px; height: 20px; flex: none; }
+.sb-item span { display: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sb-item .sb-pct { display: none; margin-left: auto; font-size: 11px; color: var(--color-sidebar-muted); font-weight: 500; }
+.sb-foot { padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid oklch(1 0 0 / 0.08); display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.sb-foot small { color: var(--color-sidebar-muted); display: none; text-align: center; line-height: 1.3; }
+.theme-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: var(--radius-pill); border: 1px solid oklch(1 0 0 / 0.14); background: oklch(1 0 0 / 0.06); color: var(--color-sidebar-fg); font-size: 12px; font-weight: 500; }
+.theme-btn svg { width: 15px; height: 15px; }
+.theme-btn span { display: none; }
+.theme-btn:hover { background: oklch(1 0 0 / 0.12); }
+
+@media (min-width: 768px) {
+  .sb { display: flex; }
+}
+@media (min-width: 1024px) {
+  .sb { width: var(--sidebar-w); background: var(--color-sidebar-glass); -webkit-backdrop-filter: blur(30px) saturate(180%); backdrop-filter: blur(30px) saturate(180%); border-right-color: oklch(1 0 0 / 0.07); }
+  .sb-brand { justify-content: flex-start; }
+  .sb-name, .sb-sec, .sb-item span, .sb-item .sb-pct, .sb-foot small, .theme-btn span { display: inline; }
+  .sb-search { display: flex; }
+  .sb-item { justify-content: flex-start; padding: 6px 10px; }
+  .sb-item span { display: inline; }
+}
+@media (prefers-reduced-transparency: reduce) { .sb { background: var(--color-sidebar); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; gap: 10px;
+  padding: calc(8px + env(safe-area-inset-top, 0px)) 16px 8px;
+  background: var(--color-topbar); border-bottom: 1px solid var(--color-topbar-border);
+  -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+}
+.topbar .tb-logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--color-primary), oklch(0.62 0.2 262)); display: grid; place-items: center; flex: none; }
+.topbar .tb-logo svg { width: 18px; height: 18px; }
+.topbar h1 { font-size: 15px; font-weight: 700; margin: 0; flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar .tb-sub { font-size: 11px; color: var(--color-muted-fg); font-weight: 500; }
+.topbar .tb-btn { width: 36px; height: 36px; border-radius: var(--radius-pill); border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-fg); display: grid; place-items: center; flex: none; }
+.topbar .tb-btn svg { width: 18px; height: 18px; }
+@media (min-width: 768px) { .topbar { display: none; } }
+
+.tabbar {
+  position: fixed; right: 0; bottom: 0; left: 0; z-index: 50;
+  border-top: 1px solid var(--color-border); background: var(--color-bg);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: calc(60px + env(safe-area-inset-bottom, 0px));
+}
+.tabbar-row { display: flex; height: 60px; align-items: center; justify-content: space-around; padding: 0 6px; }
+.tabbar-item { position: relative; display: flex; flex: 1 1 0; height: 100%; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border-radius: 10px; color: var(--color-muted-fg); text-decoration: none; background: none; border: 0; font-size: 10px; font-weight: 500; }
+.tabbar-item svg { width: 22px; height: 22px; }
+.tabbar-item[aria-current='page'] { color: var(--color-primary-active); font-weight: 600; }
+.tabbar-item[aria-current='page']::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 3px; border-radius: 2px; background: var(--color-primary-active); }
+.tabbar-item:hover { text-decoration: none; }
+@media (min-width: 768px) { .tabbar { display: none; } }
+
+/* Feuille menu ☰ (mobile) — descend du haut, comme dans Domo */
+.sheet-backdrop { position: fixed; inset: 0; z-index: 60; background: oklch(0.15 0.03 286 / 0.45); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.sheet { position: fixed; top: 0; left: 0; right: 0; z-index: 61; max-height: 86dvh; display: flex; flex-direction: column; overflow: hidden; background: var(--color-bg); border-radius: 0 0 var(--radius-3xl) var(--radius-3xl); box-shadow: 0 20px 40px -20px oklch(0.2 0.05 286 / 0.5); padding-top: env(safe-area-inset-top, 0px); }
+.sheet-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px 8px; }
+.sheet-head h2 { flex: 1 1 auto; font-size: 17px; }
+.sheet-search { display: flex; align-items: center; gap: 8px; margin: 0 16px 8px; height: 38px; padding: 0 12px; border-radius: 10px; background: var(--color-muted); color: var(--color-muted-fg); }
+.sheet-search svg { width: 16px; height: 16px; flex: none; }
+.sheet-search input { flex: 1 1 auto; min-width: 0; background: none; border: 0; outline: none; font: inherit; font-size: 16px; color: var(--color-fg); }
+.sheet-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 16px 16px; }
+.sheet-sec { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted-fg); padding: 12px 4px 6px; }
+.sheet-item { display: flex; align-items: center; gap: 12px; min-height: 46px; padding: 6px 10px; border-radius: 12px; color: var(--color-fg); text-decoration: none; font-weight: 500; font-size: 15px; }
+.sheet-item:hover { background: var(--color-muted); text-decoration: none; }
+.sheet-item[aria-current='page'] { background: var(--color-primary-muted); color: var(--color-primary-active); }
+.sheet-item .ico { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: oklch(0.985 0.01 280); flex: none; }
+.sheet-item .ico svg { width: 17px; height: 17px; }
+.sheet-item .sb-pct { margin-left: auto; font-size: 12px; color: var(--color-muted-fg); }
+.sheet-grab { width: 36px; height: 5px; border-radius: 3px; background: var(--color-border-strong); margin: 8px auto calc(8px + env(safe-area-inset-bottom, 0px)); flex: none; }
+
+/* ─── Contenu ───────────────────────────────────────────────────────── */
+.main { padding: 16px 16px calc(84px + env(safe-area-inset-bottom, 0px)); max-width: 1280px; margin: 0 auto; }
+@media (min-width: 768px) { .main { padding: 24px 24px 48px; margin-left: var(--rail-w); max-width: none; } }
+@media (min-width: 1024px) { .main { margin-left: var(--sidebar-w); padding: 28px 32px 56px; } }
+@media (min-width: 1600px) { .main { max-width: 1360px; margin-left: calc(var(--sidebar-w) + (100vw - var(--sidebar-w) - 1360px) / 2); } }
+.page { display: flex; flex-direction: column; gap: 20px; }
+.page-head { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted-fg); }
+.lead { font-size: 1.02rem; color: var(--color-muted-fg); max-width: 70ch; }
+
+.card { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-2xl); padding: 18px 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card.big { border-radius: var(--radius-3xl); padding: 22px 24px; }
+.card.flat { box-shadow: var(--shadow-xs); }
+.card > h2, .card > h3 { display: flex; align-items: center; gap: 8px; }
+.card > h2 svg, .card > h3 svg { width: 18px; height: 18px; color: var(--color-primary-active); flex: none; }
+.card .sub { font-size: 0.85rem; color: var(--color-muted-fg); margin-top: -6px; }
+.grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .grid.c2 { grid-template-columns: 1fr 1fr; } .grid.c3 { grid-template-columns: repeat(3, 1fr); } .grid.c4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1200px) { .grid.c4 { grid-template-columns: repeat(4, 1fr); } }
+.grid > * { min-width: 0; }
+.span2 { grid-column: 1 / -1; }
+@media (min-width: 768px) { .span2 { grid-column: span 2; } }
+
+/* KPI tiles — signature Yeldra : gros chiffre, libellé uppercase discret */
+.kpis { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 640px) { .kpis { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1200px) { .kpis { grid-template-columns: repeat(6, 1fr); } }
+.kpi { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 14px 16px; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.kpi .v { font-size: 26px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+.kpi .v small { font-size: 13px; font-weight: 500; margin-left: 2px; }
+.kpi .l { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted-fg); }
+.kpi .d { font-size: 12px; color: var(--color-muted-fg); }
+
+/* Badges & pills */
+.pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: var(--radius-pill); font-size: 11.5px; font-weight: 600; line-height: 1.5; white-space: nowrap; border: 1px solid transparent; }
+.pill.p { background: var(--color-primary-muted); color: var(--color-primary-active); }
+.pill.ok { background: var(--color-battery-muted); color: var(--color-battery); }
+.pill.warn { background: var(--color-solar-muted); color: var(--color-solar-fg); }
+.pill.bad { background: var(--color-alert-muted); color: var(--color-alert); }
+.pill.info { background: var(--color-consumption-muted); color: var(--color-consumption); }
+.pill.hp { background: var(--color-hp-muted); color: var(--color-hp); }
+.pill.mute { background: var(--color-muted); color: var(--color-muted-fg); }
+.pill .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* Callouts */
+.note { display: flex; gap: 12px; padding: 12px 14px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: var(--color-muted); font-size: 0.92rem; }
+.note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
+.note.warn { background: var(--color-solar-muted); border-color: oklch(0.795 0.184 86 / 0.5); }
+.note.warn svg { color: var(--color-solar-fg); }
+.note.bad { background: var(--color-alert-muted); border-color: oklch(0.577 0.245 27.3 / 0.4); }
+.note.bad svg { color: var(--color-alert); }
+.note.ok { background: var(--color-battery-muted); border-color: oklch(0.627 0.194 149 / 0.4); }
+.note.ok svg { color: var(--color-battery); }
+.note.info { background: var(--color-consumption-muted); border-color: oklch(0.546 0.215 262 / 0.35); }
+.note.info svg { color: var(--color-consumption); }
+.note > div { min-width: 0; }
+
+/* Tables */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+th, td { text-align: left; padding: 8px 10px; vertical-align: top; border-bottom: 1px solid var(--color-border); }
+th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-muted-fg); font-weight: 600; background: var(--color-muted); position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; white-space: nowrap; }
+td.nw { white-space: nowrap; }
+tfoot td { font-weight: 700; background: var(--color-muted); }
+
+/* Checklists (persistées localement) */
+.chk { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; border-radius: var(--radius-md); cursor: pointer; }
+.chk:hover { background: var(--color-muted); }
+.chk input { margin: 3px 0 0; width: 18px; height: 18px; accent-color: var(--color-primary); flex: none; }
+.chk .t { flex: 1 1 auto; min-width: 0; }
+.chk input:checked + .t { color: var(--color-muted-fg); text-decoration: line-through; text-decoration-color: var(--color-border-strong); }
+.chk small { display: block; margin-top: 2px; }
+.chklist { display: flex; flex-direction: column; gap: 2px; }
+.chklist + .chklist { margin-top: 6px; }
+
+/* Barres de progression */
+.bar { height: 8px; border-radius: 4px; background: var(--color-muted); overflow: hidden; }
+.bar > span { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-battery)); width: 0; transition: width 300ms var(--ease-default); }
+.bar.thin { height: 5px; }
+.prog-row { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; }
+.prog-row .n { width: 3.2em; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.prog-row .lab { flex: 1 1 auto; min-width: 0; }
+
+/* Timeline des phases */
+.phases { display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .phases { grid-template-columns: repeat(7, 1fr); } }
+.phase { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 12px 12px 10px; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; gap: 6px; min-width: 0; border-top: 4px solid var(--ph, var(--color-primary)); }
+.phase .n { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ph, var(--color-primary)); }
+.phase .t { font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
+.phase .m { font-size: 12px; color: var(--color-muted-fg); }
+.phase .amt { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+
+/* Étapes / séquences */
+.steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; counter-reset: s; }
+.steps > li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+.steps > li::before { counter-increment: s; content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary); color: var(--color-primary-fg); font-weight: 700; font-size: 13px; display: grid; place-items: center; }
+.steps > li > div { min-width: 0; }
+.steps b { display: block; margin-bottom: 2px; }
+
+/* Définitions / glossaire */
+dl.def { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; margin: 0; font-size: 0.9rem; }
+dl.def dt { font-weight: 650; white-space: nowrap; }
+dl.def dd { margin: 0; min-width: 0; }
+@media (max-width: 520px) { dl.def { grid-template-columns: 1fr; gap: 2px; } dl.def dd { margin-bottom: 8px; } }
+
+/* Rôles */
+.role { display: flex; gap: 12px; align-items: flex-start; }
+.role .av { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-weight: 800; color: oklch(0.985 0.01 280); flex: none; font-size: 14px; }
+.role b { display: block; }
+.role small { display: block; color: var(--color-muted-fg); }
+
+/* Arborescence de dépôt */
+.tree { font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.55; background: var(--color-code-bg); border-radius: var(--radius-lg); padding: 12px 14px; overflow-x: auto; white-space: pre; }
+.tree .c { color: var(--color-muted-fg); }
+.tree .d { color: var(--color-primary-active); font-weight: 600; }
+
+/* Diagramme SVG */
+.diag { width: 100%; overflow-x: auto; }
+.diag svg { display: block; min-width: 640px; width: 100%; height: auto; font-family: var(--font-sans); }
+.diag .box { fill: var(--color-card); stroke: var(--color-border-strong); }
+.diag .box.p { stroke: var(--color-primary); }
+.diag .box.g { stroke: var(--color-battery); }
+.diag .box.w { stroke: var(--color-solar); }
+.diag .box.b { stroke: var(--color-consumption); }
+.diag text { fill: var(--color-fg); font-size: 12px; }
+.diag text.s { fill: var(--color-muted-fg); font-size: 10.5px; }
+.diag .arr { stroke: var(--color-muted-fg); stroke-width: 1.5; fill: none; marker-end: url(#ah); }
+.diag .lbl { fill: var(--color-muted-fg); font-size: 10px; }
+
+/* Divers */
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: var(--radius-pill); border: 1px solid var(--color-border-strong); background: var(--color-card); color: var(--color-fg); font-weight: 600; font-size: 13px; }
+.btn:hover { background: var(--color-card-hover); }
+.btn.primary { background: var(--color-primary); color: var(--color-primary-fg); border-color: transparent; }
+.btn.primary:hover { background: var(--color-primary-hover); }
+.btn svg { width: 15px; height: 15px; }
+textarea.io { width: 100%; min-height: 110px; font-family: var(--font-mono); font-size: 12px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: var(--color-code-bg); color: var(--color-fg); padding: 10px; resize: vertical; }
+.muted { color: var(--color-muted-fg); }
+.tight { line-height: 1.4; }
+.links { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.links li { display: flex; gap: 8px; align-items: baseline; min-width: 0; }
+.links li a { overflow-wrap: anywhere; }
+.src { font-size: 0.86rem; }
+.src li { margin-top: 3px; overflow-wrap: anywhere; }
+.toast { position: fixed; left: 50%; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 70; background: var(--color-sidebar); color: var(--color-sidebar-fg); padding: 8px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; box-shadow: 0 10px 30px -10px oklch(0.2 0.05 286 / 0.6); opacity: 0; pointer-events: none; transition: opacity 200ms; }
+.toast.on { opacity: 1; }
+@media (min-width: 768px) { .toast { bottom: 24px; left: calc(50% + var(--rail-w) / 2); } }
+@media (min-width: 1024px) { .toast { left: calc(50% + var(--sidebar-w) / 2); } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+.hero { display: grid; gap: 18px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 1024px) { .hero { grid-template-columns: 3fr 2fr; } }
+.rules { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; counter-reset: r; }
+.rules li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; }
+.rules li::before { counter-increment: r; content: counter(r); width: 24px; height: 24px; border-radius: 7px; background: var(--color-primary-muted); color: var(--color-primary-active); font-weight: 800; font-size: 12px; display: grid; place-items: center; margin-top: 1px; }
+.mini-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.mini-nav a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--radius-pill); background: var(--color-card); border: 1px solid var(--color-border); font-size: 13px; font-weight: 600; color: var(--color-fg); box-shadow: var(--shadow-xs); }
+.mini-nav a:hover { text-decoration: none; background: var(--color-card-hover); }
+.mini-nav a svg { width: 14px; height: 14px; color: var(--color-primary-active); }
+.wiring { display: grid; gap: 8px; grid-template-columns: 1fr; font-size: 0.88rem; }
+@media (min-width: 640px) { .wiring { grid-template-columns: 1fr 1fr; } }
+.wire { display: flex; justify-content: space-between; gap: 10px; padding: 8px 10px; border-radius: var(--radius-md); background: var(--color-muted); }
+.wire b { font-family: var(--font-mono); font-weight: 600; font-size: 0.85em; white-space: nowrap; }
+</style>
+
+
+  </head>
+  <body>
+<div class="app-ambient" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="currentColor" style="fill: var(--color-muted-fg)"/>
+    </marker>
+    <symbol id="i-duck" viewBox="0 0 24 24"><path fill="currentColor" d="M9 4.5a3.5 3.5 0 0 1 3.5 3.5v1.1l2.3-.9c.6-.2 1.2.4 1 1l-.9 2.3 1.6 1.2c1.9 1.4 2 4.3.1 5.8-1.1.9-2.8 1.5-5.1 1.5-4 0-6.5-1.6-6.5-4.1 0-1.4.7-2.5 1.8-3.3L7 11.9A3.5 3.5 0 0 1 9 4.5Zm0 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></symbol>
+  </defs>
+</svg>
+
+<aside class="sb" aria-label="Navigation principale">
+  <a href="#accueil" class="sb-brand" data-nav="accueil" title="Accueil">
+    <span class="sb-logo"><svg><use href="#i-duck"/></svg></span>
+    <span class="sb-name">Canard BiscaLab</span>
+  </a>
+  <label class="sb-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="sb-q" type="search" placeholder="Rechercher une rubrique" autocomplete="off" />
+    <span class="sr-only">Rechercher</span>
+  </label>
+  <nav class="sb-list" id="sb-list"></nav>
+  <div class="sb-foot">
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Basculer le thème">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <span>Thème</span>
+    </button>
+    <small>Dossier v1.0 · 1er oct. 2026<br/>Open Duck Mini V2 · Apache-2.0</small>
+  </div>
+</aside>
+
+<header class="topbar">
+  <span class="tb-logo"><svg><use href="#i-duck"/></svg></span>
+  <div style="flex:1 1 auto; min-width:0">
+    <h1 id="tb-title">Canard BiscaLab</h1>
+    <div class="tb-sub" id="tb-sub">Open Duck Mini V2</div>
+  </div>
+  <button class="tb-btn" id="tb-theme" type="button" aria-label="Basculer le thème">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+</header>
+
+<main class="main" id="main">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="ico-base" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></g>
+    <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></g></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></g></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></g></symbol>
+    <symbol id="i-git" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></g></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></g></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></g></symbol>
+    <symbol id="i-cart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></g></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></g></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></g></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></g></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></g></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></g></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></g></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10.01-3-3"/></g></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></g></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></g></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- ═══════════════════════════ ACCUEIL ═══════════════════════════ -->
+<section class="page" id="page-accueil" data-title="Tableau de bord" data-sub="Open Duck Mini V2 × BiscaLab">
+  <div class="page-head">
+    <div class="eyebrow">Dossier de travail · BiscaLab · Sanguinet</div>
+    <h1>Reproduire l'Open Duck Mini V2 au FabLab</h1>
+    <p class="lead">Un robot bipède open-source de 42 cm, 14 servos, qui marche grâce à une politique d'apprentissage par renforcement, conçu à Bordeaux par Antoine Pirrone. Ce dossier organise tout ce qu'il faut savoir et faire pour le construire en équipe, avec nos moyens.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">14</div><div class="l">Servos</div><div class="d">Feetech STS3215 7,4 V</div></div>
+    <div class="kpi"><div class="v">51</div><div class="l">Pièces imprimées</div><div class="d">36 STL · PLA 15 % + TPU</div></div>
+    <div class="kpi"><div class="v">2,1<small>kg</small></div><div class="l">Masse (modèle)</div><div class="d">dont tête + cou 28 %</div></div>
+    <div class="kpi"><div class="v">398<small>€</small></div><div class="l">BOM officielle</div><div class="d">476 € plan BiscaLab</div></div>
+    <div class="kpi"><div class="v">50<small>Hz</small></div><div class="l">Boucle de marche</div><div class="d">Pi Zero 2 W · ONNX</div></div>
+    <div class="kpi"><div class="v">7</div><div class="l">Phases</div><div class="d">oct. 2026 → mars 2027</div></div>
+  </div>
+
+  <div class="hero">
+    <div class="card big">
+      <h2><svg><use href="#i-flag"/></svg>Où en est-on</h2>
+      <div class="row">
+        <span class="pill p"><span class="dot"></span>Phase 0 · Organisation</span>
+        <span class="pill mute">Maître d'œuvre : Jean-Marie</span>
+        <span class="pill mute">Outillage numérique : Laurent (proposé)</span>
+      </div>
+      <div class="prog-row"><span class="lab">Avancement global des listes de contrôle</span><span class="n" id="prog-all-n">0 %</span></div>
+      <div class="bar"><span id="prog-all"></span></div>
+      <div id="prog-phases" style="display:flex; flex-direction:column; gap:6px; margin-top:4px"></div>
+      <p class="muted" style="font-size:0.85rem">Les cases cochées sont mémorisées sur cet appareil uniquement. Pour partager l'état, utiliser « Exporter » dans Planning.</p>
+    </div>
+    <div class="card big">
+      <h2><svg><use href="#i-zap"/></svg>Ce qui ne se négocie pas</h2>
+      <p class="sub">La politique de marche fournie suppose exactement ceci. Tout écart impose un réentraînement.</p>
+      <ul class="tight">
+        <li><strong>Servos STS3215 7,4 V, rapport 1/345</strong> (réf. C001, « 19 kg·cm ») — pas la 12 V, pas les rapports 1/191 ni 1/147.</li>
+        <li><strong>Batterie 2S</strong> (2 × 18650 haute décharge ≥ 25 A) — jamais 3S.</li>
+        <li><strong>Semelles en TPU</strong> à 40 % : c'est le seul contact modélisé avec le sol.</li>
+        <li><strong>Géométrie identique</strong> aux STL amont, masses à ±10 % près.</li>
+        <li><strong>Gain P = 30</strong>, boucle 50 Hz, <code>action_scale</code> 0,25.</li>
+      </ul>
+      <a class="btn" href="#marche"><svg><use href="#i-arrow"/></svg>Comprendre pourquoi</a>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-check"/></svg>Les 5 règles d'or</h2>
+      <ol class="rules">
+        <li>Si ce n'est pas sur GitHub (issue ou journal), ça n'existe pas. Signal sert à discuter, GitHub à décider.</li>
+        <li><em>Pull</em> en arrivant, <em>Push</em> en partant. Un fichier CAO n'a qu'un éditeur à la fois : celui qui s'est assigné l'issue.</li>
+        <li>On ne modifie jamais un fichier amont : on le copie dans <code>biscalab/</code>, puis on le modifie.</li>
+        <li>Pas de phase suivante, ni d'achat suivant, sans fiche de test validée.</li>
+        <li>Sécurité non négociable : batterie jamais en charge sans surveillance, laser jamais seul, matériaux interdits affichés.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-warn"/></svg>Décisions à trancher</h2>
+      <ul class="tight">
+        <li><strong>Chargeur « TP4056 2S »</strong> du plan d'achats : le TP4056 est un chargeur 1S. Choisir un vrai chargeur 2S équilibré (ou charger hors robot via le BMS et un chargeur 8,4 V).</li>
+        <li><strong>Calibre du BMS</strong> : à fixer après la mesure du courant crête en phase 5.</li>
+        <li><strong>Carte Waveshare</strong> : sa fiche annonce une entrée 9 à 12,6 V ; le canard l'alimente en 2S (7,4 V). Vérifier sur le banc avant d'acheter les 12 servos restants.</li>
+        <li><strong>Outil CAO</strong> : retouches de pièces amont dans une copie Onshape, pièces nouvelles dans FreeCAD — à valider en réunion.</li>
+        <li><strong>GPU pour réentraîner</strong> : qui dispose d'une carte NVIDIA (CUDA 12) ? Sinon, location cloud ponctuelle.</li>
+        <li><strong>Hébergement de ce dossier</strong> : lien partagé ou PWA installable sur un sous-domaine.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-arrow"/></svg>Par où commencer</h2>
+    <div class="mini-nav">
+      <a href="#equipe"><svg><use href="#i-users"/></svg>Attribuer les rôles</a>
+      <a href="#github"><svg><use href="#i-git"/></svg>Créer l'organisation GitHub</a>
+      <a href="#planning"><svg><use href="#i-cal"/></svg>Checklist de la phase 0</a>
+      <a href="#bom"><svg><use href="#i-cart"/></svg>Lancer les achats de la phase 1</a>
+      <a href="#fabrication"><svg><use href="#i-printer"/></svg>Imprimer la pièce test</a>
+      <a href="#projet"><svg><use href="#i-flag"/></svg>Lire la présentation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PROJET ═══════════════════════════ -->
+<section class="page" id="page-projet" data-title="Le projet" data-sub="Open Duck Mini V2" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Présentation</div>
+    <h1>Open Duck Mini V2</h1>
+    <p class="lead">Réplique miniature et stylisée « canard » du droïde BDX de Disney, développée par Antoine Pirrone (Pollen Robotics / équipe Rhoban, Bordeaux) et Grégoire Passault, avec le soutien de Hugging Face. Code, CAO et politiques de marche sont publiés sous licence Apache-2.0.</p>
+  </div>
+
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-info"/></svg>En chiffres</h3>
+      <dl class="def">
+        <dt>Taille</dt><dd>≈ 42 cm jambes tendues</dd>
+        <dt>Masse simulée</dt><dd>2,107 kg (tronc 0,70 ; tête + cou 0,58 ; jambe ≈ 0,41 × 2)</dd>
+        <dt>Actionneurs</dt><dd>14 servos bus série STS3215 + 2 micro-servos (antennes)</dd>
+        <dt>Calculateur</dt><dd>Raspberry Pi Zero 2 W (512 Mo)</dd>
+        <dt>Capteurs</dt><dd>IMU BNO055, 4 contacts de pied, encodeurs des servos</dd>
+        <dt>Énergie</dt><dd>2 × 18650 en série (2S), BMS, UBEC 5 V</dd>
+        <dt>Dépôt principal</dt><dd>≈ 4 200 étoiles, 537 forks</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-walk"/></svg>Comment il marche</h3>
+      <p>Un réseau de neurones (politique PPO, 101 entrées → 14 sorties) est entraîné dans le simulateur MuJoCo à imiter des trajectoires de marche générées par Placo. Exporté en ONNX, il tourne à 50 Hz sur le Pi Zero : il lit l'IMU, les positions des servos et les contacts de pied, et renvoie les consignes des 14 articulations.</p>
+      <p>Qu'il soit piloté à la manette ou autonome, le robot gère seul son équilibre. Seule la décision de direction change de main.</p>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-flag"/></svg>v1, V2, Microduck</h3>
+      <ul class="tight">
+        <li><strong>v1 « mini_BDX »</strong> (35 cm, Dynamixel, Isaac Gym) : abandonnée, trop de jeu aux articulations.</li>
+        <li><strong>V2</strong> (branche <code>v2</code> des dépôts) : la version à reproduire. Objectif BOM &lt; 400 $.</li>
+        <li><strong>Microduck</strong> (Pollen × Hugging Face, août 2026) : produit commercial de 25 cm issu d'Open Duck Mini, 399 $, matériel non publié. Son dépôt RL est une source d'idées, pas un modèle à copier.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-cube"/></svg>Architecture : quatre briques, quatre dépôts</h2>
+    <div class="diag">
+      <svg viewBox="0 0 960 170" role="img" aria-label="Chaîne CAO → modèle → entraînement → runtime">
+        <rect class="box p" x="10" y="40" width="200" height="90" rx="14"/>
+        <text x="110" y="68" text-anchor="middle" font-weight="700">CAO Onshape</text>
+        <text class="s" x="110" y="88" text-anchor="middle">document public</text>
+        <text class="s" x="110" y="104" text-anchor="middle">STL dans print/</text>
+        <text class="s" x="110" y="120" text-anchor="middle">Open_Duck_Mini</text>
+        <rect class="box w" x="255" y="40" width="200" height="90" rx="14"/>
+        <text x="355" y="68" text-anchor="middle" font-weight="700">Mouvements de référence</text>
+        <text class="s" x="355" y="88" text-anchor="middle">Placo · 240 démarches</text>
+        <text class="s" x="355" y="104" text-anchor="middle">polynomial_coefficients.pkl</text>
+        <text class="s" x="355" y="120" text-anchor="middle">reference_motion_generator</text>
+        <rect class="box g" x="500" y="40" width="200" height="90" rx="14"/>
+        <text x="600" y="68" text-anchor="middle" font-weight="700">Entraînement RL</text>
+        <text class="s" x="600" y="88" text-anchor="middle">MuJoCo Playground · PPO</text>
+        <text class="s" x="600" y="104" text-anchor="middle">GPU NVIDIA · export ONNX</text>
+        <text class="s" x="600" y="120" text-anchor="middle">Open_Duck_Playground</text>
+        <rect class="box b" x="745" y="40" width="200" height="90" rx="14"/>
+        <text x="845" y="68" text-anchor="middle" font-weight="700">Runtime embarqué</text>
+        <text class="s" x="845" y="88" text-anchor="middle">Pi Zero 2 W · 50 Hz</text>
+        <text class="s" x="845" y="104" text-anchor="middle">rustypot · onnxruntime</text>
+        <text class="s" x="845" y="120" text-anchor="middle">Open_Duck_Mini_Runtime</text>
+        <path class="arr" d="M210 85 H250"/>
+        <path class="arr" d="M455 85 H495"/>
+        <path class="arr" d="M700 85 H740"/>
+        <path class="arr" d="M110 130 V155 H600 V135"/>
+        <text class="lbl" x="355" y="150" text-anchor="middle">MJCF (modèle physique) + paramètres servo BAM</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-git"/></svg>Cartographie des dépôts</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Dépôt</th><th>Rôle</th><th>Branche</th><th>Licence</th><th>Activité</th></tr></thead>
+        <tbody>
+          <tr><td class="nw"><a href="https://github.com/apirrone/Open_Duck_Mini" target="_blank" rel="noopener">apirrone/Open_Duck_Mini</a></td><td>Hub : docs, STL (<code>print/</code>), BOM, 2 politiques ONNX (<code>BEST_WALK_ONNX_2.onnx</code>)</td><td><code>v2</code></td><td>Apache-2.0</td><td>Issues jusqu'en sept. 2026 · ≈ 4,2 k ★</td></tr>
+          <tr><td class="nw"><a href="https://github.com/apirrone/Open_Duck_Mini_Runtime" target="_blank" rel="noopener">apirrone/Open_Duck_Mini_Runtime</a></td><td>Code embarqué du Pi Zero 2 W, scripts de configuration et de calibration, image prête à flasher</td><td><code>v2</code></td><td>non précisée</td><td>Release « V2 Classic » août 2025 · PR mai 2026</td></tr>
+          <tr><td class="nw"><a href="https://github.com/apirrone/Open_Duck_Playground" target="_blank" rel="noopener">apirrone/Open_Duck_Playground</a></td><td>Environnements RL (MuJoCo Playground / MJX / JAX), modèle MJCF, export ONNX, test <code>mujoco_infer.py</code></td><td><code>main</code></td><td>en-têtes Apache-2.0</td><td>Dernier commit août 2025</td></tr>
+          <tr><td class="nw"><a href="https://github.com/apirrone/Open_Duck_reference_motion_generator" target="_blank" rel="noopener">apirrone/Open_Duck_reference_motion_generator</a></td><td>Génération des démarches de référence avec Placo (imitation)</td><td><code>main</code></td><td>non précisée</td><td>Avril 2025</td></tr>
+          <tr><td class="nw"><a href="https://github.com/Rhoban/bam" target="_blank" rel="noopener">Rhoban/bam</a></td><td>Identification des actionneurs ; paramètres du STS3215 7,4 V utilisés en simulation</td><td><code>main</code></td><td>Apache-2.0</td><td>Actif (ICRA 2025)</td></tr>
+          <tr><td class="nw"><a href="https://github.com/pollen-robotics/rustypot" target="_blank" rel="noopener">pollen-robotics/rustypot</a></td><td>Pilote du bus servo (Rust + bindings Python) utilisé par le runtime</td><td><code>main</code></td><td>Apache-2.0</td><td>Actif</td></tr>
+          <tr><td class="nw"><a href="https://github.com/Rhoban/onshape-to-robot" target="_blank" rel="noopener">Rhoban/onshape-to-robot</a></td><td>Export Onshape → URDF / MJCF (ne lit ni FreeCAD ni STEP)</td><td><code>master</code></td><td>MIT</td><td>Actif</td></tr>
+          <tr><td class="nw"><a href="https://github.com/pollen-robotics/Open_Duck_Blender" target="_blank" rel="noopener">pollen-robotics/Open_Duck_Blender</a></td><td>Rig Blender (FK/IK) pour enregistrer des animations</td><td><code>main</code></td><td>Apache-2.0</td><td>Peu actif</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:0.85rem">Dépôts introuvables : <code>Open_Duck_Mini_Description</code>, liste « awesome » Open Duck, modèles officiels sur Hugging Face. Le modèle URDF/MJCF vit dans le Playground (<code>playground/open_duck_mini_v2/xmls/</code>).</p>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-users"/></svg>Communauté et aide</h3>
+      <ul class="links">
+        <li><a href="https://discord.gg/UtJZsgfQGe" target="_blank" rel="noopener">Discord officiel Open Duck</a> — entraide, questions aux auteurs. Un ou deux référents BiscaLab le suivent.</li>
+        <li><a href="https://tnkr.ai/explore/docs/open-duck-mini/open-duck-mini-v2" target="_blank" rel="noopener">Guide d'assemblage Tnkr</a> — recommandé par le README ; le guide officiel est marqué « incomplete ».</li>
+        <li><a href="https://cad.onshape.com/documents/64074dfcfa379b37d8a47762/w/3650ab4221e215a4f65eb7fe/e/0505c262d882183a25049d05" target="_blank" rel="noopener">Document Onshape public</a> — la CAO source.</li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1gq4iWWHEJVgAA_eemkTEsshXqrYlFxXAPwO515KpCJc" target="_blank" rel="noopener">BOM officielle (Google Sheets)</a> — 398,10 € base, 432,34 € avec le pack expression.</li>
+        <li><a href="https://hackaday.com/2025/04/05/disneys-bipedal-bdx-series-droid-gets-the-diy-treatment/" target="_blank" rel="noopener">Hackaday, avril 2025</a> — présentation du projet.</li>
+        <li><a href="https://github.com/soyeon24/open-duck-mini-v2-build" target="_blank" rel="noopener">Journal de construction soyeon24</a> — 36 STL / 51 pièces, 990 g de PLA, entraînement en 1 h 11 sur RTX 3090, bugs rencontrés.</li>
+        <li><a href="https://scalablehuman.com/2026/08/14/building-open-duck-mini-v2-from-software-project-to-physical-robot/" target="_blank" rel="noopener">Retour d'expérience Scalable Human</a> — « configurer les moteurs avant d'assembler ».</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-flag"/></svg>Variantes et dérivés</h3>
+      <ul class="tight">
+        <li><strong>Fork Jetson Orin Nano</strong> (XiaohuiChen) : calculateur dans le tronc, servos STS3250, réentraînement complet sous Isaac Lab. Montre ce que coûte un changement matériel.</li>
+        <li><strong>Coques « Jaime's Mods »</strong> (dans <code>print/mods/</code>) : la politique fournie marche encore, avec une stabilité « légèrement réduite » ; l'auteur conseille de réentraîner.</li>
+        <li><strong>Variante ST3025 12 V</strong> (duck_mini_pro_headless) : a nécessité une identification BAM spécifique.</li>
+        <li><strong>Démo Google I/O 2026</strong> : Gemma 4 E2B en local sur Pi 5 / Jetson, pour la partie « expression », pas pour la marche.</li>
+        <li><strong>Kits commerciaux</strong> : orobot.io (liens d'achat, pas de kit), AIFITLAB (910 $, « fournisseur officiel » non confirmé), Tindie (1 000 $). Aucun n'est nécessaire.</li>
+      </ul>
+      <div class="note info"><svg><use href="#i-info"/></svg><div><strong>Licence Apache-2.0.</strong> Publier notre fork, c'est redistribuer : conserver la licence et les mentions de copyright, signaler les fichiers modifiés, ne revendiquer aucune marque (Disney, BDX). Concrètement : un <code>CREDITS.md</code> et une colonne <code>rev</code> dans le suivi des pièces.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ÉQUIPE ═══════════════════════════ -->
+<section class="page" id="page-equipe" data-title="Équipe et méthode" data-sub="Rôles, rituels, règles" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Organisation humaine</div>
+    <h1>Équipe, rôles et rituels</h1>
+    <p class="lead">Nous n'avons jamais travaillé de façon structurée sur un projet de cette ampleur. La méthode ci-dessous est volontairement légère : quelques rôles nommés, deux rituels, une trace écrite de tout ce qui est décidé.</p>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-users"/></svg>Rôles</h2>
+    <p class="sub">Une même personne peut en cumuler plusieurs. L'important est que chaque rôle ait un nom le jour de la première réunion.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Rôle</th><th>Mission</th><th>Qui</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Maître d'œuvre</strong></td><td>Porte le projet, arbitre les choix techniques, anime le point hebdomadaire, valide le passage de phase.</td><td><span class="pill p">Jean-Marie</span></td></tr>
+          <tr><td><strong>Référent outillage numérique</strong></td><td>Organisation GitHub, ce dossier, structure du dépôt, formation aux 5 gestes, lien avec le Discord amont.</td><td><span class="pill p">Laurent</span> <span class="pill mute">proposé</span></td></tr>
+          <tr><td><strong>Propriétaires GitHub (×2)</strong></td><td>Administrent l'organisation. GitHub recommande au moins deux propriétaires.</td><td><span class="pill mute">à attribuer</span></td></tr>
+          <tr><td><strong>Trésorier-acheteur</strong></td><td>Seul acheteur. Une issue « Achat » par commande, validation du bureau, factures sur le Nextcloud, remboursement par note de frais.</td><td><span class="pill mute">à attribuer</span></td></tr>
+          <tr><td><strong>Référent impression 3D</strong></td><td>Profils PrusaSlicer partagés, projets 3MF par plateau, suivi <code>pieces.csv</code>, inserts.</td><td><span class="pill mute">à attribuer</span></td></tr>
+          <tr><td><strong>Référent laser</strong></td><td>Outillage découpé (banc, gabarits, potence), kerf, matériaux autorisés, sécurité machine.</td><td><span class="pill mute">à attribuer</span></td></tr>
+          <tr><td><strong>Référent électronique et code</strong></td><td>Banc servo, configuration des moteurs, image du Pi, calibration, scripts.</td><td><span class="pill mute">à attribuer</span></td></tr>
+          <tr><td><strong>Référent sécurité</strong></td><td>Batteries Li-ion, laser, banc d'essai. Rédige et affiche <code>securite.md</code>.</td><td><span class="pill mute">à attribuer</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-cal"/></svg>Rituels</h3>
+      <ul class="tight">
+        <li><strong>Point hebdomadaire, 20 minutes</strong> : fait / à faire / bloqué. Chaque point se termine par la mise à jour du tableau GitHub.</li>
+        <li><strong>Démo mensuelle</strong> : on montre ce qui bouge, même mal. C'est le jalon social du projet.</li>
+        <li><strong>Revue de phase</strong> : la fiche de test est lue, le GO/NO-GO est noté dans le journal.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-book"/></svg>Journal de bord</h3>
+      <p>Un fichier par séance : <code>biscalab/journal/AAAA-MM-JJ.md</code>. Cinq rubriques, jamais plus :</p>
+      <ol class="tight">
+        <li>Présents</li>
+        <li>Fait</li>
+        <li>Mesures (chiffres, photos liées)</li>
+        <li>Problèmes</li>
+        <li>Décisions</li>
+      </ol>
+      <p class="muted" style="font-size:0.85rem">Les photos lourdes vont sur le Nextcloud (<code>Canard/AAAA-MM-JJ/</code>) ; seules quelques photos allégées (&lt; 1 Mo) entrent dans le dépôt.</p>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-check"/></svg>Fiche de test et « fini »</h3>
+      <p><strong>Fiche de test</strong> (<code>biscalab/tests/</code>) : objectif, montage, procédure, critère de réussite chiffré, résultat, photo ou vidéo, décision.</p>
+      <p><strong>Une pièce est finie</strong> quand elle est imprimée, contrôlée, inserts posés, ligne CSV à jour, photo prise.</p>
+      <p><strong>Une tâche est finie</strong> quand l'issue est fermée avec une preuve : photo, mesure ou commit.</p>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-link"/></svg>Canaux de communication</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Canal</th><th>Sert à</th><th>Ne sert pas à</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Signal / WhatsApp</strong> « Canard »</td><td>Le quotidien, les questions rapides, les photos de séance</td><td>Décider. Une décision ou une question technique devient une issue.</td></tr>
+            <tr><td><strong>GitHub</strong> (issues, Projects, journal)</td><td>Tâches, décisions, traces, fichiers</td><td>Bavarder</td></tr>
+            <tr><td><strong>Nextcloud BiscaLab</strong></td><td>Photos, vidéos, factures</td><td>Les fichiers de conception (ils vont dans git)</td></tr>
+            <tr><td><strong>Discord amont</strong></td><td>Poser une question aux auteurs et aux autres constructeurs</td><td>Remplacer notre propre suivi</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-check"/></svg>Première réunion (≈ 1 h 30)</h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="m.1"><span class="t">Présenter l'objectif, le plan en 7 phases et le budget du socle (≈ 476 €)</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.2"><span class="t">Attribuer les rôles du tableau ci-dessus</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.3"><span class="t">Faire créer à chacun un compte GitHub et une appli d'authentification (TOTP), imprimer les codes de récupération</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.4"><span class="t">Créer l'organisation GitHub, forker les deux dépôts, activer les Issues, créer labels, jalons et tableau Projects</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.5"><span class="t">Installer GitHub Desktop sur chaque PC et répéter ensemble les 5 gestes sur un faux fichier</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.6"><span class="t">Créer la copie Onshape BiscaLab et régler FreeCAD (compression 0, nom d'auteur)</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.7"><span class="t">Exporter le lot de profils PrusaSlicer et imprimer une pièce test pour les inserts M3</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.8"><span class="t">Ouvrir le groupe Signal/WhatsApp, le dossier Nextcloud « Canard », rejoindre le Discord amont (référents)</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.9"><span class="t">Rédiger et afficher <code>securite.md</code> (batteries, laser)</span></label>
+        <label class="chk"><input type="checkbox" data-k="m.10"><span class="t">Créer les issues de la phase 1 et fixer la date du prochain point</span></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ GITHUB ═══════════════════════════ -->
+<section class="page" id="page-github" data-title="Organisation GitHub" data-sub="Dépôt, conventions, 5 gestes" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Mutualiser le travail</div>
+    <h1>GitHub pour une équipe qui débute</h1>
+    <p class="lead">Un seul dépôt partagé, dans une organisation gratuite « biscalab ». C'est un fork public du dépôt amont : on y ajoute un dossier <code>biscalab/</code> qui contient tout ce qui est à nous, et on ne touche jamais aux fichiers d'Antoine Pirrone. Ainsi le bouton « Sync fork » suffit pour suivre l'amont, sans jamais de conflit.</p>
+  </div>
+
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-git"/></svg>Fork, pas clone</h3>
+      <p>Un <strong>clone</strong> est une copie sur un PC. Un <strong>fork</strong> est une copie sur GitHub, reliée à l'amont, que toute l'équipe partage.</p>
+      <ul class="tight">
+        <li>Le fork d'un dépôt public est forcément public.</li>
+        <li><strong>Les Issues sont désactivées par défaut dans un fork</strong> : cocher <em>Settings → Features → Issues</em>.</li>
+        <li>Au premier clone, GitHub Desktop demande « Comment envisagez-vous d'utiliser cette duplication ? » : répondre <strong>« Pour mon propre usage »</strong>, sinon les pull requests visent le dépôt d'Antoine.</li>
+        <li>Deux forks : <code>Open_Duck_Mini</code> (CAO, docs, STL) et <code>Open_Duck_Mini_Runtime</code> (code du Pi).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-users"/></svg>Organisation gratuite</h3>
+      <ul class="tight">
+        <li>Plan Free : dépôts publics et privés illimités, Issues, Projects, 2 000 min d'Actions par mois.</li>
+        <li>Création : <em>Paramètres → Organisations → Nouvelle organisation</em>.</li>
+        <li><strong>Au moins deux propriétaires</strong>, les autres sont membres.</li>
+        <li><strong>2FA</strong> : obligatoire pour un propriétaire. Appli TOTP (pas de SMS). Le faire ensemble en réunion, imprimer les codes de récupération.</li>
+        <li>GitHub Team est gratuit pour les associations reconnues (GitHub for Nonprofits), mais le plan Free suffit ici.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-info"/></svg>Tailles et gros fichiers</h3>
+      <ul class="tight">
+        <li>Avertissement au-delà de 50 Mio par fichier, <strong>blocage à 100 Mio</strong>, 25 Mio maximum par envoi depuis le navigateur.</li>
+        <li>Les STL du canard sont petits : <strong>Git LFS est inutile</strong> au départ (et sa configuration demande la ligne de commande).</li>
+        <li>GitHub affiche les <strong>STL en 3D</strong> (&lt; 10 Mo) et les <strong>CSV en tableau</strong> (&lt; 512 Ko) : <code>pieces.csv</code> devient un tableau consultable en ligne.</li>
+        <li>L'app GitHub Desktop n'a pas de version française ; la documentation officielle, elle, existe en français.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-cube"/></svg>Structure du dépôt</h2>
+      <p class="sub">Fork <code>biscalab/Open_Duck_Mini</code>. Seul le dossier <code>biscalab/</code> est à nous.</p>
+<div class="tree"><span class="d">Open_Duck_Mini/</span>               <span class="c">← fichiers amont : NE PAS MODIFIER</span>
+├── print/  docs/  mini_bdx/ …
+└── <span class="d">biscalab/</span>
+    ├── README.md             <span class="c">but, état d'avancement, liens</span>
+    ├── CREDITS.md            <span class="c">attribution Apache-2.0</span>
+    ├── CHANGELOG.md          <span class="c">pièces modifiées / ajoutées</span>
+    ├── <span class="d">docs/</span>                 <span class="c">conventions.md, securite.md, guide-github-desktop.md, photos/</span>
+    ├── <span class="d">journal/</span>              <span class="c">2026-10-08.md …</span>
+    ├── <span class="d">tests/</span>                <span class="c">fiches : 2026-11-banc-servo.md …</span>
+    ├── <span class="d">achats/</span>achats.csv
+    ├── <span class="d">cad/</span>
+    │   ├── onshape-liens.md
+    │   ├── <span class="d">freecad/</span>          <span class="c">*.FCStd (compression 0)</span>
+    │   └── <span class="d">step/</span>
+    ├── <span class="d">print/</span>
+    │   ├── <span class="d">stl/</span>              <span class="c">pièces modifiées / nouvelles uniquement</span>
+    │   ├── <span class="d">3mf/</span>              <span class="c">un projet PrusaSlicer par plateau</span>
+    │   ├── <span class="d">profiles/</span>         <span class="c">biscalab-bundle.ini (sans imprimantes physiques)</span>
+    │   └── pieces.csv        <span class="c">suivi des 51 pièces</span>
+    ├── <span class="d">laser/</span>
+    │   ├── <span class="d">svg-dxf/</span>
+    │   └── <span class="d">xcs/</span>
+    └── <span class="d">electronics/</span>          <span class="c">câblage, photos, BOM élec, offsets servos</span></div>
+      <p class="muted" style="font-size:0.85rem">À la racine, un <code>.gitattributes</code> et un <code>.gitignore</code> (ci-contre). Le dépôt <code>Open_Duck_Mini_Runtime</code> est forké à part, avec son propre dossier <code>biscalab/</code> pour <code>duck_config.json</code> et les notes d'installation.</p>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-code"/></svg>Conventions</h2>
+      <dl class="def">
+        <dt>Noms de fichiers</dt><dd>minuscules, sans accents ni espaces, tirets. <strong>Jamais</strong> <code>_v2_final</code> : git garde l'historique, et les 3MF référencent les noms.</dd>
+        <dt>Révision</dt><dd>notée dans <code>pieces.csv</code> (colonne <code>rev</code>) et <code>CHANGELOG.md</code>.</dd>
+        <dt>Commits</dt><dd>verbe + objet : « Ajoute gabarit zéro servo », « Corrige kerf plaque banc ».</dd>
+        <dt>Branches</dt><dd><code>prenom/sujet</code> ; un référent relit et fusionne la pull request.</dd>
+        <dt>Labels</dt><dd>phases <code>phase-0</code> … <code>phase-6</code> ; métiers <code>impression</code>, <code>laser</code>, <code>cao</code>, <code>elec</code>, <code>code</code> ; suivi <code>achat</code>, <code>securite</code>, <code>bloque</code>, <code>aide-bienvenue</code>.</dd>
+        <dt>Modèles d'issues</dt><dd>Tâche, Problème, Achat, Test (formulaires YAML avec listes déroulantes, créés sans code dans <em>Settings → Features → Issues</em>).</dd>
+        <dt>Jalons</dt><dd>un milestone par phase ; le tableau Projects a un champ « Phase ».</dd>
+      </dl>
+<pre><code># .gitattributes
+*.stl binary
+*.3mf binary
+*.FCStd binary
+*.step binary
+*.STEP binary
+*.pkl binary
+
+# .gitignore (ajouts)
+*.FCBak
+*.gcode
+Thumbs.db
+.DS_Store</code></pre>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-check"/></svg>Les 5 gestes GitHub Desktop</h2>
+      <ol class="steps">
+        <li><div><b>Cloner</b> <em>Fichier → Cloner le référentiel</em>. Une seule fois par PC. Choisir « Pour mon propre usage ».</div></li>
+        <li><div><b>Récupérer</b> <em>Fetch origin</em> puis <em>Pull origin</em>, <strong>avant chaque séance</strong>. Sans ce geste on travaille sur une version périmée.</div></li>
+        <li><div><b>Commiter</b> Cocher les fichiers modifiés, écrire un résumé (« Ajoute gabarit zéro servo »), puis <em>Commit to …</em>.</div></li>
+        <li><div><b>Pousser</b> <em>Push origin</em>, <strong>en fin de séance</strong>. Tant que ce n'est pas poussé, personne d'autre ne le voit.</div></li>
+        <li><div><b>Brancher et proposer</b> <em>Current branch → New branch</em>, puis <em>Create Pull Request</em> (ouvre le navigateur). Un référent relit et fusionne.</div></li>
+      </ol>
+      <p class="muted" style="font-size:0.85rem">Le référent fait aussi le <em>Sync fork</em> (page du fork → « Synchroniser la duplication → Mettre à jour la branche ») une fois par mois.</p>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-flag"/></svg>Ce que GitHub nous apporte, par priorité</h2>
+      <ol class="tight">
+        <li><strong>Issues</strong> : une issue = une tâche, avec un responsable et des labels. C'est la liste de choses à faire du projet.</li>
+        <li><strong>Projects</strong> : vue kanban (À faire / En cours / Fait) et vue roadmap par phase, champs personnalisés (Phase, Matériau…).</li>
+        <li><strong>Milestones</strong> : un par phase, pour voir ce qui reste avant le jalon.</li>
+        <li><strong>Releases</strong> : figer un « kit d'impression v1.0 » (jusqu'à 2 Gio par fichier).</li>
+        <li><strong>Markdown dans <code>docs/</code></strong> plutôt qu'un wiki séparé : versionné avec le reste. Les Discussions sont superflues pour cinq personnes.</li>
+      </ol>
+      <div class="note ok"><svg><use href="#i-check"/></svg><div><strong>Règle simple pour les fichiers binaires</strong> (FCStd, STL, 3MF) : on ne peut pas fusionner deux versions. Celui qui modifie une pièce s'assigne l'issue correspondante : c'est le verrou humain.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-shield"/></svg>Licence et attribution</h2>
+    <p>Le dépôt amont est sous <strong>Apache-2.0</strong>. En publiant notre fork, nous redistribuons l'œuvre. Obligations : fournir une copie de la licence, conserver les mentions de copyright et d'attribution, signaler de façon visible les fichiers modifiés, reprendre le fichier NOTICE s'il existe. Aucune garantie n'est donnée, et aucun droit sur les marques (Disney, BDX) n'est transmis.</p>
+<pre><code># biscalab/CREDITS.md
+Ce travail est basé sur Open Duck Mini (V2), © Antoine Pirrone et contributeurs,
+publié sous licence Apache-2.0 : https://github.com/apirrone/Open_Duck_Mini
+Les ajouts et modifications du BiscaLab (dossier biscalab/) sont publiés sous la même licence.
+Les pièces modifiées sont listées dans CHANGELOG.md et dans la colonne « rev » de print/pieces.csv.</code></pre>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ CAO ═══════════════════════════ -->
+<section class="page" id="page-cao" data-title="CAO et fichiers" data-sub="Onshape, FreeCAD, formats" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Conception</div>
+    <h1>CAO : Onshape, FreeCAD et le modèle physique</h1>
+    <p class="lead">La CAO source est un document Onshape public. Nous préférons FreeCAD. Les deux peuvent cohabiter, à condition de savoir ce que chaque outil sait faire, et surtout ce que la simulation attend de nous si une pièce change.</p>
+  </div>
+
+  <div class="note warn"><svg><use href="#i-warn"/></svg><div><strong>Point clé.</strong> L'outil <code>onshape-to-robot</code>, qui produit le modèle physique (MJCF) de la simulation, <strong>fonctionne uniquement avec Onshape</strong> (clés API, connecteurs <code>dof_*</code> dans l'assemblage). Il ne lit ni FreeCAD ni un STEP. Changer une pièce dans FreeCAD n'est donc pas un problème pour l'imprimer, mais c'en est un pour mettre à jour la simulation.</div></div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-cube"/></svg>Onshape</h2>
+      <ul class="tight">
+        <li>Offre gratuite pour usage non commercial ; <strong>tous les documents sont publics</strong>.</li>
+        <li>« Make a copy » du document amont vers un compte BiscaLab, puis clic droit sur une pièce → <em>Export</em> en STL ou STEP.</li>
+        <li>Collaboration native : plusieurs personnes en même temps, versions immuables, branches et fusion.</li>
+        <li>Garde l'historique paramétrique des pièces amont : une retouche (élargir un passage de câble, épaissir une paroi) reste propre.</li>
+      </ul>
+      <p><a href="https://cad.onshape.com/documents/64074dfcfa379b37d8a47762/w/3650ab4221e215a4f65eb7fe/e/0505c262d882183a25049d05" target="_blank" rel="noopener">Ouvrir le document Onshape amont</a></p>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-cube"/></svg>FreeCAD 1.0 / 1.1</h2>
+      <ul class="tight">
+        <li>1.0 (nov. 2024) corrige le nommage topologique et intègre un atelier Assembly natif ; 1.1 (mars 2026) améliore PartDesign, Assembly et FEM.</li>
+        <li>Un import STEP ne donne qu'un solide sans historique : parfait pour une pièce nouvelle ou un gabarit, moins pour retoucher une pièce amont.</li>
+        <li>Le <code>.FCStd</code> est un zip : git ne sait pas le comparer, chaque version est une copie complète. Régler <em>Préférences → Général → Document → compression = 0</em> et renseigner le nom d'auteur.</li>
+        <li>Ignorer <code>*.FCBak</code>. Un seul éditeur par fichier. Toujours exporter un STEP à côté du FCStd.</li>
+        <li>Extension <a href="https://github.com/drfenixion/freecad.overcross" target="_blank" rel="noopener">RobotCAD (OVERCROSS)</a> : exporte de l'URDF/SDF avec masses calculées, pas de MJCF.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-check"/></svg>Décision proposée</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Besoin</th><th>Outil</th><th>Pourquoi</th></tr></thead>
+        <tbody>
+          <tr><td>Imprimer les pièces amont telles quelles</td><td>STL du dépôt (<code>print/</code>)</td><td>Aucune CAO nécessaire. C'est la phase 1.</td></tr>
+          <tr><td>Retoucher une pièce amont</td><td>Copie Onshape BiscaLab</td><td>Historique paramétrique conservé ; export STL pour l'impression ; réexport MJCF possible.</td></tr>
+          <tr><td>Pièce nouvelle (support, gabarit, banc, potence, caisse)</td><td>FreeCAD → STEP + STL/SVG</td><td>Hors ligne, données chez nous, outils maison. Ces pièces n'entrent pas dans la simulation.</td></tr>
+          <tr><td>Mettre à jour la simulation après une modification</td><td>MJCF corrigé à la main (option B ci-dessous)</td><td>Le plus simple tant que la cinématique ne change pas.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-walk"/></svg>Trois options pour le modèle physique</h2>
+    <p class="sub">Le modèle MJCF contient, pour chaque corps, masse, centre de masse et inertie. Le projet remplace la masse Onshape par l'estimation du slicer, à cause du remplissage à 15 %. Si nous changeons matériau, remplissage ou pièce, ces valeurs changent.</p>
+    <div class="grid c3">
+      <div>
+        <h4>A · Rester sur Onshape</h4>
+        <p class="tight">Copier le document, modifier les surcharges de masse des pièces, réexporter avec onshape-to-robot, puis refaire les retouches manuelles (body <code>base</code>, site <code>imu</code> en (−0,08 ; 0 ; 0,05), joints <code>*_backlash</code>, keyframe <code>home</code>). Un STEP s'importe dans Onshape, mais il faut recréer l'assemblage et ses connecteurs.</p>
+      </div>
+      <div>
+        <h4>B · Corriger le MJCF à la main <span class="pill ok">recommandé</span></h4>
+        <p class="tight">Obtenir masse, centre de masse et inertie des pièces modifiées : dans FreeCAD (<code>Shape.Volume</code>, <code>CenterOfMass</code>, <code>MatrixOfInertia</code> × densité), par la masse annoncée par PrusaSlicer, ou en pesant. Recomposer l'<code>&lt;inertial&gt;</code> de chaque body (théorème de Huygens). Reporter les mêmes valeurs dans l'URDF de Placo.</p>
+      </div>
+      <div>
+        <h4>C · RobotCAD</h4>
+        <p class="tight">Exporter un URDF depuis FreeCAD, le convertir en MJCF (<code>compile</code> de MuJoCo), puis redonner tous les noms attendus par le code (<code>trunk_assembly</code>, sites <code>left_foot</code>/<code>right_foot</code>, geoms <code>*_foot_bottom_tpu</code>, classe <code>sts3215</code>). Faisable, mais long et fragile.</p>
+      </div>
+    </div>
+    <div class="note info"><svg><use href="#i-info"/></svg><div><strong>Piège repéré dans le code.</strong> Le fichier <code>joints_properties.xml</code> actuel ne contient pas les valeurs de l'entraînement de référence (kp 17,8 contre 17,11 dans le modèle <code>backlash</code>). Un réexport ne redonne donc pas les paramètres d'origine : partir du modèle <code>open_duck_mini_v2_backlash.xml</code> et n'y toucher que les inertiels.</div></div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-printer"/></svg>Le suivi des pièces : <code>pieces.csv</code></h3>
+      <p>Un fichier CSV par robot, affiché en tableau par GitHub. Une ligne par pièce :</p>
+<pre><code>piece,fichier,rev,qte,matiere,remplissage,couche,supports,3mf,imprimee_par,date,statut,remarque
+trunk_bottom,print/trunk_bottom.stl,amont,1,PLA,15%,0.2,oui,print/3mf/plateau-01.3mf,,,a_imprimer,inserts M3 x6 + roulements
+foot_bottom_tpu,print/foot_bottom_tpu.stl,amont,2,TPU,40%,0.2,non,print/3mf/plateau-pieds.3mf,,,a_imprimer,semelle = contact sol simulé</code></pre>
+      <p class="muted" style="font-size:0.85rem">Statuts : <code>a_imprimer</code>, <code>imprimee</code>, <code>controlee</code>, <code>montee</code>, <code>a_refaire</code>.</p>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-link"/></svg>Formats et qui les lit</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Format</th><th>Contenu</th><th>Produit par</th><th>Lu par</th></tr></thead>
+          <tbody>
+            <tr><td><code>.FCStd</code></td><td>pièce paramétrique</td><td>FreeCAD</td><td>FreeCAD</td></tr>
+            <tr><td><code>.step</code></td><td>géométrie exacte (B-rep)</td><td>Onshape, FreeCAD</td><td>Onshape, FreeCAD, PrusaSlicer</td></tr>
+            <tr><td><code>.stl</code></td><td>maillage triangulé</td><td>Onshape, FreeCAD</td><td>PrusaSlicer, GitHub (aperçu 3D), MuJoCo (visuel)</td></tr>
+            <tr><td><code>.3mf</code></td><td>plateau + réglages + supports peints</td><td>PrusaSlicer</td><td>PrusaSlicer</td></tr>
+            <tr><td><code>.svg</code> / <code>.dxf</code></td><td>tracés 2D de découpe</td><td>FreeCAD (TechDraw / Draft), Inkscape</td><td>xTool Creative Space</td></tr>
+            <tr><td><code>.xml</code> (MJCF)</td><td>modèle physique du simulateur</td><td>onshape-to-robot + main</td><td>MuJoCo, Playground</td></tr>
+            <tr><td><code>.urdf</code></td><td>modèle cinématique de Placo</td><td>onshape-to-robot, RobotCAD</td><td>Placo (mouvements de référence)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FABRICATION ═══════════════════════════ -->
+<section class="page" id="page-fabrication" data-title="Fabrication" data-sub="Impression 3D, laser, inserts" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Atelier</div>
+    <h1>Fabrication : Prusa, xTool P2S, inserts</h1>
+    <p class="lead">Le canard est conçu pour l'impression 3D : 36 fichiers STL, 51 pièces, du PLA standard à 15 % et des semelles en TPU. La découpeuse laser ne remplace aucune pièce structurelle ; elle sert à l'outillage qui rend le montage et les essais plus sûrs.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">36</div><div class="l">Fichiers STL</div><div class="d">dossier <code>print/</code>, branche v2</div></div>
+    <div class="kpi"><div class="v">51</div><div class="l">Pièces à imprimer</div><div class="d">dont 2 semelles TPU</div></div>
+    <div class="kpi"><div class="v">15<small>%</small></div><div class="l">Remplissage PLA</div><div class="d">TPU : 40 %</div></div>
+    <div class="kpi"><div class="v">≈ 990<small>g</small></div><div class="l">PLA consommé</div><div class="d">+ 34 g TPU (retour tiers)</div></div>
+    <div class="kpi"><div class="v">3</div><div class="l">Roulements 608</div><div class="d">8 × 22 × 7 mm</div></div>
+    <div class="kpi"><div class="v">M3</div><div class="l">Inserts à chaud</div><div class="d">lot de 100, réf. BOM</div></div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-printer"/></svg>Paramètres d'impression documentés</h2>
+      <ul class="tight">
+        <li><strong>Toutes les pièces en PLA standard, 15 % de remplissage.</strong> Seule exception : <code>foot_bottom_tpu.stl</code> en <strong>TPU à 40 %</strong>.</li>
+        <li><strong>Orientation, supports et hauteur de couche ne sont pas documentés</strong> par l'amont. Nous les fixerons nous-mêmes, pièce par pièce, et les figerons dans un projet 3MF par plateau.</li>
+        <li>La première version suit l'amont à la lettre : la politique de marche a été entraînée avec les masses de ces réglages.</li>
+        <li>Masse : un constructeur tiers rapporte 990 g de PLA et 34 g de TPU. Le plan d'achats prévoit 1,3 kg : c'est la marge pour les ratés et les pièces test.</li>
+      </ul>
+      <div class="note warn"><svg><use href="#i-warn"/></svg><div>Changer de matériau ou de remplissage change la masse, donc le modèle physique de la simulation. Tolérance de la politique fournie : ±10 % de masse par corps. Au-delà, voir la rubrique Marche.</div></div>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-cube"/></svg>Matériaux</h2>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Matériau</th><th>Usage</th><th>Attention</th></tr></thead>
+          <tbody>
+            <tr><td><strong>PLA</strong></td><td>Toutes les pièces (v1 du robot)</td><td>Fluage possible près des servos qui chauffent ; à surveiller sur la durée</td></tr>
+            <tr><td><strong>TPU</strong></td><td>Semelles <code>foot_bottom_tpu</code></td><td>Impression lente ; frottement pied/sol = celui de la simulation, ne pas substituer</td></tr>
+            <tr><td><strong>PETG</strong></td><td>Pièces mécaniques sollicitées, en remplacement ciblé</td><td>Plus délicat à imprimer ; masse différente → inertiels à corriger</td></tr>
+            <tr><td><strong>PLA-CF / PETG-CF</strong></td><td>Rigidité, si un segment se révèle trop souple</td><td>Buse durcie obligatoire</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-printer"/></svg>Les 51 pièces par sous-ensemble</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Sous-ensemble</th><th>Fichiers STL</th><th class="num">Qté</th><th>Inserts / roulements</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Pieds</strong></td><td>foot_top, foot_side, foot_bottom_pla, foot_bottom_tpu (TPU 40 %)</td><td class="num">2 × 4 = 8</td><td>Inserts M3 dans foot_top et foot_bottom_pla ; contacts SS-10 pressés à force ; TPU vissé par 2 × M3×6</td></tr>
+          <tr><td><strong>Jambes</strong></td><td>knee_to_ankle_left_sheet ×4, knee_to_ankle_right_sheet ×4, leg_spacer ×4, left_roll_to_pitch, right_roll_to_pitch, roll_motor_bottom ×2, roll_motor_top ×2</td><td class="num">18</td><td>4 inserts par leg_spacer ; pièces gauche / droite asymétriques ; orientation du hip_pitch « importante pour la position zéro »</td></tr>
+          <tr><td><strong>Tronc, cou, tête</strong></td><td>trunk_bottom, trunk_top, neck_left_sheet, neck_right_sheet, head_pitch_to_yaw, head_yaw_to_roll, head_roll_mount, head, head_bot_sheet</td><td class="num">9</td><td>Roulements + inserts dans trunk_bottom (dont 4 sous la pièce pour la carrosserie) et dans la tête</td></tr>
+          <tr><td><strong>Carrosserie</strong></td><td>left_antenna_holder, right_antenna_holder, left_cache, right_cache, body_front, body_middle_bottom, body_middle_top, body_back, battery_pack_lid</td><td class="num">9</td><td>Inserts dans body_middle_bottom et body_middle_top</td></tr>
+          <tr><td><strong>Expression (option)</strong></td><td>bulb, flash_light_module, flash_reflector_interface, left_eye, right_eye, speaker_interface, speaker_stand</td><td class="num">7</td><td>Non nécessaires à la marche</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td>36 fichiers</td><td class="num">51</td><td>Visserie M3 : nombre non documenté (« TODO » dans le guide)</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="muted" style="font-size:0.85rem">Source : <a href="https://github.com/apirrone/Open_Duck_Mini/tree/v2/print" target="_blank" rel="noopener">print/</a> et <a href="https://github.com/apirrone/Open_Duck_Mini/blob/v2/docs/assembly_guide.md" target="_blank" rel="noopener">assembly_guide.md</a>. Prévoir un assortiment M3 (×6, ×8, ×10, ×12) et des M3×6 pour les semelles.</p>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-code"/></svg>PrusaSlicer en équipe</h3>
+      <ul class="tight">
+        <li><strong>Lot de profils partagé</strong> : <em>Fichier → Exporter → Exporter le lot de configuration</em> → <code>print/profiles/biscalab-bundle.ini</code>, commité. <strong>Jamais</strong> la variante « with Physical Printers » : elle contient clés API et adresses IP.</li>
+        <li><strong>Un projet 3MF par plateau</strong> : objets, positions, modificateurs, réglages et supports peints sont embarqués. C'est notre documentation d'orientation et de supports.</li>
+        <li>Nommer les plateaux par sous-ensemble : <code>plateau-pieds.3mf</code>, <code>plateau-jambe-gauche.3mf</code>…</li>
+        <li>Mettre à jour <code>pieces.csv</code> à chaque pièce sortie de la machine (statut, qui, date).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-zap"/></svg>Inserts M3 à chaud</h3>
+      <ol class="tight">
+        <li>Acheter les inserts listés dans la BOM amont : les trous de la CAO sont dimensionnés pour eux. Faire d'abord une pièce test.</li>
+        <li>Trou droit, sans cône, environ 1 mm plus profond que l'insert.</li>
+        <li>Fer réglé 10 à 20 °C au-dessus de la température d'impression (≈ 225 °C pour le PLA, ≈ 245 °C pour le PETG). Le Pinecil V2 du FabLab convient avec une panne adaptée.</li>
+        <li>Enfoncer l'insert à 90 % avec le fer, finir avec un outil plat et maintenir quelques secondes, bien perpendiculaire.</li>
+      </ol>
+      <p class="muted" style="font-size:0.85rem">Loctite 243 sur le métal/métal uniquement, jamais sur une vis dans le plastique.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-zap"/></svg>Découpe laser xTool P2S : où elle a sa place</h2>
+    <div class="grid c2">
+      <div>
+        <h4>Ce que la machine fait</h4>
+        <ul class="tight">
+          <li>CO₂ 55 W, zone 600 × 305 mm, entrée SVG / DXF / PNG / JPG.</li>
+          <li><strong>XCS (xTool Creative Space) suffit</strong> : gratuit, pilote les caméras. LightBurn (99 à 199 $) perd les caméras et l'axe Z sur la P2S.</li>
+          <li>Kerf à compter : 0,15 à 0,25 mm sur contreplaqué 3 mm, 0,10 à 0,20 mm sur acrylique 3 mm. Mesure : (cote du trou − cote du carré) / 2. XCS a un réglage de compensation de −1 à +1 mm.</li>
+          <li>Matériaux : contreplaqué peuplier, PMMA <strong>coulé</strong>. <strong>Interdits</strong> : PVC/vinyle (chlore), ABS, polycarbonate, polystyrène expansé, fibre de carbone enduite.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ce qu'on lui confie</h4>
+        <ul class="tight">
+          <li><strong>Banc servo</strong> : socle percé pour fixer 1 à 5 STS3215 et la carte Waveshare pendant la configuration (phase 2).</li>
+          <li><strong>Gabarits de mise à zéro</strong> : plaques à rainures pour aligner les palonniers à la position 0 avant montage.</li>
+          <li><strong>Potence ou harnais</strong> pour les premiers essais debout et les premiers pas (phase 5), avec un point d'attache au-dessus du centre de masse.</li>
+          <li><strong>Caisse de transport</strong> et plaques signalétiques (ID des servos, sens de câblage).</li>
+        </ul>
+        <div class="note warn"><svg><use href="#i-warn"/></svg><div>Les pièces « sheet » des jambes et du cou font 7 à 8 mm d'épaisseur : ce ne sont pas des plaques découpables en 3 mm. Seul <code>head_bot_sheet</code> est une vraie plaque de 3 mm (194 × 192 mm). En PMMA plein elle pèserait ≈ 78 g, nettement plus qu'en PLA à 15 % : si on la découpe, corriger l'inertiel de la tête.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ BOM & ACHATS ═══════════════════════════ -->
+<section class="page" id="page-bom" data-title="BOM et achats" data-sub="Nomenclature, fournisseurs UE, phases" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Approvisionnement</div>
+    <h1>Nomenclature et plan d'achats</h1>
+    <p class="lead">La BOM officielle totalise 398,10 € (432,34 € avec le pack expression), à des prix qui supposent des achats directs en Asie. Avec des fournisseurs européens vérifiés, le socle revient plutôt autour de 590 € hors port. Les achats sont échelonnés en six phases, chacune close par un jalon testable.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">398<small>€</small></div><div class="l">BOM officielle</div><div class="d">base, prix Asie</div></div>
+    <div class="kpi"><div class="v">476<small>€</small></div><div class="l">Plan BiscaLab (sept.)</div><div class="d">socle + fabrication</div></div>
+    <div class="kpi"><div class="v">≈ 590<small>€</small></div><div class="l">Estimation UE</div><div class="d">prix vérifiés 01/10/2026, hors port</div></div>
+    <div class="kpi"><div class="v">6</div><div class="l">Commandes</div><div class="d">compter le port à chaque fois</div></div>
+    <div class="kpi"><div class="v">+75<small>€</small></div><div class="l">Option RC</div><div class="d">+35 € option caméra</div></div>
+    <div class="kpi"><div class="v">0</div><div class="l">AliExpress / Temu</div><div class="d">bannis : frais de douane</div></div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-cart"/></svg>Socle commun (marche autonome)</h2>
+    <p class="sub">PU officiel = BOM Google Sheets du projet. « Fournisseur UE » = prix vérifié le 1er octobre 2026, à reconfirmer avant commande.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Article</th><th>Référence</th><th class="num">Qté</th><th class="num">PU officiel</th><th class="num">Total</th><th>Fournisseur UE vérifié / remarque</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Servo bus série</strong></td><td>Feetech STS3215 <strong>7,4 V, 1/345 (C001)</strong></td><td class="num">14</td><td class="num">14,00 €</td><td class="num">196,00 €</td><td>Eckstein (DE) 24,35 € ; OpenELAB (DE) 29,95 € ; RobotShop EU 31,35 €. <strong>Pas la 12 V, pas C044/C046.</strong> Acheter 2 d'abord (phase 2), 12 ensuite, même lot si possible (firmware homogène).</td></tr>
+          <tr><td>Carte bus servo</td><td>Waveshare Bus Servo Adapter (A)</td><td class="num">1</td><td class="num">5,00 €</td><td class="num">5,00 €</td><td>Waveshare direct 4,99 $ ou revendeur EU. Fiche : entrée 9 à 12,6 V, à vérifier en 2S sur le banc.</td></tr>
+          <tr><td>Calculateur</td><td>Raspberry Pi Zero 2 W</td><td class="num">1</td><td class="num">26,08 €</td><td class="num">26,08 €</td><td>Kubii 19,50 € (rupture fréquente : commander tôt).</td></tr>
+          <tr><td>Carte microSD</td><td>32 Go, classe U3/A1</td><td class="num">1</td><td class="num">10,00 €</td><td class="num">10,00 €</td><td>Amazon.fr. L'image prête à flasher vise 32 Go.</td></tr>
+          <tr><td>IMU</td><td>BNO055 (Adafruit 2472 ou équivalent I²C)</td><td class="num">1</td><td class="num">40,00 €</td><td class="num">40,00 €</td><td>Adafruit 34,95 $ via Mouser / Lextronic. La BOM note « need cheaper alternative » : rester sur la BNO055, c'est celle du code.</td></tr>
+          <tr><td>Accus 18650</td><td>Molicel P30B 3000 mAh, ≥ 25 A</td><td class="num">2</td><td class="num">5,00 €</td><td class="num">10,00 €</td><td>NKON (NL). Cellules « molles » = erreurs CRC sur le bus en charge (issue #49).</td></tr>
+          <tr><td>Support 2S</td><td>2 × 18650 avec câbles</td><td class="num">1</td><td class="num">4,99 €</td><td class="num">4,99 €</td><td>Amazon.fr</td></tr>
+          <tr><td>BMS</td><td>Li-ion 2S équilibrage 6 A (calibre à confirmer phase 5)</td><td class="num">1</td><td class="num">8,40 €</td><td class="num">8,40 €</td><td>Amazon.fr / Gotronic</td></tr>
+          <tr><td>Régulateur 5 V</td><td>UBEC 5 V 8 A (Pi + périphériques)</td><td class="num">1</td><td class="num">4,00 €</td><td class="num">4,00 €</td><td>Amazon.fr (lien officiel Alibaba)</td></tr>
+          <tr><td>Interrupteur</td><td>à verrouillage, lumineux</td><td class="num">1</td><td class="num">4,49 €</td><td class="num">4,49 €</td><td>Amazon.fr</td></tr>
+          <tr><td>Chargeur</td><td>USB-C Li-ion <strong>2S</strong> (8,4 V) — le « TP4056 2S » du plan est à remplacer</td><td class="num">1</td><td class="num">9,99 €</td><td class="num">9,99 €</td><td>À trancher : chargeur 2S équilibré, ou charge externe par les jacks.</td></tr>
+          <tr><td>Prises jack DC</td><td>2,1 mm, montage panneau</td><td class="num">2</td><td class="num">1,00 €</td><td class="num">2,00 €</td><td>Amazon.fr / Gotronic</td></tr>
+          <tr><td>Connecteurs XT30</td><td>paires</td><td class="num">4</td><td class="num">2,00 €</td><td class="num">8,00 €</td><td>Amazon.fr</td></tr>
+          <tr><td>Contacts de pied</td><td>Omron SS-10 (micro-switch)</td><td class="num">4</td><td class="num">1,00 €</td><td class="num">4,00 €</td><td><strong>RS Components</strong> 3,79 € pièce, en stock (lien officiel = AliExpress, exclu).</td></tr>
+          <tr><td>Micro-servos</td><td>9 g (antennes)</td><td class="num">2</td><td class="num">3,33 €</td><td class="num">6,66 €</td><td>Amazon.fr / Gotronic</td></tr>
+          <tr><td>Roulements</td><td>608ZZ 8 × 22 × 7</td><td class="num">3</td><td class="num">3,50 €</td><td class="num">10,50 €</td><td>Amazon.fr, lot de 10</td></tr>
+          <tr><td>Inserts filetés</td><td>M3, lot de 100, référence BOM</td><td class="num">1</td><td class="num">5,99 €</td><td class="num">5,99 €</td><td>Amazon.fr ; Prusa vend aussi des M3 standard</td></tr>
+          <tr><td>Gaine spirale</td><td>3 m, 6 mm</td><td class="num">1</td><td class="num">9,00 €</td><td class="num">9,00 €</td><td>Amazon.fr</td></tr>
+          <tr><td>Câbles USB</td><td>micro-USB → USB-C, 15 cm et 50 cm</td><td class="num">2</td><td class="num">—</td><td class="num">13,00 €</td><td>Amazon.fr</td></tr>
+          <tr><td>Filament</td><td>PLA ≈ 1 kg + TPU</td><td class="num">1</td><td class="num">20,00 €</td><td class="num">20,00 €</td><td>Prusament / Sunlu ; plan BiscaLab : 1,3 kg, 36,40 €</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Total BOM officielle (base)</td><td class="num">398,10 €</td><td>Estimation fournisseurs UE ≈ 590 € hors port</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="muted" style="font-size:0.85rem">Pack expression (option, +34 €) : réflecteur, haut-parleur, 3 LED, micro, diffuseurs, ampli MAX98357A, caméra Pi (« not integrated yet »). Non nécessaire à la marche.</p>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-cal"/></svg>Plan d'achats en six phases</h3>
+      <p class="sub">Repris du plan de septembre. On ne passe à la phase suivante qu'une fois le jalon validé par une fiche de test.</p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Phase</th><th>Mois</th><th>Contenu</th><th class="num">Montant</th><th>Jalon</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1</strong> Structure</td><td>oct. 2026</td><td>Filament 1,3 kg, consommables, inserts M3, 3 × 608ZZ</td><td class="num">55,70 €</td><td>Pièces imprimées, assemblage à blanc</td></tr>
+            <tr><td><strong>2</strong> Cerveau + banc</td><td>nov. 2026</td><td>Pi Zero 2 W, microSD, Waveshare, BNO055, 2 × STS3215</td><td class="num">99,55 €</td><td>IMU et bus validés → <strong>GO/NO-GO</strong> pour les 12 servos restants</td></tr>
+            <tr><td><strong>3</strong> Jambe 1</td><td>déc. 2026</td><td>3 × STS3215, 4 × SS-10</td><td class="num">63,10 €</td><td>Jambe 1 pilotée, contacts lus</td></tr>
+            <tr><td><strong>4</strong> Jambe 2</td><td>janv. 2027</td><td>5 × STS3215</td><td class="num">99,50 €</td><td>Bas du corps complet, posture debout sur banc</td></tr>
+            <tr><td><strong>5</strong> Tête + finitions</td><td>févr. 2027</td><td>4 × STS3215, 2 micro-servos, gaine</td><td class="num">95,25 €</td><td>14 servos, offsets calibrés, courant crête mesuré, 1er essai de marche filaire</td></tr>
+            <tr><td><strong>6</strong> Énergie</td><td>mars 2027</td><td>2 × P30B, support, BMS, UBEC, interrupteur, chargeur 2S, jacks, XT30</td><td class="num">63,15 €</td><td>Marche autonome sur batterie</td></tr>
+          </tbody>
+          <tfoot><tr><td colspan="3">Socle (prix du plan)</td><td class="num">476,25 €</td><td>+ port, 6 commandes · + prix réels UE</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-check"/></svg>Circuit d'achat</h3>
+      <ol class="steps">
+        <li><div><b>Besoin</b> Le référent ouvre une issue « Achat » : lien, quantité, prix, phase, justification.</div></li>
+        <li><div><b>Validation</b> Le maître d'œuvre vérifie la cohérence avec la phase ; le bureau de l'association valide le montant.</div></li>
+        <li><div><b>Commande</b> Le trésorier-acheteur commande, seul. Il note le numéro de commande dans l'issue.</div></li>
+        <li><div><b>Réception</b> Contrôle à l'arrivée (quantité, référence exacte : « 7,4 V » sur les servos), photo dans l'issue, ligne dans <code>achats/achats.csv</code>.</div></li>
+        <li><div><b>Comptabilité</b> Facture sur le Nextcloud (pas dans le dépôt public), remboursement par note de frais.</div></li>
+      </ol>
+      <div class="note bad"><svg><use href="#i-warn"/></svg><div><strong>Fournisseurs</strong> : privilégier l'UE (Eckstein, OpenELAB, RobotShop EU, Kubii, RS, Mouser, Gotronic, Lextronic, NKON, Amazon.fr, Prusa). AliExpress et Temu sont exclus : frais de douane et délais. Un seul achat hors UE possible et assumé : les servos, si l'écart de prix dépasse 150 € sur 14 pièces, décision du bureau.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><svg><use href="#i-flag"/></svg>Options après la phase 6</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Option</th><th>Ajout matériel</th><th class="num">Coût</th><th>Remarque</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Manette Xbox Bluetooth</strong></td><td>manette seule</td><td class="num">≈ 50 €</td><td>C'est le pilotage du runtime officiel. Souvent déjà disponible chez un membre.</td></tr>
+          <tr><td>Version RC</td><td>émetteur + récepteur, interface récepteur → GPIO</td><td class="num">+75 €</td><td>Hors runtime officiel : code à écrire.</td></tr>
+          <tr><td>Autonome basique</td><td>caméra Raspberry Pi, micro USB</td><td class="num">+35 €</td><td>Caméra « not integrated yet » côté amont.</td></tr>
+          <tr><td>Autonomie avancée</td><td>Jetson Orin Nano</td><td class="num">+250 à 400 €</td><td>Impose de modifier le tronc et de réentraîner (fork Jetson).</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ÉLECTRONIQUE ═══════════════════════════ -->
+<section class="page" id="page-electronique" data-title="Électronique" data-sub="Servos, IMU, alimentation, câblage" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Matériel embarqué</div>
+    <h1>Électronique et câblage</h1>
+    <p class="lead">Un Pi Zero 2 W, une carte d'interface pour le bus série des 14 servos, une centrale inertielle en I²C, quatre contacts de pied sur les GPIO, et un pack 2S qui alimente à la fois les servos (directement) et le Pi (via un régulateur 5 V).</p>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-cpu"/></svg>Schéma de principe</h2>
+    <div class="diag">
+      <svg viewBox="0 0 960 300" role="img" aria-label="Schéma de principe de l'électronique">
+        <rect class="box w" x="10" y="20" width="170" height="70" rx="12"/>
+        <text x="95" y="48" text-anchor="middle" font-weight="700">Pack 2S</text>
+        <text class="s" x="95" y="66" text-anchor="middle">2 × Molicel P30B · 7,4 V nom.</text>
+        <text class="s" x="95" y="80" text-anchor="middle">BMS 2S + interrupteur</text>
+        <rect class="box w" x="10" y="120" width="170" height="60" rx="12"/>
+        <text x="95" y="146" text-anchor="middle" font-weight="700">UBEC 5 V / 8 A</text>
+        <text class="s" x="95" y="164" text-anchor="middle">vers Pi + périphériques</text>
+        <rect class="box w" x="10" y="210" width="170" height="60" rx="12"/>
+        <text x="95" y="236" text-anchor="middle" font-weight="700">Jacks 2,1 mm · XT30</text>
+        <text class="s" x="95" y="254" text-anchor="middle">charge externe / alim labo</text>
+        <rect class="box p" x="300" y="100" width="200" height="100" rx="14"/>
+        <text x="400" y="130" text-anchor="middle" font-weight="700">Raspberry Pi Zero 2 W</text>
+        <text class="s" x="400" y="150" text-anchor="middle">Pi OS Lite 64 bits · Python 3.11</text>
+        <text class="s" x="400" y="166" text-anchor="middle">runtime 50 Hz · onnxruntime</text>
+        <text class="s" x="400" y="182" text-anchor="middle">Bluetooth : manette Xbox</text>
+        <rect class="box b" x="600" y="20" width="200" height="70" rx="12"/>
+        <text x="700" y="48" text-anchor="middle" font-weight="700">Waveshare Bus Servo Adapter</text>
+        <text class="s" x="700" y="66" text-anchor="middle">USB /dev/ttyACM0 · 1 Mbit/s</text>
+        <text class="s" x="700" y="80" text-anchor="middle">alim servos = tension du pack</text>
+        <rect class="box b" x="840" y="20" width="110" height="70" rx="12"/>
+        <text x="895" y="48" text-anchor="middle" font-weight="700">14 × STS3215</text>
+        <text class="s" x="895" y="66" text-anchor="middle">bus TTL half-duplex</text>
+        <text class="s" x="895" y="80" text-anchor="middle">ID 10-14 · 20-24 · 30-33</text>
+        <rect class="box g" x="600" y="115" width="200" height="60" rx="12"/>
+        <text x="700" y="140" text-anchor="middle" font-weight="700">IMU BNO055</text>
+        <text class="s" x="700" y="158" text-anchor="middle">I²C SDA GPIO2 · SCL GPIO3 · 3V3</text>
+        <rect class="box g" x="600" y="200" width="200" height="60" rx="12"/>
+        <text x="700" y="225" text-anchor="middle" font-weight="700">Contacts de pied SS-10</text>
+        <text class="s" x="700" y="243" text-anchor="middle">GPIO22 gauche · GPIO27 droit · pull-up</text>
+        <rect class="box" x="840" y="115" width="110" height="145" rx="12"/>
+        <text x="895" y="140" text-anchor="middle" font-weight="700">Expression</text>
+        <text class="s" x="895" y="160" text-anchor="middle">antennes PWM</text>
+        <text class="s" x="895" y="174" text-anchor="middle">GPIO12 · GPIO13</text>
+        <text class="s" x="895" y="194" text-anchor="middle">LED yeux / projo</text>
+        <text class="s" x="895" y="208" text-anchor="middle">GPIO23 · 24 · 25</text>
+        <text class="s" x="895" y="228" text-anchor="middle">ampli I²S MAX98357A</text>
+        <text class="s" x="895" y="242" text-anchor="middle">GPIO18 · 19 · 21</text>
+        <path class="arr" d="M180 55 H560 V55 H595"/>
+        <path class="arr" d="M95 90 V115"/>
+        <path class="arr" d="M180 150 H295"/>
+        <path class="arr" d="M95 180 V205"/>
+        <path class="arr" d="M500 130 H560 V60 H595"/>
+        <path class="arr" d="M800 55 H835"/>
+        <path class="arr" d="M500 150 H595 V145"/>
+        <path class="arr" d="M500 170 H560 V230 H595"/>
+        <path class="arr" d="M500 190 H580 V190 H835"/>
+        <text class="lbl" x="370" y="45" text-anchor="middle">7,4 V (pack) → servos</text>
+        <text class="lbl" x="240" y="142" text-anchor="middle">5 V</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-cpu"/></svg>Brochage du Pi Zero 2 W</h2>
+      <div class="wiring">
+        <div class="wire"><span>Contact pied gauche</span><b>GPIO22 (pin 15)</b></div>
+        <div class="wire"><span>Contact pied droit</span><b>GPIO27 (pin 13)</b></div>
+        <div class="wire"><span>IMU SDA</span><b>GPIO2 (pin 3)</b></div>
+        <div class="wire"><span>IMU SCL</span><b>GPIO3 (pin 5)</b></div>
+        <div class="wire"><span>IMU VIN / GND</span><b>3V3 (pin 1) / GND (pin 9)</b></div>
+        <div class="wire"><span>Antenne gauche / droite (PWM)</span><b>GPIO12 / GPIO13</b></div>
+        <div class="wire"><span>LED yeux, projecteur</span><b>GPIO23 · GPIO24 · GPIO25</b></div>
+        <div class="wire"><span>Ampli MAX98357A LRC / BCLK / DIN</span><b>GPIO19 / GPIO18 / GPIO21</b></div>
+        <div class="wire"><span>Bus servos</span><b>USB → Waveshare (ttyACM0)</b></div>
+        <div class="wire"><span>Alimentation Pi</span><b>5 V UBEC → 5V / GND</b></div>
+      </div>
+      <p class="muted" style="font-size:0.85rem">Contacts actifs à l'état bas avec pull-up interne. L'IMU est montée « à l'envers » sur les photos amont : réglable par <code>imu_upside_down</code> dans la configuration.</p>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-zap"/></svg>Feetech STS3215 : la bonne référence</h2>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Version</th><th>Couple</th><th>Vitesse à vide</th><th>Courant bloqué</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><strong>7,4 V · 1/345 (C001)</strong></td><td>19,5 kg·cm</td><td>52 tr/min</td><td>2,5 A</td><td><span class="pill ok">la bonne</span></td></tr>
+            <tr><td>7,4 V · 1/191 (C044), 1/147 (C046)</td><td>moindre</td><td>plus rapide</td><td>—</td><td><span class="pill bad">à éviter</span> : hors modèle BAM</td></tr>
+            <tr><td>12 V · 30 kg·cm</td><td>30 kg·cm</td><td>45 tr/min</td><td>2,7 A</td><td><span class="pill bad">à éviter</span> : pas de paramètres BAM, pied qui ne se lève plus assez (issue #52)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="tight">
+        <li>Série TTL half-duplex, 1 Mbit/s, ID 0 à 253, codeur magnétique 12 bits (4096 pas/tour, 0,088°).</li>
+        <li>Protections firmware : coupure à 70 °C, surintensité &gt; 2 A pendant 2 s, blocage &gt; 80 % pendant 2 s. <strong>La boucle de marche ne surveille ni courant ni température.</strong></li>
+        <li>Plage de tension : 4 à 7,4 V selon Waveshare, 5 à 8,4 V selon Seeed. Un pack 2S chargé fait 8,4 V : prévoir la mesure sur le banc.</li>
+        <li>Firmware : des sous-versions différentes entre servos provoquent « Parsing error in set_kps() » (issue Runtime #26). Mise à jour uniquement par le logiciel Feetech sous Windows. Acheter les 14 du même lot limite le risque.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-info"/></svg>IMU BNO055</h3>
+      <ul class="tight">
+        <li>Mode NDOF (fusion 9 axes). Le runtime lit gyroscope et accéléromètre à 50 Hz, sans filtrage ; il n'utilise pas le quaternion.</li>
+        <li><strong>Problème connu</strong> : la BNO055 fait du « clock stretching » I²C que le Raspberry Pi gère mal. Remèdes documentés : passer en UART (broche PS1 au 3,3 V) ou ralentir le bus (<code>dtparam=i2c_arm_baudrate=10000</code>). Le projet n'a pas tranché ; le code UART est commenté.</li>
+        <li>Calibration par <code>calibrate_imu.py</code> → <code>imu_calib_data.pkl</code> dans le dossier courant. Lancer la marche depuis ce dossier.</li>
+        <li>Surveiller les messages <code>[IMU]:</code> dans la console.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-zap"/></svg>Alimentation</h3>
+      <ul class="tight">
+        <li>Pack 2S : 6,8 V vide → 8,4 V plein. Le modèle de simulation est identifié à 7,4 V : couple et gain varient de +13,5 % à 8,4 V et −8 % à 6,8 V.</li>
+        <li>Charger les deux cellules à la même tension avant de les mettre dans le support.</li>
+        <li>Chute de tension sous charge = erreurs CRC sur le bus (issue #49) : cellules ≥ 25 A, câbles courts et de bonne section, XT30.</li>
+        <li>Banc d'essai : alimentation de laboratoire 7,4 V limitée en courant (3 A pour un servo, 10 A pour le robot complet) avant la batterie.</li>
+        <li>La carte Waveshare transmet la tension d'entrée directement aux servos : ne jamais la brancher sur 12 V avec des servos 7,4 V.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Sécurité Li-ion</h3>
+      <ul class="tight">
+        <li>Charge sur surface incombustible, dans un sac ou une boîte ignifuge, <strong>jamais sans surveillance</strong>.</li>
+        <li>Arrêter si une cellule chauffe, gonfle ou sent.</li>
+        <li>Stockage à ≈ 50 % de charge, hors du robot, dans une boîte métallique.</li>
+        <li>Consigne incendie : évacuer ; n'intervenir que formé, avec un moyen d'extinction adapté (sable, extincteur classe D ou eau en grande quantité).</li>
+        <li>Ne jamais court-circuiter une 18650 : les pôles nus sont à protéger pendant le montage.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-check"/></svg>Banc servo (phase 2) : ce qu'on valide avant d'acheter 12 servos</h2>
+    <div class="chklist">
+      <label class="chk"><input type="checkbox" data-k="b.1"><span class="t">Socle laser pour 2 servos + carte Waveshare + Pi, alimentation labo 7,4 V limitée à 3 A</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.2"><span class="t">Tension d'entrée de la Waveshare mesurée en 2S : la carte et le bus fonctionnent à 7,4 V (fiche : 9 à 12,6 V)</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.3"><span class="t"><code>configure_motor.py --id 10</code> puis <code>--id 11</code> : ID changé, P=32 I=0 D=0, accélération 0, position 0 atteinte</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.4"><span class="t"><code>check_motors.py</code> : les deux servos répondent et bougent de 0,1 rad ; <code>check_voltage.py</code> lit la tension</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.5"><span class="t">Version de firmware identique sur les deux servos (sinon prévoir la mise à jour Feetech sous Windows)</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.6"><span class="t">BNO055 détectée en I²C, <code>raw_imu.py</code> stable 10 min sans erreur ; sinon tester <code>i2c_arm_baudrate=10000</code> ou l'UART</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.7"><span class="t">Contacts SS-10 lus par <code>feet_contacts.py</code> sur GPIO22 / GPIO27</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.8"><span class="t">Courant mesuré : à vide, en mouvement, en butée (déclenchement de la protection 2 A / 2 s)</span></label>
+      <label class="chk"><input type="checkbox" data-k="b.9"><span class="t">Fiche de test rédigée, GO/NO-GO noté dans le journal</span></label>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ LOGICIEL ═══════════════════════════ -->
+<section class="page" id="page-logiciel" data-title="Logiciel embarqué" data-sub="Runtime, scripts, configuration" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Code</div>
+    <h1>Le runtime sur le Raspberry Pi</h1>
+    <p class="lead">Le dépôt <code>Open_Duck_Mini_Runtime</code> (branche <code>v2</code>) contient tout ce qui tourne sur le robot : la boucle de marche, les scripts de configuration des servos, la calibration de l'IMU et des offsets, et le pilotage à la manette. Une image système prête à flasher évite l'installation manuelle.</p>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-code"/></svg>Deux façons d'installer</h2>
+      <h4>A · Image prête à flasher (v0.2.3, maintenue par MaxMakesStuff) <span class="pill ok">recommandée pour démarrer</span></h4>
+      <ul class="tight">
+        <li>Basée sur Raspberry Pi OS Bookworm, carte de 32 Go.</li>
+        <li>Au démarrage, un pied appuyé choisit le mode : pied gauche = Head-Puppet, pied droit = Walk.</li>
+        <li>Point d'accès Wi-Fi de secours « Openduck ». Identifiants par défaut <code>bdxv2</code> / <code>ilovemyduck</code>, <strong>à changer</strong>.</li>
+        <li>Les offsets et la calibration IMU restent à faire : ils sont propres à chaque robot.</li>
+      </ul>
+      <h4>B · Installation manuelle</h4>
+      <ul class="tight">
+        <li>Raspberry Pi OS Lite 64 bits, <strong>Python 3.11</strong> (les images récentes sont en 3.13 et <code>onnxruntime 1.18.1</code> n'y est pas disponible : issue #38 ; remède <code>uv</code> avec Python 3.11, ou Bookworm).</li>
+        <li><code>git checkout v2</code> puis <code>pip install -e .</code> dans un virtualenv.</li>
+        <li>Activer I²C, poser la règle udev de latence série, appairer la manette Xbox avec <code>bluetoothctl</code>.</li>
+        <li>Sur Pi 5 : remplacer RPi.GPIO par <code>lgpio</code>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-cpu"/></svg>Dépendances figées</h2>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Paquet</th><th>Version</th><th>Rôle</th></tr></thead>
+          <tbody>
+            <tr><td>rustypot</td><td>0.1.0</td><td>bus Feetech, <code>/dev/ttyACM0</code> à 1 Mbit/s</td></tr>
+            <tr><td>onnxruntime</td><td>1.18.1</td><td>exécution de la politique sur CPU</td></tr>
+            <tr><td>numpy</td><td>1.26.4</td><td>—</td></tr>
+            <tr><td>adafruit-circuitpython-bno055</td><td>5.4.13</td><td>IMU</td></tr>
+            <tr><td>pypot (fork Pollen)</td><td>branche <code>support-feetech-sts3215</code></td><td>scripts de configuration</td></tr>
+            <tr><td>scipy, pygame</td><td>—</td><td>maths, manette</td></tr>
+            <tr><td>openai</td><td>1.70.0</td><td>fonctions d'expression (optionnel)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note info"><svg><use href="#i-info"/></svg><div>Règle udev : le README règle <code>latency_timer=1</code> pour le pilote <code>ftdi_sio</code>, or <code>/dev/ttyACM*</code> correspond à <code>cdc_acm</code>. Vérifier quel pilote la Waveshare utilise (<code>dmesg</code>) avant de copier la règle.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-code"/></svg>Scripts à connaître</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Script</th><th>Quand</th><th>Ce qu'il fait</th></tr></thead>
+        <tbody>
+          <tr><td><code>scripts/configure_motor.py --id N</code></td><td>Avant le montage, un servo à la fois</td><td>Cherche l'ID usine 1, écrit P=32 I=0 D=0, accélération 0, mode 0, change l'ID, envoie en position 0. On monte alors le palonnier aligné.</td></tr>
+          <tr><td><code>scripts/configure_all_motors.py</code></td><td>Robot monté</td><td>Réapplique les réglages sur tous les servos.</td></tr>
+          <tr><td><code>scripts/check_motors.py</code></td><td>Après câblage</td><td>Chaque servo répond et bouge de 0,1 rad.</td></tr>
+          <tr><td><code>scripts/check_voltage.py</code></td><td>Banc, batterie</td><td>Tension vue par chaque servo.</td></tr>
+          <tr><td><code>scripts/find_soft_offsets.py</code></td><td>Calibration</td><td>Coupe le couple d'un joint, on le place à zéro à la main, mesure l'écart → <code>joints_offsets</code> dans <code>~/duck_config.json</code>. <strong>Attention</strong> : issue #32, tête et jambe ont bougé en même temps et cassé des pièces. Robot sur support, mains libres.</td></tr>
+          <tr><td><code>scripts/calibrate_imu.py</code></td><td>Calibration</td><td>Attend la calibration NDOF complète, écrit <code>imu_calib_data.pkl</code> dans le dossier courant.</td></tr>
+          <tr><td><code>scripts/imu_server.py</code> + <code>imu_client.py --ip</code></td><td>Vérification</td><td>Visualise le repère de l'IMU sur le PC pour vérifier l'orientation.</td></tr>
+          <tr><td><code>mini_bdx_runtime/.../feet_contacts.py</code></td><td>Vérification</td><td>Lit les contacts de pied.</td></tr>
+          <tr><td><code>scripts/turn_on.py</code></td><td>Mise sous tension</td><td>P = 2, amène le robot en pose initiale en douceur, puis remonte le gain.</td></tr>
+          <tr><td><code>scripts/v2_rl_walk_mujoco.py --onnx_model_path BEST_WALK_ONNX_2.onnx</code></td><td>Marche</td><td>Boucle à 50 Hz, P = 30 (8 pour la tête), <code>action_scale</code> 0,25. Avec <code>start_paused: true</code>, le bouton A lance la marche. Affiche « Policy control budget exceeded » si la boucle dépasse 20 ms.</td></tr>
+          <tr><td><code>scripts/head_puppet.py</code></td><td>Démo</td><td>Mode marionnette de la tête.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-code"/></svg>Configuration : <code>~/duck_config.json</code></h3>
+<pre><code>{
+  "joints_offsets": {
+    "right_hip_yaw": 0.0,  "right_hip_roll": 0.0,
+    "right_hip_pitch": 0.0, "right_knee": 0.0, "right_ankle": 0.0,
+    "left_hip_yaw": 0.0,   "left_hip_roll": 0.0,
+    "left_hip_pitch": 0.0, "left_knee": 0.0,  "left_ankle": 0.0,
+    "neck_pitch": 0.0, "head_pitch": 0.0,
+    "head_yaw": 0.0,   "head_roll": 0.0
+  },
+  "imu_upside_down": true,
+  "start_paused": true,
+  "phase_frequency_factor_offset": 0.0,
+  "expressive": false
+}</code></pre>
+      <p class="muted" style="font-size:0.85rem">Valeurs indicatives d'après <code>example_config.json</code>. <strong>Ne jamais copier les offsets d'un autre robot.</strong> L'écriture des offsets dans l'EEPROM des servos est encore un TODO amont.</p>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-walk"/></svg>Manette Xbox (Bluetooth)</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Commande</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Stick gauche / droit</td><td>vitesse avant-arrière, latérale (±0,15 m/s), rotation (±1 rad/s)</td></tr>
+            <tr><td><kbd>A</kbd></td><td>pause / reprise de la marche</td></tr>
+            <tr><td><kbd>LB</kbd></td><td>mode « sprint » : fréquence de pas × 1,3</td></tr>
+            <tr><td>Croix haut / bas</td><td>fréquence de pas ±0,05 (réglage fin sans réentraîner)</td></tr>
+            <tr><td><kbd>X</kbd></td><td>projecteur</td></tr>
+            <tr><td><kbd>B</kbd></td><td>son aléatoire</td></tr>
+            <tr><td><kbd>Y</kbd></td><td>contrôle de la tête — « very experimental… can break your duck's head »</td></tr>
+            <tr><td>Gâchettes</td><td>antennes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:0.85rem">Consignes lues à 20 Hz, politique à 50 Hz. Le filtre passe-bas <code>--cutoff_frequency</code> est désactivé par défaut : <strong>ne pas l'activer</strong> avec la politique fournie (absent à l'entraînement).</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><svg><use href="#i-git"/></svg>Ce qui va dans notre fork du runtime</h3>
+    <ul class="tight">
+      <li><code>biscalab/duck_config.json</code> : la configuration de <strong>notre</strong> robot (offsets, IMU), commitée après chaque calibration avec la date dans le message.</li>
+      <li><code>biscalab/INSTALL-biscalab.md</code> : ce qui a marché chez nous (version d'image, pilote udev réel, réglage I²C retenu, commandes exactes).</li>
+      <li><code>biscalab/tests/</code> : résultats de <code>check_motors</code>, <code>check_voltage</code>, courant mesuré, fréquence réelle de la boucle.</li>
+      <li>Aucun fichier amont modifié. Une correction utile à tous est proposée en pull request à Antoine Pirrone.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ MARCHE ═══════════════════════════ -->
+<section class="page" id="page-marche" data-title="Marche et calibration" data-sub="RL, sim2real, dépendances" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Le cœur du sujet</div>
+    <h1>Marche, calibration et transfert sim → réel</h1>
+    <p class="lead">La marche n'est pas programmée : elle est apprise en simulation, puis exécutée telle quelle sur le robot. La politique a donc « mémorisé » un robot précis — ses masses, ses servos, ses semelles, son jeu mécanique. Cette page dit ce qui est figé, ce qui se règle sans réentraîner, et ce qui impose de repasser par la simulation.</p>
+  </div>
+
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-check"/></svg>Se règle sans réentraîner</h3>
+      <ul class="tight">
+        <li>Les ID des servos et l'alignement des palonniers (offsets).</li>
+        <li>La calibration et l'orientation de l'IMU (<code>imu_upside_down</code>).</li>
+        <li>De petites variations de masse, de l'ordre de ±10 % par corps.</li>
+        <li>La fréquence de pas (<code>phase_frequency_factor_offset</code>, croix de la manette).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-warn"/></svg>Impose un réentraînement</h3>
+      <ul class="tight">
+        <li>Toute modification de cinématique (longueur de segment, axe, écartement, forme du pied).</li>
+        <li>Un autre servo (12 V, autre rapport), un autre gain P, une batterie 3S.</li>
+        <li>Une autre semelle que le TPU (frottement différent).</li>
+        <li>Une redistribution importante de la masse (tête, batterie déplacée, calculateur plus lourd).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-zap"/></svg>Ce que la politique a figé</h3>
+      <ul class="tight">
+        <li>Masses et inerties du MJCF (2,107 kg au total).</li>
+        <li>Un modèle de servo STS3215 7,4 V identifié avec BAM : kp 17,11, couple max ±3,23 N·m, damping 0,56, frottement 0,068, armature 0,027.</li>
+        <li>Un sol de frottement 0,6, un jeu de ±0,5° sur les jambes.</li>
+        <li>La pose « home », une période de marche de 0,54 s (27 pas à 50 Hz).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-walk"/></svg>La chaîne complète, et ce qui dépend de quoi</h2>
+    <div class="diag">
+      <svg viewBox="0 0 980 340" role="img" aria-label="Chaîne de génération de la marche et dépendances">
+        <rect class="box p" x="10" y="20" width="200" height="64" rx="12"/>
+        <text x="110" y="46" text-anchor="middle" font-weight="700">CAO</text>
+        <text class="s" x="110" y="64" text-anchor="middle">Onshape public (ou FreeCAD)</text>
+        <rect class="box p" x="260" y="20" width="200" height="64" rx="12"/>
+        <text x="360" y="46" text-anchor="middle" font-weight="700">MJCF Playground</text>
+        <text class="s" x="360" y="64" text-anchor="middle">onshape-to-robot + retouches</text>
+        <rect class="box w" x="510" y="20" width="200" height="64" rx="12"/>
+        <text x="610" y="46" text-anchor="middle" font-weight="700">BAM · STS3215 7,4 V</text>
+        <text class="s" x="610" y="64" text-anchor="middle">P = 30, Vin = 7,4 → kp, couple…</text>
+        <rect class="box b" x="10" y="120" width="200" height="64" rx="12"/>
+        <text x="110" y="146" text-anchor="middle" font-weight="700">URDF Placo</text>
+        <text class="s" x="110" y="164" text-anchor="middle">copie propre au générateur</text>
+        <rect class="box w" x="260" y="120" width="200" height="64" rx="12"/>
+        <text x="360" y="146" text-anchor="middle" font-weight="700">Mouvements de référence</text>
+        <text class="s" x="360" y="164" text-anchor="middle">medium.json · 240 démarches · pkl</text>
+        <rect class="box g" x="510" y="120" width="200" height="64" rx="12"/>
+        <text x="610" y="146" text-anchor="middle" font-weight="700">PPO (Brax) sur GPU</text>
+        <text class="s" x="610" y="164" text-anchor="middle">8192 envs · 300 M pas · ≈ 1 h 10</text>
+        <rect class="box g" x="760" y="120" width="110" height="64" rx="12"/>
+        <text x="815" y="146" text-anchor="middle" font-weight="700">ONNX</text>
+        <text class="s" x="815" y="164" text-anchor="middle">MLP 101 → 14</text>
+        <rect class="box b" x="760" y="220" width="210" height="110" rx="12"/>
+        <text x="865" y="244" text-anchor="middle" font-weight="700">Runtime Pi Zero</text>
+        <text class="s" x="865" y="263" text-anchor="middle">50 Hz · P = 30 · scale 0,25</text>
+        <text class="s" x="865" y="279" text-anchor="middle">duck_config.json (offsets)</text>
+        <text class="s" x="865" y="295" text-anchor="middle">imu_calib_data.pkl</text>
+        <text class="s" x="865" y="311" text-anchor="middle">init_pos = pose home · pkl 0,54 s</text>
+        <path class="arr" d="M210 52 H255"/>
+        <path class="arr" d="M510 52 H465"/>
+        <path class="arr" d="M110 84 V115"/>
+        <path class="arr" d="M210 152 H255"/>
+        <path class="arr" d="M460 152 H505"/>
+        <path class="arr" d="M400 84 V100 H560 V115"/>
+        <path class="arr" d="M710 152 H755"/>
+        <path class="arr" d="M815 184 V215"/>
+        <path class="arr" d="M440 184 V300 H755"/>
+        <text class="lbl" x="420" y="96" text-anchor="start">modèle + actionneur</text>
+        <text class="lbl" x="110" y="204" text-anchor="middle">masses = estimation du slicer (15 %)</text>
+        <text class="lbl" x="452" y="296" text-anchor="start">pkl : période de marche</text>
+        <text class="lbl" x="10" y="236" text-anchor="start">Randomisation active : masses ×U(0,9 ; 1,1), kp ×U(0,9 ; 1,1), frottement articulaire,</text>
+        <text class="lbl" x="10" y="252" text-anchor="start">bruits capteurs, retards 0-40 ms, poussées.</text>
+        <text class="lbl" x="10" y="276" text-anchor="start">Inactive dans le code public (mauvais indices) : frottement du sol,</text>
+        <text class="lbl" x="10" y="292" text-anchor="start">masse et centre de masse du tronc.</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-warn"/></svg>Si je change X, je dois refaire Y</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>On change…</th><th>Ce que suppose la simulation</th><th>Remède</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Masse ou centre de masse</strong> (matériau, remplissage, inserts, électronique, tête)</td><td>Inertiels du MJCF ; masse de chaque corps randomisée ×U(0,9 ; 1,1)</td><td>Corriger le MJCF (et l'URDF Placo), tester l'ONNX avec <code>mujoco_infer</code>, réentraîner si ça tombe</td></tr>
+          <tr><td><strong>Semelle</strong> (autre matériau que le TPU 40 %)</td><td>Frottement fixe 0,6 (sa randomisation ne touche pas le sol)</td><td>Garder du TPU ; sinon ajuster <code>friction</code> et réentraîner</td></tr>
+          <tr><td><strong>Rigidité des pièces</strong></td><td>Corps parfaitement rigides, non modélisés</td><td>Correction mécanique uniquement (PETG-CF, nervures)</td></tr>
+          <tr><td><strong>Jeu mécanique</strong></td><td>±0,5° sur les jambes seulement</td><td>Mesurer le jeu ; s'il est plus grand, élargir <code>range</code> des joints backlash et réentraîner</td></tr>
+          <tr><td><strong>Tension batterie</strong></td><td>Modèle établi à 7,4 V ; kp ±10 %, couple non randomisé</td><td>kp et couple +13,5 % à 8,4 V, −8 % à 6,8 V. Rester en 2S ; ajouter une randomisation de tension si on réentraîne</td></tr>
+          <tr><td><strong>Gain P</strong> (<code>-p</code>)</td><td>kp proportionnel à P = 30</td><td>Garder 30 ; sinon réentraîner</td></tr>
+          <tr><td><strong>Servo</strong> (12 V, autre rapport)</td><td>Paramètres BAM du STS3215 7,4 V, 5,24 rad/s max</td><td>Nouvelle identification BAM, puis réentraînement complet</td></tr>
+          <tr><td><strong>Latence de la boucle</strong></td><td>50 Hz, retard d'action 0 à 40 ms</td><td>Rester sous 20 ms par cycle (Pi Zero 2 W suffit pour la marche seule)</td></tr>
+          <tr><td><strong>Position ou orientation de l'IMU</strong></td><td>Site <code>imu</code> du MJCF + remappage des axes</td><td>Configuration (<code>imu_upside_down</code>) ; réentraîner si l'IMU est déplacée</td></tr>
+          <tr><td><strong>Paramètres de démarche</strong> (hauteur de pas, durée d'appui)</td><td>Références Placo, pkl, période 0,54 s</td><td>Régénérer les références, le pkl (Playground + runtime), réentraîner</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h2><svg><use href="#i-check"/></svg>La politique fournie, telle quelle : conditions</h2>
+      <p class="sub">Documenté : elle fonctionne sur un robot « built to the standard specs ». Aucune tolérance chiffrée n'est publiée.</p>
+      <ul class="tight">
+        <li>14 degrés de liberté dans le même ordre, mêmes signes et zéros, même pose <code>home</code>.</li>
+        <li>50 Hz, <code>action_scale</code> 0,25, gain P = 30.</li>
+        <li>STS3215 7,4 V au rapport 1/345.</li>
+        <li>Batterie 2S, semelles en TPU, IMU dans un repère compatible.</li>
+        <li>Le pkl fourni (période 0,54 s) à côté du script.</li>
+      </ul>
+      <div class="note ok"><svg><use href="#i-check"/></svg><div><strong>Test gratuit avant de construire</strong> (CPU, pas de GPU) : modifier les masses dans le MJCF selon nos pièces réelles, puis <code>uv run playground/open_duck_mini_v2/mujoco_infer.py -o BEST_WALK_ONNX_2.onnx</code>. Si le canard simulé tient debout et marche, nos écarts sont dans la tolérance.</div></div>
+    </div>
+    <div class="card">
+      <h2><svg><use href="#i-cpu"/></svg>Réentraîner, si nécessaire</h2>
+      <ol class="tight">
+        <li><strong>Matériel</strong> : GPU NVIDIA avec CUDA 12 (<code>jax[cuda12]</code>), Python ≥ 3.11, <code>uv</code>. Un CPU seul n'est documenté nulle part comme viable. Repère : 300 M pas en 1 h 11 sur RTX 3090.</li>
+        <li><strong>Références</strong> (si la géométrie change) : <code>uv run scripts/auto_waddle.py -j8 --duck open_duck_mini_v2 --sweep</code> puis <code>fit_poly.py</code> → <code>polynomial_coefficients.pkl</code>, copié dans <code>playground/open_duck_mini_v2/data/</code> et à côté du script du runtime.</li>
+        <li><strong>Modèle</strong> : partir de <code>open_duck_mini_v2_backlash.xml</code> (kp 17,11), corriger les inertiels. <strong>Corriger aussi</strong> <code>FLOOR_GEOM_ID</code> (46) et <code>TORSO_BODY_ID</code> (2) dans <code>randomize.py</code>, sinon la randomisation du sol et du tronc ne fait rien.</li>
+        <li><strong>Entraînement</strong> : <code>uv run playground/open_duck_mini_v2/runner.py --task flat_terrain_backlash --num_timesteps 300000000</code>. Export ONNX automatique à chaque checkpoint.</li>
+        <li><strong>Validation</strong> : <code>mujoco_infer.py</code>, puis sur le robot suspendu, puis au sol avec la potence.</li>
+      </ol>
+      <p class="muted" style="font-size:0.85rem">Sans GPU au FabLab : location horaire d'une instance GPU (quelques euros l'heure) ou le PC d'un membre. À trancher en phase 0.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-walk"/></svg>Paramètres de référence (pour vérifier un réexport)</h2>
+    <div class="grid c3">
+      <div>
+        <h4>Environnement</h4>
+        <dl class="def">
+          <dt>Contrôle</dt><dd>0,02 s (50 Hz) ; simulation 0,002 s</dd>
+          <dt>Épisode</dt><dd>1000 pas</dd>
+          <dt>Cible moteur</dt><dd>home + 0,25 × action, max 5,24 rad/s</dd>
+          <dt>Commandes</dt><dd>vx ±0,15, vy ±0,2 m/s, ωz ±1 rad/s</dd>
+          <dt>Observation</dt><dd>101 : gyro 3, accel 3, commande 7, écart home 14, vitesses 14, 3 dernières actions 42, cibles 14, contacts 2, phase 2</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>Actionneur <code>sts3215</code> (modèle backlash)</h4>
+        <dl class="def">
+          <dt>kp</dt><dd>17,11</dd>
+          <dt>forcerange</dt><dd>±3,23 N·m</dd>
+          <dt>damping</dt><dd>0,56</dd>
+          <dt>frictionloss</dt><dd>0,068</dd>
+          <dt>armature</dt><dd>0,027</dd>
+          <dt>Formule BAM</dt><dd>kp = 0,166 · P · Vin · 0,97 · kt/R</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>Récompenses (poids)</h4>
+        <dl class="def">
+          <dt>Suivi vitesse linéaire</dt><dd>2,5</dd>
+          <dt>Suivi vitesse angulaire</dt><dd>6,0</dd>
+          <dt>Rester debout</dt><dd>20</dd>
+          <dt>Imitation</dt><dd>1,0 (position articulaire ×15)</dd>
+          <dt>Couples</dt><dd>−1e-3</dd>
+          <dt>Variation d'action</dt><dd>−0,5</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-check"/></svg>Calibration du robot réel, dans l'ordre</h2>
+    <p class="sub">Phase 5. Robot sur son support, batterie remplacée par l'alimentation de laboratoire, mains libres pendant les scripts qui bougent.</p>
+    <div class="chklist">
+      <label class="chk"><input type="checkbox" data-k="c.1"><span class="t"><strong>Configurer chaque servo avant montage</strong> : <code>configure_motor.py --id N</code> (10-14 jambe droite, 20-24 jambe gauche, 30-33 cou/tête). Palonnier monté aligné sur la position 0.<small>Ordre dans chaque jambe : hip_yaw, hip_roll, hip_pitch, knee, ankle. Tête : 30 neck_pitch, 31 head_pitch, 32 head_yaw, 33 head_roll.</small></span></label>
+      <label class="chk"><input type="checkbox" data-k="c.2"><span class="t"><strong>Vérifier les servos</strong> : <code>check_motors.py</code> (tous répondent, bougent de 0,1 rad), <code>check_voltage.py</code>.</span></label>
+      <label class="chk"><input type="checkbox" data-k="c.3"><span class="t"><strong>Mesurer les offsets</strong> : <code>find_soft_offsets.py</code>, joint par joint, robot sur support. Reporter dans <code>~/duck_config.json</code> → <code>joints_offsets</code>, puis commiter dans notre fork.</span></label>
+      <label class="chk"><input type="checkbox" data-k="c.4"><span class="t"><strong>IMU</strong> : <code>raw_imu.py</code> stable ; <code>imu_server.py</code> / <code>imu_client.py</code> pour vérifier le repère ; <code>imu_upside_down</code> si besoin ; <code>calibrate_imu.py</code> depuis le dossier de lancement.</span></label>
+      <label class="chk"><input type="checkbox" data-k="c.5"><span class="t"><strong>Contacts de pied</strong> : <code>feet_contacts.py</code>, les quatre contacts répondent, gauche = GPIO22, droit = GPIO27.</span></label>
+      <label class="chk"><input type="checkbox" data-k="c.6"><span class="t"><strong>Test debout</strong> : <code>turn_on.py</code> (P = 2 puis montée du gain), posture home tenue 2 min, servos tièdes, pas d'erreur CRC.</span></label>
+      <label class="chk"><input type="checkbox" data-k="c.7"><span class="t"><strong>Première marche</strong> : <code>v2_rl_walk_mujoco.py</code> avec <code>start_paused: true</code>, potence attachée, sol plat et propre, bouton A, consigne nulle d'abord (piétinement), puis vx faible.</span></label>
+      <label class="chk"><input type="checkbox" data-k="c.8"><span class="t"><strong>Mesures</strong> : courant crête (dimensionnement du BMS), température des servos après 5 min, fréquence réelle de la boucle, « Policy control budget exceeded » absent. Fiche de test rédigée.</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-flag"/></svg>Recommandations pour BiscaLab</h2>
+    <ol class="rules">
+      <li>Acheter des STS3215 C001 7,4 V 1/345, alimenter en 2S, imprimer les semelles en TPU 40 % et respecter strictement la géométrie amont.</li>
+      <li>Peser chaque sous-ensemble et comparer aux masses du MJCF (tronc 0,699 kg ; tête + cou 0,582 kg ; jambe ≈ 0,41 kg ; total 2,107 kg). Noter les écarts dans la fiche de test.</li>
+      <li>Ne découper au laser que des pièces non structurelles ou de l'outillage ; si une pièce du robot change, corriger son inertiel.</li>
+      <li>Avant toute construction, tester la politique fournie sur le MJCF corrigé avec <code>mujoco_infer.py</code>. C'est gratuit et ça lève le doute.</li>
+      <li>Réentraîner seulement si le test tombe ou si l'on change servo, semelle, tension ou géométrie — avec les deux indices corrigés dans <code>randomize.py</code> et le modèle backlash (kp 17,11).</li>
+      <li>Garder le filtre passe-bas désactivé, le gain P à 30 et la boucle sous 20 ms : trois réglages « innocents » qui cassent le transfert.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PLANNING ═══════════════════════════ -->
+<section class="page" id="page-planning" data-title="Planning et jalons" data-sub="7 phases, listes de contrôle" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Feuille de route</div>
+    <h1>Sept phases, un jalon testable à chaque fois</h1>
+    <p class="lead">Le plan d'achats de septembre fixait six phases ; nous ajoutons une phase 0 d'organisation. Les mois sont indicatifs : ce qui compte, c'est que chaque phase se ferme par une fiche de test lue en réunion. Les cases ci-dessous sont mémorisées sur cet appareil ; l'état de référence reste le tableau GitHub.</p>
+  </div>
+
+  <div class="phases">
+    <div class="phase" style="--ph: var(--color-primary)"><div class="n">Phase 0</div><div class="t">Organisation</div><div class="m">oct. 2026</div><div class="amt">0 €</div><div class="m">GitHub, rôles, outils, sécurité</div></div>
+    <div class="phase" style="--ph: var(--color-consumption)"><div class="n">Phase 1</div><div class="t">Structure imprimée</div><div class="m">oct. 2026</div><div class="amt">55,70 €</div><div class="m">Pièces imprimées, assemblage à blanc</div></div>
+    <div class="phase" style="--ph: var(--color-cyan)"><div class="n">Phase 2</div><div class="t">Cerveau + banc servo</div><div class="m">nov. 2026</div><div class="amt">99,55 €</div><div class="m">IMU + bus validés · GO/NO-GO</div></div>
+    <div class="phase" style="--ph: var(--color-battery)"><div class="n">Phase 3</div><div class="t">Jambe 1</div><div class="m">déc. 2026</div><div class="amt">63,10 €</div><div class="m">Jambe pilotée, contacts lus</div></div>
+    <div class="phase" style="--ph: var(--color-lime)"><div class="n">Phase 4</div><div class="t">Jambe 2</div><div class="m">janv. 2027</div><div class="amt">99,50 €</div><div class="m">Bas du corps debout sur banc</div></div>
+    <div class="phase" style="--ph: var(--color-solar)"><div class="n">Phase 5</div><div class="t">Tête + calibration</div><div class="m">févr. 2027</div><div class="amt">95,25 €</div><div class="m">14 servos, offsets, 1re marche filaire</div></div>
+    <div class="phase" style="--ph: var(--color-hp)"><div class="n">Phase 6</div><div class="t">Énergie embarquée</div><div class="m">mars 2027</div><div class="amt">63,15 €</div><div class="m">Marche autonome sur batterie</div></div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-cal"/></svg>Phase 0 · Organisation <span class="pill p" id="pct-p0">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p0.1"><span class="t">Rôles attribués et notés dans <code>biscalab/README.md</code></span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.2"><span class="t">Organisation GitHub créée, 2 propriétaires, 2FA activée pour tous</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.3"><span class="t">Forks <code>Open_Duck_Mini</code> et <code>Open_Duck_Mini_Runtime</code>, Issues activées, labels, 7 jalons, tableau Projects</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.4"><span class="t">Arborescence <code>biscalab/</code>, <code>.gitattributes</code>, <code>.gitignore</code>, <code>CREDITS.md</code> poussés</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.5"><span class="t">GitHub Desktop installé sur chaque PC, 5 gestes répétés en séance</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.6"><span class="t">Copie Onshape BiscaLab créée ; FreeCAD réglé (compression 0, auteur)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.7"><span class="t">Groupe Signal/WhatsApp, dossier Nextcloud « Canard », référents inscrits au Discord amont</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.8"><span class="t"><code>securite.md</code> rédigé et affiché (batteries, laser, banc)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.9"><span class="t">Décisions tranchées : chargeur 2S, politique CAO, GPU disponible, hébergement du dossier</span></label>
+        <label class="chk"><input type="checkbox" data-k="p0.10"><span class="t">Issues de la phase 1 créées, issue « Achat phase 1 » validée</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-printer"/></svg>Phase 1 · Structure imprimée <span class="pill p" id="pct-p1">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p1.1"><span class="t">Filament, inserts M3 (réf. BOM), 3 × 608ZZ, consommables reçus</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.2"><span class="t">Lot de profils PrusaSlicer exporté et commité ; pièce test inserts validée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.3"><span class="t">36 STL amont vérifiés (branche v2), <code>pieces.csv</code> initialisé avec les 51 lignes</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.4"><span class="t">Plateaux 3MF créés par sous-ensemble (orientation et supports figés)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.5"><span class="t">Pieds (8 pièces, dont 2 TPU 40 %) imprimés et contrôlés</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.6"><span class="t">Jambes (18 pièces) imprimées ; gauche/droite identifiées au marqueur</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.7"><span class="t">Tronc, cou, tête (9 pièces) imprimés ; roulements et inserts posés</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.8"><span class="t">Carrosserie (9 pièces) imprimée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.9"><span class="t">Chaque sous-ensemble pesé et comparé aux masses du MJCF (fiche de test)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p1.10"><span class="t">Assemblage à blanc sans servos (cales de la taille d'un STS3215) ; photos dans <code>docs/photos/</code></span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-cpu"/></svg>Phase 2 · Cerveau + banc servo <span class="pill p" id="pct-p2">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p2.1"><span class="t">Pi Zero 2 W, microSD 32 Go, Waveshare, BNO055, 2 × STS3215 7,4 V C001 reçus (référence vérifiée à la réception)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.2"><span class="t">Socle de banc découpé au laser (servos + carte + Pi), alimentation labo 7,4 V limitée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.3"><span class="t">Image v0.2.3 flashée, identifiants changés, SSH et Wi-Fi fonctionnels</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.4"><span class="t">Checklist « banc servo » de la rubrique Électronique entièrement verte</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.5"><span class="t">Manette Xbox appairée, <code>pygame</code> voit les axes</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.6"><span class="t"><code>mujoco_infer.py</code> lancé sur un PC avec le MJCF corrigé par nos masses réelles : le canard simulé marche</span></label>
+        <label class="chk"><input type="checkbox" data-k="p2.7"><span class="t"><strong>GO / NO-GO</strong> noté dans le journal → commande des 12 servos restants (même lot)</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-walk"/></svg>Phases 3 et 4 · Jambes <span class="pill p" id="pct-p3">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p3.1"><span class="t">Servos 12-14 configurés avant montage (jambe droite), palonniers alignés au gabarit</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.2"><span class="t">Jambe droite montée ; orientation du hip_pitch vérifiée (position zéro)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.3"><span class="t">4 contacts SS-10 pressés dans les semelles, lus par <code>feet_contacts.py</code></span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.4"><span class="t">Jambe droite pilotée joint par joint sur le banc, jeu mesuré à chaque articulation</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.5"><span class="t">Servos 20-24 configurés, jambe gauche montée (pièces miroir : ne pas inverser)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.6"><span class="t">Tronc + deux jambes : posture debout tenue sur le banc avec <code>turn_on.py</code> (servos 10, 11, 20, 21 configurés)</span></label>
+        <label class="chk"><input type="checkbox" data-k="p3.7"><span class="t">Câblage du bus en chaîne, gaine spirale, aucun câble pincé sur toute l'amplitude</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-zap"/></svg>Phase 5 · Tête, calibration, première marche <span class="pill p" id="pct-p5">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p5.1"><span class="t">Servos 30-33 configurés, cou et tête montés (roulements, inserts), micro-servos des antennes</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.2"><span class="t">IMU montée, orientation vérifiée avec <code>imu_client.py</code>, calibrée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.3"><span class="t">Offsets mesurés avec <code>find_soft_offsets.py</code>, <code>duck_config.json</code> commité</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.4"><span class="t">Potence/harnais découpé et installé au-dessus du centre de masse</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.5"><span class="t">Checklist « Calibration » de la rubrique Marche entièrement verte</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.6"><span class="t">Courant crête mesuré sur alimentation labo → calibre du BMS décidé</span></label>
+        <label class="chk"><input type="checkbox" data-k="p5.7"><span class="t">Première marche filaire filmée, fiche de test rédigée, démo au FabLab</span></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Phase 6 · Énergie embarquée <span class="pill p" id="pct-p6">0 %</span></h3>
+      <div class="chklist">
+        <label class="chk"><input type="checkbox" data-k="p6.1"><span class="t">2 × P30B, support, BMS (calibre validé), UBEC, interrupteur, chargeur 2S, jacks, XT30 reçus</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.2"><span class="t">Pack assemblé hors robot, cellules à la même tension, BMS testé (coupure basse, équilibrage), sac ignifuge pour la charge</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.3"><span class="t"><code>check_voltage.py</code> sous batterie : tension vue par les servos en charge, pas d'erreur CRC</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.4"><span class="t">Marche sur batterie, potence puis libre ; autonomie mesurée (minutes de marche) et notée</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.5"><span class="t">Carrosserie fermée, <code>battery_pack_lid</code> en place, interrupteur accessible</span></label>
+        <label class="chk"><input type="checkbox" data-k="p6.6"><span class="t">Release GitHub « canard-biscalab v1.0 » : STL modifiés, 3MF, config, fiches de test, vidéo</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><svg><use href="#i-copy"/></svg>Partager l'état des listes</h3>
+    <p class="sub">Les cases sont enregistrées dans ce navigateur seulement. Pour synchroniser avec un collègue : copier l'export, le coller dans l'import de l'autre appareil.</p>
+    <div class="row">
+      <button class="btn primary" type="button" id="btn-export"><svg><use href="#i-copy"/></svg>Exporter (copier)</button>
+      <button class="btn" type="button" id="btn-import">Importer depuis le texte ci-dessous</button>
+      <button class="btn" type="button" id="btn-reset">Tout décocher</button>
+    </div>
+    <textarea class="io" id="io" placeholder="L'export apparaît ici. Pour importer, coller un export puis cliquer « Importer »."></textarea>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ RISQUES ═══════════════════════════ -->
+<section class="page" id="page-risques" data-title="Risques et sécurité" data-sub="Registre, parades" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Anticiper</div>
+    <h1>Registre des risques</h1>
+    <p class="lead">Tout ce que la communauté a déjà rencontré, et ce que notre contexte ajoute. Chaque ligne a une parade et une phase où on la vérifie. À relire au début de chaque phase.</p>
+  </div>
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risque</th><th>Impact</th><th>Prob.</th><th>Parade</th><th>Phase</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Mauvaise variante de servo</strong> (12 V, 1/191, 1/147)</td><td><span class="pill bad">fort</span> politique inutilisable, réentraînement + nouvelle identification BAM</td><td>moyen</td><td>Référence C001 7,4 V 1/345 écrite dans l'issue Achat ; contrôle à réception ; 2 servos d'abord</td><td>2</td></tr>
+          <tr><td><strong>Chute de tension sous charge</strong> (cellules molles, câbles fins)</td><td><span class="pill bad">fort</span> erreurs CRC, chutes du robot (issue #49)</td><td>moyen</td><td>Molicel P30B ≥ 25 A, XT30, câbles courts ; test <code>check_voltage</code> en charge</td><td>6</td></tr>
+          <tr><td><strong>Firmwares de servos hétérogènes</strong></td><td><span class="pill warn">moyen</span> « Parsing error in set_kps() » (Runtime #26)</td><td>moyen</td><td>Même lot ; vérifier la version au banc ; mise à jour Feetech sous Windows si besoin</td><td>2, 3</td></tr>
+          <tr><td><strong>Python 3.13 sur image récente</strong></td><td><span class="pill warn">moyen</span> onnxruntime 1.18.1 introuvable (Runtime #38)</td><td>fort</td><td>Image v0.2.3 (Bookworm) ou <code>uv</code> + Python 3.11</td><td>2</td></tr>
+          <tr><td><strong>Casse pendant <code>find_soft_offsets</code></strong></td><td><span class="pill warn">moyen</span> pièces cassées (Runtime #32)</td><td>moyen</td><td>Robot sur support, un joint à la fois, pièces de rechange imprimées d'avance (sheets, spacers)</td><td>5</td></tr>
+          <tr><td><strong>Contrôle de tête (bouton Y)</strong></td><td><span class="pill warn">moyen</span> « can break your duck's head »</td><td>fort si utilisé</td><td>Ne pas l'utiliser en démo ; <code>head_puppet.py</code> à la place</td><td>5+</td></tr>
+          <tr><td><strong>IMU I²C instable</strong> (clock stretching)</td><td><span class="pill warn">moyen</span> données manquantes → chute</td><td>moyen</td><td>Test 10 min au banc ; <code>i2c_arm_baudrate=10000</code> ou UART</td><td>2</td></tr>
+          <tr><td><strong>Carte Waveshare hors plage 2S</strong></td><td><span class="pill warn">moyen</span> bus instable à 7,4 V</td><td>faible (le projet l'utilise ainsi)</td><td>Mesure au banc avant la commande des 12 servos</td><td>2</td></tr>
+          <tr><td><strong>Pi Zero 2 W en rupture</strong></td><td><span class="pill warn">moyen</span> retard phase 2</td><td>fort</td><td>Commander dès la phase 0 chez Kubii ; alternative Pi 5 (<code>lgpio</code>) plus chère</td><td>0</td></tr>
+          <tr><td><strong>Masses hors tolérance</strong> (matériau, remplissage, laser)</td><td><span class="pill warn">moyen</span> instabilité, réentraînement</td><td>moyen</td><td>Suivre l'amont (PLA 15 %) ; peser ; <code>mujoco_infer</code> avec masses réelles</td><td>1, 2</td></tr>
+          <tr><td><strong>Documentation amont incomplète</strong> (vis, carte servo, expression)</td><td><span class="pill mute">faible</span> tâtonnements</td><td>certain</td><td>Guide Tnkr, journaux de construction tiers, Discord ; documenter ce que nous trouvons</td><td>1-5</td></tr>
+          <tr><td><strong>Douane / délais</strong> hors UE</td><td><span class="pill mute">faible</span> surcoût, retard</td><td>moyen</td><td>Fournisseurs UE ; un seul écart assumé possible (servos), décision du bureau</td><td>toutes</td></tr>
+          <tr><td><strong>Pas de GPU</strong> pour réentraîner</td><td><span class="pill mute">faible</span> si la politique fournie convient</td><td>moyen</td><td>Rester dans les specs ; sinon location cloud ou PC d'un membre</td><td>0, 5</td></tr>
+          <tr><td><strong>Fichiers CAO écrasés</strong> (deux éditeurs)</td><td><span class="pill mute">faible</span> travail perdu</td><td>moyen</td><td>Un éditeur par fichier (issue assignée), <code>pull</code> avant, <code>push</code> après</td><td>toutes</td></tr>
+          <tr><td><strong>Incendie Li-ion</strong></td><td><span class="pill bad">fort</span> sécurité des personnes et des locaux</td><td>faible</td><td>Charge surveillée en sac ignifuge, stockage 50 %, BMS, consigne affichée</td><td>6</td></tr>
+          <tr><td><strong>Laser : matériau interdit, feu</strong></td><td><span class="pill bad">fort</span> gaz toxiques, incendie</td><td>faible</td><td>Liste affichée sur la machine, présence permanente, extraction</td><td>2, 5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="grid c3">
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Batteries</h3>
+      <ul class="tight">
+        <li>Charge : surface incombustible, sac ou boîte ignifuge, présence humaine, arrêt si chauffe ou gonflement.</li>
+        <li>Stockage : ≈ 50 %, hors robot, boîte métallique, pôles protégés.</li>
+        <li>Incendie : évacuer, n'intervenir que formé et équipé.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Laser xTool P2S</h3>
+      <ul class="tight">
+        <li>Jamais seul, jamais sans extraction.</li>
+        <li>Matériaux interdits affichés : PVC, vinyle, ABS, polycarbonate, polystyrène, fibre de carbone enduite.</li>
+        <li>Extincteur CO₂ à portée ; surveiller les découpes d'acrylique.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-shield"/></svg>Banc et robot</h3>
+      <ul class="tight">
+        <li>Alimentation labo limitée en courant tant que la batterie n'est pas validée.</li>
+        <li>Robot sur support ou potence pour tout script qui bouge ; mains hors des articulations.</li>
+        <li>Bouton A (pause) toujours à portée pendant une marche.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FORMATION ═══════════════════════════ -->
+<section class="page" id="page-formation" data-title="Formation et glossaire" data-sub="Tutoriels, vocabulaire" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Monter en compétence</div>
+    <h1>Formation express et glossaire</h1>
+    <p class="lead">Personne n'a besoin de tout savoir. Chaque référent apprend son outil ; les cinq gestes GitHub Desktop, eux, sont pour tout le monde.</p>
+  </div>
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-book"/></svg>Tutoriels en français</h3>
+      <ul class="links">
+        <li><a href="https://docs.github.com/fr/desktop/overview/getting-started-with-github-desktop" target="_blank" rel="noopener">Prise en main de GitHub Desktop</a> — documentation officielle en français.</li>
+        <li><a href="https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank" rel="noopener">OpenClassrooms « Gérez du code avec Git et GitHub »</a> — gratuit, 6 h.</li>
+        <li><a href="https://grafikart.fr/formations/git" target="_blank" rel="noopener">Grafikart « Comprendre Git »</a> — 18 chapitres dont un sur GitHub Desktop.</li>
+        <li><a href="https://docs.github.com/fr/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects" target="_blank" rel="noopener">GitHub Projects</a> — tableaux et roadmaps.</li>
+        <li><a href="https://wiki.freecad.org/Main_Page/fr" target="_blank" rel="noopener">Wiki FreeCAD en français</a> et <a href="https://freecad-france.com" target="_blank" rel="noopener">FreeCAD-France</a> (forum, vidéos).</li>
+        <li><a href="https://help.prusa3d.com/fr/category/prusaslicer_204" target="_blank" rel="noopener">Aide PrusaSlicer en français</a> — profils, 3MF, supports peints.</li>
+        <li><a href="https://support.xtool.com/article/2426" target="_blank" rel="noopener">xTool : compensation de kerf dans XCS</a>.</li>
+        <li><a href="https://cnckitchen.com/blog/tips-and-tricks-for-heat-set-inserts" target="_blank" rel="noopener">CNC Kitchen : inserts à chaud</a> (anglais, très visuel).</li>
+        <li><a href="https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/python-circuitpython" target="_blank" rel="noopener">Adafruit BNO055 sur Raspberry Pi</a> (anglais).</li>
+        <li><a href="https://frankfu.blog/openai/understanding-reinforcement-learning-through-openduck/" target="_blank" rel="noopener">Comprendre le RL à travers Open Duck</a> (anglais) — pour qui veut lire le Playground.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-book"/></svg>Glossaire</h3>
+      <dl class="def">
+        <dt>Fork / clone</dt><dd>Copie du dépôt sur GitHub (partagée) / copie sur un PC (locale).</dd>
+        <dt>Commit / push / pull</dt><dd>Enregistrer une version / l'envoyer sur GitHub / récupérer celles des autres.</dd>
+        <dt>Issue</dt><dd>Une tâche, un problème ou une question, avec un responsable.</dd>
+        <dt>Pull request</dt><dd>Proposition de modification relue avant fusion.</dd>
+        <dt>Milestone</dt><dd>Jalon : un groupe d'issues à boucler avant une date.</dd>
+        <dt>STL / STEP / 3MF</dt><dd>Maillage pour imprimer / géométrie exacte pour la CAO / projet d'impression complet.</dd>
+        <dt>Kerf</dt><dd>Largeur de matière brûlée par le laser (0,1 à 0,25 mm), à compenser.</dd>
+        <dt>Insert à chaud</dt><dd>Écrou laiton fondu dans le plastique pour visser en M3.</dd>
+        <dt>Servo bus série</dt><dd>Servo adressable (ID) chaîné sur un seul câble, avec retour de position.</dd>
+        <dt>IMU</dt><dd>Centrale inertielle : gyroscope + accéléromètre (+ magnétomètre), donne l'attitude.</dd>
+        <dt>BMS / UBEC</dt><dd>Protection et équilibrage du pack / régulateur 5 V à découpage.</dd>
+        <dt>2S</dt><dd>Deux cellules en série (7,4 V nominal, 8,4 V chargé).</dd>
+        <dt>RL / PPO</dt><dd>Apprentissage par renforcement / l'algorithme utilisé pour entraîner la marche.</dd>
+        <dt>Politique</dt><dd>Le réseau de neurones qui, à partir des capteurs, décide des consignes des servos.</dd>
+        <dt>MuJoCo / MJCF</dt><dd>Le simulateur physique / son format de modèle de robot (XML).</dd>
+        <dt>URDF</dt><dd>Autre format de modèle de robot, utilisé par Placo.</dd>
+        <dt>ONNX</dt><dd>Format d'échange du réseau entraîné, exécuté par <code>onnxruntime</code> sur le Pi.</dd>
+        <dt>Sim2real</dt><dd>Le passage de la simulation au robot réel, et tout ce qui peut y casser.</dd>
+        <dt>Domain randomization</dt><dd>Varier masses, frottements, gains pendant l'entraînement pour rendre la politique tolérante.</dd>
+        <dt>BAM</dt><dd>Méthode Rhoban d'identification d'un servo (gain, couple, frottements) pour la simulation.</dd>
+        <dt>Offsets</dt><dd>Écart entre le zéro mécanique réel et le zéro du servo, mesuré robot par robot.</dd>
+        <dt>Keyframe « home »</dt><dd>La posture de référence, debout, d'où partent toutes les consignes.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SOURCES ═══════════════════════════ -->
+<section class="page" id="page-sources" data-title="Sources" data-sub="Références vérifiées le 1er oct. 2026" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Références</div>
+    <h1>Sources</h1>
+    <p class="lead">Tout ce dossier repose sur les documents ci-dessous, lus le 1er octobre 2026. Les chiffres (prix, versions, paramètres) viennent des fichiers des dépôts à cette date ; ils bougent, et c'est le dépôt qui fait foi.</p>
+  </div>
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-git"/></svg>Dépôts et documents du projet</h3>
+      <ul class="src">
+        <li><a href="https://github.com/apirrone/Open_Duck_Mini" target="_blank" rel="noopener">apirrone/Open_Duck_Mini</a> (v2) : README, <code>docs/print_guide.md</code>, <code>docs/assembly_guide.md</code>, <code>docs/configure_motors.md</code>, <code>docs/sim2real.md</code>, <code>docs/prepare_robot.md</code>, <code>print/</code>, <code>print/mods/v2_Jaimes_Mods/README.md</code>, LICENSE</li>
+        <li><a href="https://github.com/apirrone/Open_Duck_Mini_Runtime" target="_blank" rel="noopener">apirrone/Open_Duck_Mini_Runtime</a> (v2) : README, <code>docs/INSTALL.md</code>, <code>setup.cfg</code>, <code>example_config.json</code>, <code>checklist.md</code>, <code>scripts/</code> (v2_rl_walk_mujoco, configure_motor, configure_all_motors, find_soft_offsets, calibrate_imu, check_motors, check_voltage, turn_on), <code>mini_bdx_runtime/</code> (rustypot_position_hwi, raw_imu, imu, feet_contacts)</li>
+        <li><a href="https://github.com/apirrone/Open_Duck_Playground" target="_blank" rel="noopener">apirrone/Open_Duck_Playground</a> : README, <code>pyproject.toml</code>, <code>joystick.py</code>, <code>custom_rewards.py</code>, <code>constants.py</code>, <code>mujoco_infer.py</code>, <code>common/randomize.py</code>, <code>common/runner.py</code>, <code>common/export_onnx.py</code>, <code>xmls/</code></li>
+        <li><a href="https://github.com/apirrone/Open_Duck_reference_motion_generator" target="_blank" rel="noopener">apirrone/Open_Duck_reference_motion_generator</a> : README, <code>auto_waddle.py</code>, <code>fit_poly.py</code>, <code>gait_generator.py</code>, <code>placo_walk_engine.py</code>, <code>medium.json</code>, <code>auto_gait.json</code></li>
+        <li><a href="https://cad.onshape.com/documents/64074dfcfa379b37d8a47762/w/3650ab4221e215a4f65eb7fe/e/0505c262d882183a25049d05" target="_blank" rel="noopener">Document Onshape public</a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1gq4iWWHEJVgAA_eemkTEsshXqrYlFxXAPwO515KpCJc" target="_blank" rel="noopener">BOM officielle (Google Sheets)</a></li>
+        <li><a href="https://github.com/Rhoban/bam" target="_blank" rel="noopener">Rhoban/bam</a> (params feetech_sts3215_7_4V, actuator.py, to_mujoco.py) · <a href="https://github.com/Rhoban/onshape-to-robot" target="_blank" rel="noopener">Rhoban/onshape-to-robot</a> et <a href="https://onshape-to-robot.readthedocs.io/en/latest/" target="_blank" rel="noopener">sa documentation</a> · <a href="https://github.com/pollen-robotics/rustypot" target="_blank" rel="noopener">pollen-robotics/rustypot</a> · <a href="https://github.com/pollen-robotics/Open_Duck_Blender" target="_blank" rel="noopener">Open_Duck_Blender</a> · <a href="https://github.com/pollen-robotics/microduck_rl" target="_blank" rel="noopener">microduck_rl</a></li>
+        <li>Issues : <a href="https://github.com/apirrone/Open_Duck_Mini/issues/48" target="_blank" rel="noopener">#48</a> (variante C001 et vitesse), <a href="https://github.com/apirrone/Open_Duck_Mini/issues/49" target="_blank" rel="noopener">#49</a> (chute de tension, CRC), <a href="https://github.com/apirrone/Open_Duck_Mini/issues/52" target="_blank" rel="noopener">#52</a> (servos 12 V aux genoux), Runtime <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/26" target="_blank" rel="noopener">#26</a> (firmware), <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/32" target="_blank" rel="noopener">#32</a> (casse en calibration), <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/38" target="_blank" rel="noopener">#38</a> (Python 3.13)</li>
+        <li>Dérivés : <a href="https://github.com/XiaohuiChen-personal/Open_Duck_Mini_Jetson" target="_blank" rel="noopener">Open_Duck_Mini_Jetson</a> · <a href="https://github.com/i1Cps/duck_mini_pro_headless" target="_blank" rel="noopener">duck_mini_pro_headless</a> · <a href="https://github.com/soyeon24/open-duck-mini-v2-build" target="_blank" rel="noopener">soyeon24/open-duck-mini-v2-build</a> · <a href="https://github.com/seanmayer/open-duck-mini-build" target="_blank" rel="noopener">seanmayer/open-duck-mini-build</a> · <a href="https://github.com/rimim/AWD" target="_blank" rel="noopener">rimim/AWD</a> · <a href="https://github.com/drfenixion/freecad.overcross" target="_blank" rel="noopener">RobotCAD</a></li>
+        <li>Communauté : <a href="https://discord.gg/UtJZsgfQGe" target="_blank" rel="noopener">Discord</a> · <a href="https://tnkr.ai/explore/docs/open-duck-mini/open-duck-mini-v2" target="_blank" rel="noopener">Guide Tnkr</a> · <a href="https://zihao-ai.feishu.cn/wiki/space/7488517034406625281" target="_blank" rel="noopener">Guide chinois (Feishu)</a> · <a href="https://www.youtube.com/watch?v=tt-g_fi-eGU" target="_blank" rel="noopener">Vidéo « 4 Days of Soldering… »</a> · <a href="https://www.youtube.com/watch?v=DajdOeYJZdk" target="_blank" rel="noopener">Short « Watch Me Build… »</a></li>
+        <li>Articles : <a href="https://hackaday.com/2025/04/05/disneys-bipedal-bdx-series-droid-gets-the-diy-treatment/" target="_blank" rel="noopener">Hackaday</a> · <a href="https://scalablehuman.com/2026/08/14/building-open-duck-mini-v2-from-software-project-to-physical-robot/" target="_blank" rel="noopener">Scalable Human</a> · <a href="https://frankfu.blog/openai/understanding-reinforcement-learning-through-openduck/" target="_blank" rel="noopener">Frank Fu</a> · <a href="https://circuitdigest.com/news/google-gemma-4-e2b-runs-locally-on-robot-duck" target="_blank" rel="noopener">CircuitDigest</a> · <a href="https://makezine.com/article/maker-news/microducks-exude-macro-charm/" target="_blank" rel="noopener">Make:</a> · <a href="https://pollen-robotics.com/microduck/blog/introducing-microduck/" target="_blank" rel="noopener">Microduck</a> · <a href="https://huggingface.co/blog/hugging-face-pollen-robotics-acquisition" target="_blank" rel="noopener">HF × Pollen</a> · <a href="https://arxiv.org/html/2502.08844v1" target="_blank" rel="noopener">MuJoCo Playground (arXiv)</a> · <a href="https://github.com/google-deepmind/mujoco_playground/blob/main/mujoco_playground/config/locomotion_params.py" target="_blank" rel="noopener">locomotion_params.py</a></li>
+        <li>Revendeurs cités : <a href="https://orobot.io/o/program/BROKER-2/open-duck-mini" target="_blank" rel="noopener">orobot.io</a> · <a href="https://aifitlab.com/products/openduckmini-open-source-version-of-the-bdx-droid" target="_blank" rel="noopener">AIFITLAB</a> · <a href="https://www.tindie.com/products/wsk/open-duck-mini-v2-robot/" target="_blank" rel="noopener">Tindie</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-cart"/></svg>Composants, fournisseurs, outils</h3>
+      <ul class="src">
+        <li>STS3215 : <a href="https://www.waveshare.com/st3215-servo.htm?sku=33014" target="_blank" rel="noopener">Waveshare</a> · <a href="https://waveshare.com/wiki/ST3215_Servo" target="_blank" rel="noopener">wiki</a> · <a href="https://core-electronics.com.au/attachments/uploads/sts3215-smart-servo-datasheet-translated.pdf" target="_blank" rel="noopener">datasheet traduite</a> · <a href="https://openelab.com/products/seeed-studio-feetech-st3215-c001" target="_blank" rel="noopener">OpenELAB</a> · <a href="https://eckstein-shop.de/Feetech-STS3215-74V-19kgcm-plastic-case-metal-gear-magnetic-code-dual-shaft-TTL-serial-servo" target="_blank" rel="noopener">Eckstein</a> · <a href="https://eu.robotshop.com/products/magnetic-encoding-servo-sts3215-74v-19kgcm" target="_blank" rel="noopener">RobotShop EU</a> · <a href="https://github.com/TheRobotStudio/SO-ARM100" target="_blank" rel="noopener">SO-ARM100 (variantes)</a> · <a href="https://pypi.org/project/feetech-servo-sdk/" target="_blank" rel="noopener">feetech-servo-sdk</a></li>
+        <li>Carte : <a href="https://www.waveshare.com/bus-servo-adapter-a.htm" target="_blank" rel="noopener">Bus Servo Adapter (A)</a> · <a href="https://www.waveshare.com/wiki/Bus_Servo_Adapter_(A)" target="_blank" rel="noopener">wiki</a></li>
+        <li>Pi Zero 2 W : <a href="https://kubii.com/en/nano-computers/3455-raspberry-pi-zero-2-w-wh.html" target="_blank" rel="noopener">Kubii</a></li>
+        <li>BNO055 : <a href="https://www.adafruit.com/product/2472" target="_blank" rel="noopener">Adafruit 2472</a> · <a href="https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-clock-stretching" target="_blank" rel="noopener">clock stretching</a> · <a href="https://learn.adafruit.com/bno055-absolute-orientation-sensor-with-raspberry-pi-and-beaglebone-black/hardware" target="_blank" rel="noopener">UART sur Pi</a> · <a href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf" target="_blank" rel="noopener">datasheet Bosch</a></li>
+        <li>Contacts SS-10 : <a href="https://befr.rs-online.com/web/p/micro-switches/6820831" target="_blank" rel="noopener">RS Components</a></li>
+        <li>GitHub : <a href="https://github.com/pricing" target="_blank" rel="noopener">tarifs</a> · <a href="https://docs.github.com/en/billing/concepts/product-billing/git-lfs" target="_blank" rel="noopener">Git LFS</a> · <a href="https://docs.github.com/fr/repositories/working-with-files/managing-large-files/about-large-files-on-github" target="_blank" rel="noopener">gros fichiers</a> · <a href="https://docs.github.com/fr/organizations/collaborating-with-groups-in-organizations/creating-a-new-organization-from-scratch" target="_blank" rel="noopener">organisation</a> · <a href="https://docs.github.com/fr/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization" target="_blank" rel="noopener">rôles</a> · <a href="https://docs.github.com/fr/authentication/securing-your-account-with-two-factor-authentication-2fa/about-mandatory-two-factor-authentication" target="_blank" rel="noopener">2FA</a> · <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks" target="_blank" rel="noopener">forks</a> · <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork" target="_blank" rel="noopener">sync fork</a> · <a href="https://github.community/t/create-issues-for-forks/118975" target="_blank" rel="noopener">issues sur un fork</a> · <a href="https://docs.github.com/fr/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop" target="_blank" rel="noopener">cloner un fork (Desktop)</a> · <a href="https://docs.github.com/fr/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository" target="_blank" rel="noopener">modèles d'issues</a> · <a href="https://docs.github.com/fr/repositories/releasing-projects-on-github/about-releases" target="_blank" rel="noopener">releases</a> · <a href="https://docs.github.com/fr/repositories/working-with-files/using-files/working-with-non-code-files" target="_blank" rel="noopener">aperçu STL/CSV</a> · <a href="https://docs.github.com/en/nonprofit/nonprofit-teams-plan/getting-started-with-the-github-team-plan-for-nonprofits" target="_blank" rel="noopener">nonprofits</a> · <a href="https://choosealicense.com/licenses/apache-2.0/" target="_blank" rel="noopener">Apache-2.0</a> · <a href="https://oshwa.org/resources/sharing-best-practices/" target="_blank" rel="noopener">OSHWA</a></li>
+        <li>FreeCAD / Onshape : <a href="https://linuxfr.org/news/freecad-1-0" target="_blank" rel="noopener">FreeCAD 1.0</a> · <a href="https://osarch.org/2026/03/25/freecad-1-1-released/" target="_blank" rel="noopener">FreeCAD 1.1</a> · <a href="https://blog.lambda.cx/posts/freecad-and-git/" target="_blank" rel="noopener">FreeCAD et git</a> · <a href="https://wiki.freecad.org/Macro_CenterOfMass" target="_blank" rel="noopener">Macro CenterOfMass</a> · <a href="https://www.onshape.com/en/pricing" target="_blank" rel="noopener">Onshape pricing</a> · <a href="https://cad.onshape.com/help/Content/Primer/branching.htm" target="_blank" rel="noopener">branches Onshape</a> · <a href="https://forum.onshape.com/discussion/10703/export-in-free-version" target="_blank" rel="noopener">export en version gratuite</a></li>
+        <li>Impression : <a href="https://www.help.prusa3d.com/article/how-to-import-and-export-custom-profiles-in-prusaslicer_382766" target="_blank" rel="noopener">profils PrusaSlicer</a> · <a href="https://help.prusa3d.com/article/saving-projects-as-3mf_1773" target="_blank" rel="noopener">projets 3MF</a> · <a href="https://help.prusa3d.com/fr/materials" target="_blank" rel="noopener">matériaux Prusa</a> · <a href="https://cnckitchen.com/blog/tips-and-tricks-for-heat-set-inserts" target="_blank" rel="noopener">inserts (CNC Kitchen)</a></li>
+        <li>Laser : <a href="https://the-gadgeteer.com/2025/01/05/xtool-p2s-55w-desktop-co2-laser-cutter-review-a-laser-cutting-and-engraving-dream-machine/" target="_blank" rel="noopener">test P2S (The Gadgeteer)</a> · <a href="https://support.xtool.com/article/287" target="_blank" rel="noopener">LightBurn et P2S</a> · <a href="https://support.xtool.com/article/2426" target="_blank" rel="noopener">kerf XCS</a> · <a href="https://wiki.1laser.com/en/knowledge-base/popularization/kerf-compensation" target="_blank" rel="noopener">mesurer le kerf</a> · <a href="https://makerspace.tulane.edu/index.php/Laser_Cutter_Materials" target="_blank" rel="noopener">matériaux interdits</a></li>
+        <li>Sécurité : <a href="https://www.epfl.ch/campus/security-safety/batteries-au-lithium/" target="_blank" rel="noopener">EPFL batteries lithium</a> · <a href="https://www.unmannedtechshop.co.uk/fr/blogs/knowledge-base/how-to-charge-lipo-batteries-safely-complete-guide" target="_blank" rel="noopener">charge LiPo en sécurité</a></li>
+        <li>Méthode : <a href="https://scrumguides.org/scrum-guide.html" target="_blank" rel="noopener">Scrum Guide (Definition of Done)</a> · <a href="https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank" rel="noopener">OpenClassrooms</a> · <a href="https://grafikart.fr/formations/git" target="_blank" rel="noopener">Grafikart</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card flat">
+    <p class="muted" style="font-size:0.85rem">Dossier de présentation et plan d'achats de septembre 2026 (documents internes du projet) repris pour le budget et les phases. Ce dossier a été rédigé le 1er octobre 2026 ; les pages non lisibles ce jour-là (guide Tnkr, vidéo YouTube, issues via l'API) sont citées sur la foi des sources secondaires.</p>
+  </div>
+</section>
+
+</main>
+
+<nav class="tabbar" aria-label="Navigation principale">
+  <div class="tabbar-row" id="tabbar-row"></div>
+</nav>
+
+<div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Toutes les rubriques" hidden>
+  <div class="sheet-head">
+    <h2>Rubriques</h2>
+    <button class="tb-btn" type="button" id="sheet-close" aria-label="Fermer" style="width:36px;height:36px;border-radius:9999px;border:1px solid var(--color-border);background:var(--color-card);color:var(--color-fg);display:grid;place-items:center"><svg style="width:18px;height:18px"><use href="#i-x"/></svg></button>
+  </div>
+  <label class="sheet-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="sheet-q" type="search" placeholder="Rechercher" autocomplete="off" />
+    <span class="sr-only">Rechercher une rubrique</span>
+  </label>
+  <div class="sheet-body" id="sheet-body"></div>
+  <div class="sheet-grab" aria-hidden="true"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ─── Registre de navigation (une source : sidebar, rail, tabbar, feuille) ───
+  var NAV = [
+    { id: 'accueil',      label: 'Accueil',               group: 'Pilotage',     icon: 'i-home',    tint: 'oklch(0.546 0.215 262)', kw: 'tableau de bord résumé règles décisions' },
+    { id: 'projet',       label: 'Le projet', short: 'Projet',             group: 'Pilotage',     icon: 'i-flag',    tint: 'oklch(0.541 0.281 293)', kw: 'open duck mini v2 présentation dépôts communauté licence microduck' },
+    { id: 'equipe',       label: 'Équipe et méthode',     group: 'Organisation', icon: 'i-users',   tint: 'oklch(0.627 0.194 149)', kw: 'rôles rituels journal fiche de test réunion communication signal' },
+    { id: 'github',       label: 'Organisation GitHub',   group: 'Organisation', icon: 'i-git',     tint: 'oklch(0.3 0.03 286)',    kw: 'fork clone commit push pull desktop conventions labels licence apache' },
+    { id: 'cao',          label: 'CAO et fichiers',       group: 'Organisation', icon: 'i-cube',    tint: 'oklch(0.58 0.21 300)',   kw: 'onshape freecad step stl 3mf mjcf urdf robotcad onshape-to-robot' },
+    { id: 'fabrication',  label: 'Fabrication',           group: 'Technique',    icon: 'i-printer', tint: 'oklch(0.8 0.2 60)',      kw: 'impression 3d prusa prusaslicer laser xtool p2s inserts pla tpu pièces' },
+    { id: 'bom',          label: 'BOM et achats',         group: 'Technique',    icon: 'i-cart',    tint: 'oklch(0.74 0.19 30)',    kw: 'nomenclature prix fournisseurs servo budget phases commandes' },
+    { id: 'electronique', label: 'Électronique',          group: 'Technique',    icon: 'i-cpu',     tint: 'oklch(0.82 0.15 200)',   kw: 'câblage gpio sts3215 waveshare bno055 imu batterie bms ubec banc' },
+    { id: 'logiciel',     label: 'Logiciel embarqué',     group: 'Technique',    icon: 'i-code',    tint: 'oklch(0.435 0.042 286)', kw: 'runtime raspberry pi image scripts duck_config manette xbox python' },
+    { id: 'marche',       label: 'Marche et calibration', short: 'Marche', group: 'Technique',    icon: 'i-walk',    tint: 'oklch(0.627 0.194 149)', kw: 'rl ppo mujoco sim2real onnx offsets réentraînement gpu bam kp' },
+    { id: 'planning',     label: 'Planning et jalons',    group: 'Suivi',        icon: 'i-cal',     tint: 'oklch(0.546 0.215 262)', kw: 'phases jalons checklist go no-go export import' },
+    { id: 'risques',      label: 'Risques et sécurité',   group: 'Suivi',        icon: 'i-shield',  tint: 'oklch(0.577 0.245 27.3)', kw: 'registre parades li-ion laser incendie' },
+    { id: 'formation',    label: 'Formation et glossaire', group: 'Référence',   icon: 'i-book',    tint: 'oklch(0.84 0.18 78)',    kw: 'tutoriels vocabulaire définitions' },
+    { id: 'sources',      label: 'Sources',               group: 'Référence',    icon: 'i-link',    tint: 'oklch(0.708 0.012 280)', kw: 'références liens bibliographie' }
+  ];
+  var TABS = ['accueil', 'projet', 'fabrication', 'marche'];
+  var GROUPS = ['Pilotage', 'Organisation', 'Technique', 'Suivi', 'Référence'];
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function svgUse(id, cls) { return '<svg' + (cls ? ' class="' + cls + '"' : '') + ' aria-hidden="true"><use href="#' + id + '"/></svg>'; }
+
+  // ─── Stockage local, best-effort ───
+  var KEY = 'canard.progress.v1';
+  var THEME_KEY = 'canard.theme.v1';
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; } }
+  function save(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} }
+  var state = load();
+
+  // ─── Thème ───
+  function applyTheme(t) {
+    var root = document.documentElement;
+    if (t === 'dark' || t === 'light') root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+    try { if (t) localStorage.setItem(THEME_KEY, t); else localStorage.removeItem(THEME_KEY); } catch (e) {}
+  }
+  function currentDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  try { var saved = localStorage.getItem(THEME_KEY); if (saved) applyTheme(saved); } catch (e) {}
+  function toggleTheme() { applyTheme(currentDark() ? 'light' : 'dark'); }
+  $('#theme-btn').addEventListener('click', toggleTheme);
+  $('#tb-theme').addEventListener('click', toggleTheme);
+
+  // ─── Rendu de la navigation ───
+  var sbList = $('#sb-list'), tabRow = $('#tabbar-row'), sheetBody = $('#sheet-body');
+  function renderSidebar(q) {
+    var f = norm(q);
+    var html = '';
+    GROUPS.forEach(function (g) {
+      var items = NAV.filter(function (n) { return n.group === g && (!f || norm(n.label + ' ' + n.kw).indexOf(f) >= 0); });
+      if (!items.length) return;
+      html += '<div class="sb-sec">' + g + '</div>';
+      items.forEach(function (n) {
+        html += '<a class="sb-item" href="#' + n.id + '" data-nav="' + n.id + '" title="' + n.label + '">' + svgUse(n.icon) + '<span>' + n.label + '</span><span class="sb-pct" data-pct="' + n.id + '"></span></a>';
+      });
+    });
+    sbList.innerHTML = html || '<div class="sb-sec">Aucune rubrique</div>';
+    markActive();
+  }
+  function renderTabs() {
+    var html = '';
+    TABS.forEach(function (id) {
+      var n = NAV.filter(function (x) { return x.id === id; })[0];
+      html += '<a class="tabbar-item" href="#' + n.id + '" data-nav="' + n.id + '">' + svgUse(n.icon) + '<span>' + (n.short || n.label) + '</span></a>';
+    });
+    html += '<button class="tabbar-item" type="button" id="tab-menu" aria-haspopup="dialog">' + svgUse('i-menu') + '<span>Menu</span></button>';
+    tabRow.innerHTML = html;
+    $('#tab-menu').addEventListener('click', openSheet);
+  }
+  function renderSheet(q) {
+    var f = norm(q);
+    var html = '';
+    GROUPS.forEach(function (g) {
+      var items = NAV.filter(function (n) { return n.group === g && (!f || norm(n.label + ' ' + n.kw).indexOf(f) >= 0); });
+      if (!items.length) return;
+      html += '<div class="sheet-sec">' + g + '</div>';
+      items.forEach(function (n) {
+        html += '<a class="sheet-item" href="#' + n.id + '" data-nav="' + n.id + '"><span class="ico" style="background:' + n.tint + '">' + svgUse(n.icon) + '</span><span>' + n.label + '</span><span class="sb-pct" data-pct="' + n.id + '"></span></a>';
+      });
+    });
+    sheetBody.innerHTML = html || '<p class="muted" style="padding:12px 4px">Aucune rubrique ne correspond.</p>';
+    markActive();
+    updateProgress();
+  }
+
+  // ─── Feuille ☰ ───
+  var sheet = $('#sheet'), backdrop = $('#sheet-backdrop'), lastFocus = null;
+  function openSheet() { lastFocus = document.activeElement; sheet.hidden = false; backdrop.hidden = false; $('#sheet-q').value = ''; renderSheet(''); setTimeout(function () { $('#sheet-q').focus(); }, 30); }
+  function closeSheet() { sheet.hidden = true; backdrop.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  $('#sheet-close').addEventListener('click', closeSheet);
+  backdrop.addEventListener('click', closeSheet);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
+  $('#sheet-q').addEventListener('input', function (e) { renderSheet(e.target.value); });
+  $('#sb-q').addEventListener('input', function (e) { renderSidebar(e.target.value); });
+
+  // ─── Routage par ancre ───
+  var pages = $$('.page');
+  var current = null;
+  function show(id, noScroll) {
+    var ok = NAV.some(function (n) { return n.id === id; });
+    if (!ok) id = 'accueil';
+    pages.forEach(function (p) { p.hidden = p.id !== 'page-' + id; });
+    current = id;
+    var p = $('#page-' + id);
+    $('#tb-title').textContent = p.getAttribute('data-title') || 'Canard BiscaLab';
+    $('#tb-sub').textContent = p.getAttribute('data-sub') || '';
+    document.title = (p.getAttribute('data-title') || 'Canard BiscaLab') + ' · Canard BiscaLab';
+    markActive();
+    if (!noScroll) window.scrollTo({ top: 0, behavior: 'auto' });
+    closeSheet();
+  }
+  function markActive() {
+    $$('[data-nav]').forEach(function (a) {
+      if (a.getAttribute('data-nav') === current) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  function route() {
+    var h = (location.hash || '#accueil').replace('#', '');
+    show(h);
+  }
+  window.addEventListener('hashchange', route);
+
+  // ─── Checklists persistées + progression ───
+  var boxes = $$('input[type=checkbox][data-k]');
+  boxes.forEach(function (b) {
+    b.checked = !!state[b.getAttribute('data-k')];
+    b.addEventListener('change', function () {
+      state[b.getAttribute('data-k')] = b.checked;
+      if (!b.checked) delete state[b.getAttribute('data-k')];
+      save(state); updateProgress();
+    });
+  });
+  var PHASES = [
+    { k: 'p0', label: 'Phase 0 · Organisation', pct: '#pct-p0' },
+    { k: 'p1', label: 'Phase 1 · Structure', pct: '#pct-p1' },
+    { k: 'p2', label: 'Phase 2 · Cerveau + banc', pct: '#pct-p2' },
+    { k: 'p3', label: 'Phases 3-4 · Jambes', pct: '#pct-p3' },
+    { k: 'p5', label: 'Phase 5 · Tête + calibration', pct: '#pct-p5' },
+    { k: 'p6', label: 'Phase 6 · Énergie', pct: '#pct-p6' }
+  ];
+  var PAGE_KEYS = { planning: ['p0', 'p1', 'p2', 'p3', 'p5', 'p6'], equipe: ['m'], electronique: ['b'], marche: ['c'] };
+  function pctOf(prefixes) {
+    var tot = 0, done = 0;
+    boxes.forEach(function (b) {
+      var k = b.getAttribute('data-k');
+      if (prefixes.some(function (p) { return k.indexOf(p + '.') === 0; })) { tot++; if (b.checked) done++; }
+    });
+    return tot ? Math.round(100 * done / tot) : 0;
+  }
+  function updateProgress() {
+    var all = pctOf(['p0', 'p1', 'p2', 'p3', 'p5', 'p6', 'm', 'b', 'c']);
+    $('#prog-all').style.width = all + '%';
+    $('#prog-all-n').textContent = all + ' %';
+    var html = '';
+    PHASES.forEach(function (ph) {
+      var v = pctOf([ph.k]);
+      html += '<div class="prog-row"><span class="lab">' + ph.label + '</span><span class="n">' + v + ' %</span></div><div class="bar thin"><span style="width:' + v + '%"></span></div>';
+      var el = $(ph.pct); if (el) el.textContent = v + ' %';
+    });
+    $('#prog-phases').innerHTML = html;
+    $$('[data-pct]').forEach(function (el) {
+      var id = el.getAttribute('data-pct');
+      if (PAGE_KEYS[id]) { var v = pctOf(PAGE_KEYS[id]); el.textContent = v ? v + ' %' : ''; } else el.textContent = '';
+    });
+  }
+
+  // ─── Export / import / reset ───
+  var toastEl = $('#toast'), toastT = null;
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('on'); }, 2200); }
+  var io = $('#io');
+  $('#btn-export').addEventListener('click', function () {
+    var payload = JSON.stringify({ app: 'canard-biscalab', v: 1, date: new Date().toISOString(), progress: state });
+    io.value = payload;
+    var done = function () { toast('Export copié dans le presse-papiers'); };
+    var fallback = function () { io.focus(); io.select(); toast('Texte sélectionné : copier avec Ctrl+C'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(payload).then(done, fallback); else fallback();
+  });
+  $('#btn-import').addEventListener('click', function () {
+    try {
+      var o = JSON.parse(io.value);
+      var p = o && o.progress ? o.progress : o;
+      if (!p || typeof p !== 'object') throw new Error('format');
+      Object.keys(p).forEach(function (k) { if (p[k]) state[k] = true; });
+      save(state);
+      boxes.forEach(function (b) { b.checked = !!state[b.getAttribute('data-k')]; });
+      updateProgress(); toast('Import fusionné (' + Object.keys(p).length + ' cases)');
+    } catch (e) { toast('Texte illisible : coller un export complet'); }
+  });
+  $('#btn-reset').addEventListener('click', function () {
+    if ($('#btn-reset').getAttribute('data-arm') !== '1') { $('#btn-reset').setAttribute('data-arm', '1'); $('#btn-reset').textContent = 'Confirmer : tout décocher'; setTimeout(function () { $('#btn-reset').removeAttribute('data-arm'); $('#btn-reset').textContent = 'Tout décocher'; }, 4000); return; }
+    state = {}; save(state); boxes.forEach(function (b) { b.checked = false; }); updateProgress(); toast('Listes remises à zéro');
+    $('#btn-reset').removeAttribute('data-arm'); $('#btn-reset').textContent = 'Tout décocher';
+  });
+
+  // ─── Démarrage ───
+  renderSidebar(''); renderTabs(); renderSheet('');
+  updateProgress();
+  route();
+})();
+</script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+</script>
+
+  </body>
+</html>
