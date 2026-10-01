@@ -1,6 +1,6 @@
 # Canard BiscaLab — dossier de travail Open Duck Mini V2
 
-Dossier de travail (PWA) du projet de reproduction de l'Open Duck Mini V2 (Antoine Pirrone, Bordeaux) au BiscaLab. Version 1.0 du 1er octobre 2026.
+Dossier de travail (PWA) du projet de reproduction de l'Open Duck Mini V2 (Antoine Pirrone, Bordeaux) au BiscaLab. Version 1.1 du 1er octobre 2026 : 16 cours (≈ 47 000 mots), glossaire cliquable de 150 termes, aucun lien externe.
 
 ## Contenu de l'archive
 - `docs/index.html` — la PWA complète (page unique, autonome, thème clair de Domo + thème sombre). Le dossier s'appelle `docs/` parce que GitHub Pages sert ce dossier directement depuis la branche `main`.

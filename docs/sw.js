@@ -1,5 +1,5 @@
 /* Canard BiscaLab — service worker : coquille applicative en cache, réseau d'abord pour index.html. */
-const VERSION = 'canard-v1.0.0';
+const VERSION = 'canard-v1.1.0';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (event) => {

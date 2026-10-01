@@ -3,7 +3,8 @@
   <div class="page-head">
     <div class="eyebrow">Feuille de route</div>
     <h1>Sept phases, un jalon testable à chaque fois</h1>
-    <p class="lead">Le plan d'achats de septembre fixait six phases ; nous ajoutons une phase 0 d'organisation. Les mois sont indicatifs : ce qui compte, c'est que chaque phase se ferme par une fiche de test lue en réunion. Les cases ci-dessous sont mémorisées sur cet appareil ; l'état de référence reste le tableau GitHub.</p>
+    <p class="lead">Le plan d'achats de septembre fixait six phases ; nous ajoutons une phase 0 d'organisation. Les mois sont indicatifs : ce qui compte, c'est que chaque phase se ferme par une <i class="t" data-t="fiche-de-test">fiche de test</i> lue en réunion. Les cases ci-dessous sont mémorisées sur cet appareil ; l'état de référence reste le tableau <i class="t" data-t="github">GitHub</i>.</p>
+    <div class="read-first"><span>Pour comprendre cette page, lire d'abord :</span> <a href="#cours-methode"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>4 · Mener le projet</a></div>
   </div>
 
   <div class="phases">
@@ -120,27 +121,28 @@
     <div class="eyebrow">Anticiper</div>
     <h1>Registre des risques</h1>
     <p class="lead">Tout ce que la communauté a déjà rencontré, et ce que notre contexte ajoute. Chaque ligne a une parade et une phase où on la vérifie. À relire au début de chaque phase.</p>
+    <div class="read-first"><span>Pour comprendre cette page, lire d'abord :</span> <a href="#cours-securite"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>12 · Sécurité</a> <a href="#cours-depannage"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>16 · Dépannage</a></div>
   </div>
   <div class="card">
     <div class="tw">
       <table>
         <thead><tr><th>Risque</th><th>Impact</th><th>Prob.</th><th>Parade</th><th>Phase</th></tr></thead>
         <tbody>
-          <tr><td><strong>Mauvaise variante de servo</strong> (12 V, 1/191, 1/147)</td><td><span class="pill bad">fort</span> politique inutilisable, réentraînement + nouvelle identification BAM</td><td>moyen</td><td>Référence C001 7,4 V 1/345 écrite dans l'issue Achat ; contrôle à réception ; 2 servos d'abord</td><td>2</td></tr>
-          <tr><td><strong>Chute de tension sous charge</strong> (cellules molles, câbles fins)</td><td><span class="pill bad">fort</span> erreurs CRC, chutes du robot (issue #49)</td><td>moyen</td><td>Molicel P30B ≥ 25 A, XT30, câbles courts ; test <code>check_voltage</code> en charge</td><td>6</td></tr>
+          <tr><td><strong>Mauvaise variante de <i class="t" data-t="servo">servo</i></strong> (12 V, 1/191, 1/147)</td><td><span class="pill bad">fort</span> <i class="t" data-t="politique">politique</i> inutilisable, réentraînement + nouvelle identification <i class="t" data-t="bam">BAM</i></td><td>moyen</td><td>Référence C001 7,4 V 1/345 écrite dans l'<i class="t" data-t="issue">issue</i> Achat ; contrôle à réception ; 2 servos d'abord</td><td>2</td></tr>
+          <tr><td><strong>Chute de <i class="t" data-t="tension">tension</i> sous charge</strong> (cellules molles, câbles fins)</td><td><span class="pill bad">fort</span> erreurs <i class="t" data-t="crc">CRC</i>, chutes du robot (issue #49)</td><td>moyen</td><td>Molicel P30B ≥ 25 A, <i class="t" data-t="xt30">XT30</i>, câbles courts ; test <code>check_voltage</code> en charge</td><td>6</td></tr>
           <tr><td><strong>Firmwares de servos hétérogènes</strong></td><td><span class="pill warn">moyen</span> « Parsing error in set_kps() » (Runtime #26)</td><td>moyen</td><td>Même lot ; vérifier la version au banc ; mise à jour Feetech sous Windows si besoin</td><td>2, 3</td></tr>
-          <tr><td><strong>Python 3.13 sur image récente</strong></td><td><span class="pill warn">moyen</span> onnxruntime 1.18.1 introuvable (Runtime #38)</td><td>fort</td><td>Image v0.2.3 (Bookworm) ou <code>uv</code> + Python 3.11</td><td>2</td></tr>
+          <tr><td><strong><i class="t" data-t="python">Python</i> 3.13 sur image récente</strong></td><td><span class="pill warn">moyen</span> onnxruntime 1.18.1 introuvable (Runtime #38)</td><td>fort</td><td>Image v0.2.3 (Bookworm) ou <code>uv</code> + Python 3.11</td><td>2</td></tr>
           <tr><td><strong>Casse pendant <code>find_soft_offsets</code></strong></td><td><span class="pill warn">moyen</span> pièces cassées (Runtime #32)</td><td>moyen</td><td>Robot sur support, un joint à la fois, pièces de rechange imprimées d'avance (sheets, spacers)</td><td>5</td></tr>
           <tr><td><strong>Contrôle de tête (bouton Y)</strong></td><td><span class="pill warn">moyen</span> « can break your duck's head »</td><td>fort si utilisé</td><td>Ne pas l'utiliser en démo ; <code>head_puppet.py</code> à la place</td><td>5+</td></tr>
-          <tr><td><strong>IMU I²C instable</strong> (clock stretching)</td><td><span class="pill warn">moyen</span> données manquantes → chute</td><td>moyen</td><td>Test 10 min au banc ; <code>i2c_arm_baudrate=10000</code> ou UART</td><td>2</td></tr>
-          <tr><td><strong>Carte Waveshare hors plage 2S</strong></td><td><span class="pill warn">moyen</span> bus instable à 7,4 V</td><td>faible (le projet l'utilise ainsi)</td><td>Mesure au banc avant la commande des 12 servos</td><td>2</td></tr>
-          <tr><td><strong>Pi Zero 2 W en rupture</strong></td><td><span class="pill warn">moyen</span> retard phase 2</td><td>fort</td><td>Commander dès la phase 0 chez Kubii ; alternative Pi 5 (<code>lgpio</code>) plus chère</td><td>0</td></tr>
-          <tr><td><strong>Masses hors tolérance</strong> (matériau, remplissage, laser)</td><td><span class="pill warn">moyen</span> instabilité, réentraînement</td><td>moyen</td><td>Suivre l'amont (PLA 15 %) ; peser ; <code>mujoco_infer</code> avec masses réelles</td><td>1, 2</td></tr>
+          <tr><td><strong><i class="t" data-t="imu">IMU</i> <i class="t" data-t="i2c">I²C</i> instable</strong> (<i class="t" data-t="clock-stretching">clock stretching</i>)</td><td><span class="pill warn">moyen</span> données manquantes → chute</td><td>moyen</td><td>Test 10 min au banc ; <code>i2c_arm_baudrate=10000</code> ou <i class="t" data-t="uart">UART</i></td><td>2</td></tr>
+          <tr><td><strong>Carte <i class="t" data-t="waveshare">Waveshare</i> hors plage <i class="t" data-t="2s">2S</i></strong></td><td><span class="pill warn">moyen</span> bus instable à 7,4 V</td><td>faible (le projet l'utilise ainsi)</td><td>Mesure au banc avant la commande des 12 servos</td><td>2</td></tr>
+          <tr><td><strong><i class="t" data-t="pi-zero-2w">Pi Zero 2 W</i> en rupture</strong></td><td><span class="pill warn">moyen</span> retard phase 2</td><td>fort</td><td>Commander dès la phase 0 chez Kubii ; alternative Pi 5 (<code>lgpio</code>) plus chère</td><td>0</td></tr>
+          <tr><td><strong>Masses hors tolérance</strong> (matériau, <i class="t" data-t="remplissage">remplissage</i>, laser)</td><td><span class="pill warn">moyen</span> instabilité, réentraînement</td><td>moyen</td><td>Suivre l'<i class="t" data-t="amont">amont</i> (<i class="t" data-t="pla">PLA</i> 15 %) ; peser ; <code>mujoco_infer</code> avec masses réelles</td><td>1, 2</td></tr>
           <tr><td><strong>Documentation amont incomplète</strong> (vis, carte servo, expression)</td><td><span class="pill mute">faible</span> tâtonnements</td><td>certain</td><td>Guide Tnkr, journaux de construction tiers, Discord ; documenter ce que nous trouvons</td><td>1-5</td></tr>
           <tr><td><strong>Douane / délais</strong> hors UE</td><td><span class="pill mute">faible</span> surcoût, retard</td><td>moyen</td><td>Fournisseurs UE ; un seul écart assumé possible (servos), décision du bureau</td><td>toutes</td></tr>
-          <tr><td><strong>Pas de GPU</strong> pour réentraîner</td><td><span class="pill mute">faible</span> si la politique fournie convient</td><td>moyen</td><td>Rester dans les specs ; sinon location cloud ou PC d'un membre</td><td>0, 5</td></tr>
-          <tr><td><strong>Fichiers CAO écrasés</strong> (deux éditeurs)</td><td><span class="pill mute">faible</span> travail perdu</td><td>moyen</td><td>Un éditeur par fichier (issue assignée), <code>pull</code> avant, <code>push</code> après</td><td>toutes</td></tr>
-          <tr><td><strong>Incendie Li-ion</strong></td><td><span class="pill bad">fort</span> sécurité des personnes et des locaux</td><td>faible</td><td>Charge surveillée en sac ignifuge, stockage 50 %, BMS, consigne affichée</td><td>6</td></tr>
+          <tr><td><strong>Pas de <i class="t" data-t="gpu">GPU</i></strong> pour réentraîner</td><td><span class="pill mute">faible</span> si la politique fournie convient</td><td>moyen</td><td>Rester dans les specs ; sinon location cloud ou PC d'un membre</td><td>0, 5</td></tr>
+          <tr><td><strong>Fichiers <i class="t" data-t="cao">CAO</i> écrasés</strong> (deux éditeurs)</td><td><span class="pill mute">faible</span> travail perdu</td><td>moyen</td><td>Un éditeur par fichier (issue assignée), <code>pull</code> avant, <code>push</code> après</td><td>toutes</td></tr>
+          <tr><td><strong>Incendie <i class="t" data-t="li-ion">Li-ion</i></strong></td><td><span class="pill bad">fort</span> sécurité des personnes et des locaux</td><td>faible</td><td>Charge surveillée en sac ignifuge, stockage 50 %, <i class="t" data-t="bms">BMS</i>, consigne affichée</td><td>6</td></tr>
           <tr><td><strong>Laser : matériau interdit, feu</strong></td><td><span class="pill bad">fort</span> gaz toxiques, incendie</td><td>faible</td><td>Liste affichée sur la machine, présence permanente, extraction</td><td>2, 5</td></tr>
         </tbody>
       </table>
@@ -166,110 +168,159 @@
     <div class="card">
       <h3><svg><use href="#i-shield"/></svg>Banc et robot</h3>
       <ul class="tight">
-        <li>Alimentation labo limitée en courant tant que la batterie n'est pas validée.</li>
-        <li>Robot sur support ou potence pour tout script qui bouge ; mains hors des articulations.</li>
+        <li>Alimentation labo limitée en <i class="t" data-t="courant">courant</i> tant que la batterie n'est pas validée.</li>
+        <li>Robot sur support ou <i class="t" data-t="potence">potence</i> pour tout <i class="t" data-t="script">script</i> qui bouge ; mains hors des articulations.</li>
         <li>Bouton A (pause) toujours à portée pendant une marche.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════ FORMATION ═══════════════════════════ -->
-<section class="page" id="page-formation" data-title="Formation et glossaire" data-sub="Tutoriels, vocabulaire" hidden>
+<!-- ═══════════════════════════ PARCOURS ═══════════════════════════ -->
+<section class="page" id="page-parcours" data-title="Parcours d'apprentissage" data-sub="16 cours, de la page blanche au robot qui marche" hidden>
   <div class="page-head">
-    <div class="eyebrow">Monter en compétence</div>
-    <h1>Formation express et glossaire</h1>
-    <p class="lead">Personne n'a besoin de tout savoir. Chaque référent apprend son outil ; les cinq gestes GitHub Desktop, eux, sont pour tout le monde.</p>
+    <div class="eyebrow">Apprendre avant de faire</div>
+    <h1>Le parcours d'apprentissage</h1>
+    <p class="lead">Seize cours, écrits pour quelqu'un qui part de zéro. Chacun dure entre 30 et 90 minutes, se lit seul ou en petit groupe, et se termine par un exercice à faire au <i class="t" data-t="fablab">FabLab</i>. Les cases cochées sont mémorisées sur cet appareil. Un mot souligné en pointillé, n'importe où dans ce dossier, s'ouvre d'un clic pour donner sa définition.</p>
   </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">16</div><div class="l">Cours</div><div class="d">≈ 14 h au total</div></div>
+    <div class="kpi"><div class="v" id="parc-done">0</div><div class="l">Cours terminés</div><div class="d">sur cet appareil</div></div>
+    <div class="kpi"><div class="v">4</div><div class="l">Tronc commun</div><div class="d">pour tout le monde</div></div>
+    <div class="kpi"><div class="v">3</div><div class="l">Filières</div><div class="d">fabrication · électronique · marche</div></div>
+    <div class="kpi"><div class="v" id="gloss-count">0</div><div class="l">Termes définis</div><div class="d">glossaire cliquable</div></div>
+    <div class="kpi"><div class="v">0</div><div class="l">Lien externe</div><div class="d">tout est ici</div></div>
+  </div>
+
+  <div class="card">
+    <h2><svg><use href="#i-book"/></svg>Comment utiliser les cours</h2>
+    <ol class="tight">
+      <li><strong>Lire le tronc commun d'abord</strong> (cours 1, 2, 4 et 12) : c'est ce qui permet de travailler ensemble sans se gêner et sans se blesser.</li>
+      <li><strong>Choisir sa filière</strong> selon son rôle. Personne n'a besoin de tout lire ; chaque référent lit sa filière en entier.</li>
+      <li><strong>Faire l'exercice</strong> de chaque cours au FabLab, de préférence à deux, et noter dans le journal ce qui a surpris.</li>
+      <li><strong>Répondre à l'auto-contrôle</strong> sans regarder la réponse d'abord. Si une question résiste, relire la section correspondante.</li>
+      <li><strong>Cocher le cours</strong> ici quand l'exercice est fait, pas quand la lecture est finie.</li>
+    </ol>
+  </div>
+
   <div class="grid c2">
     <div class="card">
-      <h3><svg><use href="#i-book"/></svg>Tutoriels en français</h3>
-      <ul class="links">
-        <li><a href="https://docs.github.com/fr/desktop/overview/getting-started-with-github-desktop" target="_blank" rel="noopener">Prise en main de GitHub Desktop</a> — documentation officielle en français.</li>
-        <li><a href="https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank" rel="noopener">OpenClassrooms « Gérez du code avec Git et GitHub »</a> — gratuit, 6 h.</li>
-        <li><a href="https://grafikart.fr/formations/git" target="_blank" rel="noopener">Grafikart « Comprendre Git »</a> — 18 chapitres dont un sur GitHub Desktop.</li>
-        <li><a href="https://docs.github.com/fr/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects" target="_blank" rel="noopener">GitHub Projects</a> — tableaux et roadmaps.</li>
-        <li><a href="https://wiki.freecad.org/Main_Page/fr" target="_blank" rel="noopener">Wiki FreeCAD en français</a> et <a href="https://freecad-france.com" target="_blank" rel="noopener">FreeCAD-France</a> (forum, vidéos).</li>
-        <li><a href="https://help.prusa3d.com/fr/category/prusaslicer_204" target="_blank" rel="noopener">Aide PrusaSlicer en français</a> — profils, 3MF, supports peints.</li>
-        <li><a href="https://support.xtool.com/article/2426" target="_blank" rel="noopener">xTool : compensation de kerf dans XCS</a>.</li>
-        <li><a href="https://cnckitchen.com/blog/tips-and-tricks-for-heat-set-inserts" target="_blank" rel="noopener">CNC Kitchen : inserts à chaud</a> (anglais, très visuel).</li>
-        <li><a href="https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/python-circuitpython" target="_blank" rel="noopener">Adafruit BNO055 sur Raspberry Pi</a> (anglais).</li>
-        <li><a href="https://frankfu.blog/openai/understanding-reinforcement-learning-through-openduck/" target="_blank" rel="noopener">Comprendre le RL à travers Open Duck</a> (anglais) — pour qui veut lire le Playground.</li>
-      </ul>
+      <h3><svg><use href="#i-users"/></svg>Tronc commun (tout le monde)</h3>
+      <ol class="path" data-track="commun">
+        <li data-l="cours-git"><span class="n">1</span><span class="lab"><a href="#cours-git">Git et GitHub, en partant de zéro</a><small>45 min · travailler à plusieurs sur les mêmes fichiers</small></span><input type="checkbox" data-k="l.cours-git" aria-label="Cours 1 terminé"></li>
+        <li data-l="cours-raspberry"><span class="n">2</span><span class="lab"><a href="#cours-raspberry">Raspberry Pi et Linux pour le robot</a><small>60 min · le petit ordinateur qui pilote tout</small></span><input type="checkbox" data-k="l.cours-raspberry" aria-label="Cours 2 terminé"></li>
+        <li data-l="cours-methode"><span class="n">4</span><span class="lab"><a href="#cours-methode">Mener un projet technique à plusieurs</a><small>40 min · rôles, phases, fiches de test, journal</small></span><input type="checkbox" data-k="l.cours-methode" aria-label="Cours 4 terminé"></li>
+        <li data-l="cours-securite"><span class="n">12</span><span class="lab"><a href="#cours-securite">Sécurité : batteries, laser, banc, robot</a><small>30 min · à lire avant de toucher une cellule ou la laser</small></span><input type="checkbox" data-k="l.cours-securite" aria-label="Cours 12 terminé"></li>
+      </ol>
     </div>
     <div class="card">
-      <h3><svg><use href="#i-book"/></svg>Glossaire</h3>
-      <dl class="def">
-        <dt>Fork / clone</dt><dd>Copie du dépôt sur GitHub (partagée) / copie sur un PC (locale).</dd>
-        <dt>Commit / push / pull</dt><dd>Enregistrer une version / l'envoyer sur GitHub / récupérer celles des autres.</dd>
-        <dt>Issue</dt><dd>Une tâche, un problème ou une question, avec un responsable.</dd>
-        <dt>Pull request</dt><dd>Proposition de modification relue avant fusion.</dd>
-        <dt>Milestone</dt><dd>Jalon : un groupe d'issues à boucler avant une date.</dd>
-        <dt>STL / STEP / 3MF</dt><dd>Maillage pour imprimer / géométrie exacte pour la CAO / projet d'impression complet.</dd>
-        <dt>Kerf</dt><dd>Largeur de matière brûlée par le laser (0,1 à 0,25 mm), à compenser.</dd>
-        <dt>Insert à chaud</dt><dd>Écrou laiton fondu dans le plastique pour visser en M3.</dd>
-        <dt>Servo bus série</dt><dd>Servo adressable (ID) chaîné sur un seul câble, avec retour de position.</dd>
-        <dt>IMU</dt><dd>Centrale inertielle : gyroscope + accéléromètre (+ magnétomètre), donne l'attitude.</dd>
-        <dt>BMS / UBEC</dt><dd>Protection et équilibrage du pack / régulateur 5 V à découpage.</dd>
-        <dt>2S</dt><dd>Deux cellules en série (7,4 V nominal, 8,4 V chargé).</dd>
-        <dt>RL / PPO</dt><dd>Apprentissage par renforcement / l'algorithme utilisé pour entraîner la marche.</dd>
-        <dt>Politique</dt><dd>Le réseau de neurones qui, à partir des capteurs, décide des consignes des servos.</dd>
-        <dt>MuJoCo / MJCF</dt><dd>Le simulateur physique / son format de modèle de robot (XML).</dd>
-        <dt>URDF</dt><dd>Autre format de modèle de robot, utilisé par Placo.</dd>
-        <dt>ONNX</dt><dd>Format d'échange du réseau entraîné, exécuté par <code>onnxruntime</code> sur le Pi.</dd>
-        <dt>Sim2real</dt><dd>Le passage de la simulation au robot réel, et tout ce qui peut y casser.</dd>
-        <dt>Domain randomization</dt><dd>Varier masses, frottements, gains pendant l'entraînement pour rendre la politique tolérante.</dd>
-        <dt>BAM</dt><dd>Méthode Rhoban d'identification d'un servo (gain, couple, frottements) pour la simulation.</dd>
-        <dt>Offsets</dt><dd>Écart entre le zéro mécanique réel et le zéro du servo, mesuré robot par robot.</dd>
-        <dt>Keyframe « home »</dt><dd>La posture de référence, debout, d'où partent toutes les consignes.</dd>
-      </dl>
+      <h3><svg><use href="#i-printer"/></svg>Filière fabrication</h3>
+      <ol class="path" data-track="fab">
+        <li data-l="cours-cao"><span class="n">5</span><span class="lab"><a href="#cours-cao">La CAO : lire, exporter, modifier les pièces</a><small>60 min · FreeCAD, Onshape, formats</small></span><input type="checkbox" data-k="l.cours-cao" aria-label="Cours 5 terminé"></li>
+        <li data-l="cours-impression"><span class="n">6</span><span class="lab"><a href="#cours-impression">Impression 3D : de la bobine à la pièce contrôlée</a><small>60 min · PrusaSlicer, orientation, inserts</small></span><input type="checkbox" data-k="l.cours-impression" aria-label="Cours 6 terminé"></li>
+        <li data-l="cours-laser"><span class="n">7</span><span class="lab"><a href="#cours-laser">Découpe laser : l'outillage du projet</a><small>45 min · xTool P2S, kerf, matériaux</small></span><input type="checkbox" data-k="l.cours-laser" aria-label="Cours 7 terminé"></li>
+        <li data-l="cours-assemblage"><span class="n">8</span><span class="lab"><a href="#cours-assemblage">Assembler le canard</a><small>60 min · visserie, inserts, roulements, jeu</small></span><input type="checkbox" data-k="l.cours-assemblage" aria-label="Cours 8 terminé"></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid c2">
+    <div class="card">
+      <h3><svg><use href="#i-cpu"/></svg>Filière électronique et logiciel</h3>
+      <ol class="path" data-track="elec">
+        <li data-l="cours-electronique"><span class="n">9</span><span class="lab"><a href="#cours-electronique">L'électronique du robot, pour ceux qui n'en ont jamais fait</a><small>60 min · tension, batteries, câblage, multimètre</small></span><input type="checkbox" data-k="l.cours-electronique" aria-label="Cours 9 terminé"></li>
+        <li data-l="cours-servos"><span class="n">10</span><span class="lab"><a href="#cours-servos">Les servomoteurs intelligents STS3215</a><small>60 min · bus série, ID, couple, PID</small></span><input type="checkbox" data-k="l.cours-servos" aria-label="Cours 10 terminé"></li>
+        <li data-l="cours-capteurs"><span class="n">11</span><span class="lab"><a href="#cours-capteurs">Les capteurs : centrale inertielle et contacts</a><small>50 min · BNO055, calibration, GPIO</small></span><input type="checkbox" data-k="l.cours-capteurs" aria-label="Cours 11 terminé"></li>
+        <li data-l="cours-python"><span class="n">3</span><span class="lab"><a href="#cours-python">Lire et modifier le logiciel sans être programmeur</a><small>50 min · scripts, JSON, erreurs Python</small></span><input type="checkbox" data-k="l.cours-python" aria-label="Cours 3 terminé"></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3><svg><use href="#i-walk"/></svg>Filière marche</h3>
+      <ol class="path" data-track="marche">
+        <li data-l="cours-marche"><span class="n">13</span><span class="lab"><a href="#cours-marche">Comment un robot à deux jambes tient debout et marche</a><small>45 min · équilibre, phases, centre de masse</small></span><input type="checkbox" data-k="l.cours-marche" aria-label="Cours 13 terminé"></li>
+        <li data-l="cours-rl"><span class="n">14</span><span class="lab"><a href="#cours-rl">Simulation et apprentissage par renforcement, sans formules</a><small>60 min · MuJoCo, politique, sim2real</small></span><input type="checkbox" data-k="l.cours-rl" aria-label="Cours 14 terminé"></li>
+        <li data-l="cours-calibration"><span class="n">15</span><span class="lab"><a href="#cours-calibration">Calibrer et mettre en route le robot, pas à pas</a><small>90 min · offsets, IMU, première marche</small></span><input type="checkbox" data-k="l.cours-calibration" aria-label="Cours 15 terminé"></li>
+        <li data-l="cours-depannage"><span class="n">16</span><span class="lab"><a href="#cours-depannage">Dépanner : du symptôme à la cause</a><small>45 min · 19 pannes types et leurs remèdes</small></span><input type="checkbox" data-k="l.cours-depannage" aria-label="Cours 16 terminé"></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><svg><use href="#i-flag"/></svg>Qui lit quoi</h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Rôle</th><th>Tronc commun</th><th>Filière</th><th>En plus</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Maître d'œuvre</strong></td><td>1, 2, 4, 12</td><td>les trois, au moins en lecture</td><td>13 et 14 en priorité : c'est là que se décident les achats</td></tr>
+          <tr><td><strong>Référent impression 3D</strong></td><td>1, 2, 4, 12</td><td>5, 6, 8</td><td>7 pour l'outillage</td></tr>
+          <tr><td><strong>Référent laser</strong></td><td>1, 2, 4, 12</td><td>5, 7</td><td>8 pour savoir à quoi sert chaque gabarit</td></tr>
+          <tr><td><strong>Référent électronique et code</strong></td><td>1, 2, 4, 12</td><td>9, 10, 11, 3</td><td>15 et 16, qu'il animera</td></tr>
+          <tr><td><strong>Trésorier-acheteur</strong></td><td>1, 4</td><td>—</td><td>10 (les versions de <i class="t" data-t="servo">servos</i>) et la page <i class="t" data-t="bom">BOM</i></td></tr>
+          <tr><td><strong>Référent sécurité</strong></td><td>12 en premier</td><td>9</td><td>7 (laser), 15 (robot en marche)</td></tr>
+          <tr><td><strong>Nouveau membre</strong></td><td>1, 4, 12</td><td>celle qui l'attire</td><td>la page Accueil et une première <i class="t" data-t="issue">issue</i> « aide-bienvenue »</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════ SOURCES ═══════════════════════════ -->
-<section class="page" id="page-sources" data-title="Sources" data-sub="Références vérifiées le 1er oct. 2026" hidden>
+<!-- ═══════════════════════════ GLOSSAIRE ═══════════════════════════ -->
+<section class="page" id="page-glossaire" data-title="Glossaire" data-sub="Tous les termes, définis" hidden>
   <div class="page-head">
-    <div class="eyebrow">Références</div>
-    <h1>Sources</h1>
-    <p class="lead">Tout ce dossier repose sur les documents ci-dessous, lus le 1er octobre 2026. Les chiffres (prix, versions, paramètres) viennent des fichiers des dépôts à cette date ; ils bougent, et c'est le dépôt qui fait foi.</p>
+    <div class="eyebrow">Référence</div>
+    <h1>Glossaire</h1>
+    <p class="lead">Chaque terme technique du dossier, défini en deux ou trois phrases, avec le cours qui l'explique en détail. Les mêmes définitions s'ouvrent d'un clic sur les mots soulignés en pointillé dans toutes les pages.</p>
+    <label class="sheet-search" style="margin:8px 0 0; max-width: 420px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="gl-q" type="search" placeholder="Chercher un terme" autocomplete="off" />
+      <span class="sr-only">Chercher un terme</span>
+    </label>
+  </div>
+  <div class="gloss" id="gloss"></div>
+</section>
+
+<!-- ═══════════════════════════ RÉFÉRENCES ═══════════════════════════ -->
+<section class="page" id="page-references" data-title="Références" data-sub="D'où viennent les faits" hidden>
+  <div class="page-head">
+    <div class="eyebrow">Référence</div>
+    <h1>D'où viennent les faits de ce dossier</h1>
+    <p class="lead">Tout ce qui est écrit ici a été vérifié le 1er octobre 2026 dans les documents du projet d'origine et chez les fabricants. Cette page les nomme, sans renvoyer vers l'extérieur : le dossier se suffit à lui-même. Les chiffres (prix, versions, paramètres) évoluent ; en cas de doute, c'est le dépôt du projet d'origine qui fait foi.</p>
   </div>
   <div class="grid c2">
     <div class="card">
-      <h3><svg><use href="#i-git"/></svg>Dépôts et documents du projet</h3>
+      <h3><svg><use href="#i-git"/></svg>Documents du projet Open Duck Mini</h3>
       <ul class="src">
-        <li><a href="https://github.com/apirrone/Open_Duck_Mini" target="_blank" rel="noopener">apirrone/Open_Duck_Mini</a> (v2) : README, <code>docs/print_guide.md</code>, <code>docs/assembly_guide.md</code>, <code>docs/configure_motors.md</code>, <code>docs/sim2real.md</code>, <code>docs/prepare_robot.md</code>, <code>print/</code>, <code>print/mods/v2_Jaimes_Mods/README.md</code>, LICENSE</li>
-        <li><a href="https://github.com/apirrone/Open_Duck_Mini_Runtime" target="_blank" rel="noopener">apirrone/Open_Duck_Mini_Runtime</a> (v2) : README, <code>docs/INSTALL.md</code>, <code>setup.cfg</code>, <code>example_config.json</code>, <code>checklist.md</code>, <code>scripts/</code> (v2_rl_walk_mujoco, configure_motor, configure_all_motors, find_soft_offsets, calibrate_imu, check_motors, check_voltage, turn_on), <code>mini_bdx_runtime/</code> (rustypot_position_hwi, raw_imu, imu, feet_contacts)</li>
-        <li><a href="https://github.com/apirrone/Open_Duck_Playground" target="_blank" rel="noopener">apirrone/Open_Duck_Playground</a> : README, <code>pyproject.toml</code>, <code>joystick.py</code>, <code>custom_rewards.py</code>, <code>constants.py</code>, <code>mujoco_infer.py</code>, <code>common/randomize.py</code>, <code>common/runner.py</code>, <code>common/export_onnx.py</code>, <code>xmls/</code></li>
-        <li><a href="https://github.com/apirrone/Open_Duck_reference_motion_generator" target="_blank" rel="noopener">apirrone/Open_Duck_reference_motion_generator</a> : README, <code>auto_waddle.py</code>, <code>fit_poly.py</code>, <code>gait_generator.py</code>, <code>placo_walk_engine.py</code>, <code>medium.json</code>, <code>auto_gait.json</code></li>
-        <li><a href="https://cad.onshape.com/documents/64074dfcfa379b37d8a47762/w/3650ab4221e215a4f65eb7fe/e/0505c262d882183a25049d05" target="_blank" rel="noopener">Document Onshape public</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1gq4iWWHEJVgAA_eemkTEsshXqrYlFxXAPwO515KpCJc" target="_blank" rel="noopener">BOM officielle (Google Sheets)</a></li>
-        <li><a href="https://github.com/Rhoban/bam" target="_blank" rel="noopener">Rhoban/bam</a> (params feetech_sts3215_7_4V, actuator.py, to_mujoco.py) · <a href="https://github.com/Rhoban/onshape-to-robot" target="_blank" rel="noopener">Rhoban/onshape-to-robot</a> et <a href="https://onshape-to-robot.readthedocs.io/en/latest/" target="_blank" rel="noopener">sa documentation</a> · <a href="https://github.com/pollen-robotics/rustypot" target="_blank" rel="noopener">pollen-robotics/rustypot</a> · <a href="https://github.com/pollen-robotics/Open_Duck_Blender" target="_blank" rel="noopener">Open_Duck_Blender</a> · <a href="https://github.com/pollen-robotics/microduck_rl" target="_blank" rel="noopener">microduck_rl</a></li>
-        <li>Issues : <a href="https://github.com/apirrone/Open_Duck_Mini/issues/48" target="_blank" rel="noopener">#48</a> (variante C001 et vitesse), <a href="https://github.com/apirrone/Open_Duck_Mini/issues/49" target="_blank" rel="noopener">#49</a> (chute de tension, CRC), <a href="https://github.com/apirrone/Open_Duck_Mini/issues/52" target="_blank" rel="noopener">#52</a> (servos 12 V aux genoux), Runtime <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/26" target="_blank" rel="noopener">#26</a> (firmware), <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/32" target="_blank" rel="noopener">#32</a> (casse en calibration), <a href="https://github.com/apirrone/Open_Duck_Mini_Runtime/issues/38" target="_blank" rel="noopener">#38</a> (Python 3.13)</li>
-        <li>Dérivés : <a href="https://github.com/XiaohuiChen-personal/Open_Duck_Mini_Jetson" target="_blank" rel="noopener">Open_Duck_Mini_Jetson</a> · <a href="https://github.com/i1Cps/duck_mini_pro_headless" target="_blank" rel="noopener">duck_mini_pro_headless</a> · <a href="https://github.com/soyeon24/open-duck-mini-v2-build" target="_blank" rel="noopener">soyeon24/open-duck-mini-v2-build</a> · <a href="https://github.com/seanmayer/open-duck-mini-build" target="_blank" rel="noopener">seanmayer/open-duck-mini-build</a> · <a href="https://github.com/rimim/AWD" target="_blank" rel="noopener">rimim/AWD</a> · <a href="https://github.com/drfenixion/freecad.overcross" target="_blank" rel="noopener">RobotCAD</a></li>
-        <li>Communauté : <a href="https://discord.gg/UtJZsgfQGe" target="_blank" rel="noopener">Discord</a> · <a href="https://tnkr.ai/explore/docs/open-duck-mini/open-duck-mini-v2" target="_blank" rel="noopener">Guide Tnkr</a> · <a href="https://zihao-ai.feishu.cn/wiki/space/7488517034406625281" target="_blank" rel="noopener">Guide chinois (Feishu)</a> · <a href="https://www.youtube.com/watch?v=tt-g_fi-eGU" target="_blank" rel="noopener">Vidéo « 4 Days of Soldering… »</a> · <a href="https://www.youtube.com/watch?v=DajdOeYJZdk" target="_blank" rel="noopener">Short « Watch Me Build… »</a></li>
-        <li>Articles : <a href="https://hackaday.com/2025/04/05/disneys-bipedal-bdx-series-droid-gets-the-diy-treatment/" target="_blank" rel="noopener">Hackaday</a> · <a href="https://scalablehuman.com/2026/08/14/building-open-duck-mini-v2-from-software-project-to-physical-robot/" target="_blank" rel="noopener">Scalable Human</a> · <a href="https://frankfu.blog/openai/understanding-reinforcement-learning-through-openduck/" target="_blank" rel="noopener">Frank Fu</a> · <a href="https://circuitdigest.com/news/google-gemma-4-e2b-runs-locally-on-robot-duck" target="_blank" rel="noopener">CircuitDigest</a> · <a href="https://makezine.com/article/maker-news/microducks-exude-macro-charm/" target="_blank" rel="noopener">Make:</a> · <a href="https://pollen-robotics.com/microduck/blog/introducing-microduck/" target="_blank" rel="noopener">Microduck</a> · <a href="https://huggingface.co/blog/hugging-face-pollen-robotics-acquisition" target="_blank" rel="noopener">HF × Pollen</a> · <a href="https://arxiv.org/html/2502.08844v1" target="_blank" rel="noopener">MuJoCo Playground (arXiv)</a> · <a href="https://github.com/google-deepmind/mujoco_playground/blob/main/mujoco_playground/config/locomotion_params.py" target="_blank" rel="noopener">locomotion_params.py</a></li>
-        <li>Revendeurs cités : <a href="https://orobot.io/o/program/BROKER-2/open-duck-mini" target="_blank" rel="noopener">orobot.io</a> · <a href="https://aifitlab.com/products/openduckmini-open-source-version-of-the-bdx-droid" target="_blank" rel="noopener">AIFITLAB</a> · <a href="https://www.tindie.com/products/wsk/open-duck-mini-v2-robot/" target="_blank" rel="noopener">Tindie</a></li>
+        <li><strong>Dépôt principal</strong> apirrone/Open_Duck_Mini, <i class="t" data-t="branche">branche</i> v2 : README, guide d'impression, guide d'assemblage (marqué incomplet), configuration des moteurs, note <i class="t" data-t="sim2real">sim2real</i>, dossier print/ (36 <i class="t" data-t="stl">STL</i>), licence <i class="t" data-t="licence-apache">Apache-2.0</i>, modifications « Jaime's Mods ».</li>
+        <li><strong>Dépôt du code embarqué</strong> apirrone/Open_Duck_Mini_Runtime, branche v2 : README, guide d'installation (image prête v0.2.3), fichier de dépendances, exemple de configuration, <i class="t" data-t="script">scripts</i> de configuration, de vérification, de calibration et de marche.</li>
+        <li><strong>Dépôt de <i class="t" data-t="simulation">simulation</i></strong> apirrone/Open_Duck_Playground : README, dépendances, environnement joystick, <i class="t" data-t="recompense">récompenses</i>, <i class="t" data-t="domain-randomization">randomisation</i>, lanceur d'entraînement, export <i class="t" data-t="onnx">ONNX</i>, modèles <i class="t" data-t="mjcf">MJCF</i> et scènes.</li>
+        <li><strong>Dépôt des <i class="t" data-t="mouvement-reference">démarches de référence</i></strong> apirrone/Open_Duck_reference_motion_generator : README, scripts auto_waddle et fit_poly, presets de démarche.</li>
+        <li><strong>Document de <i class="t" data-t="cao">CAO</i></strong> <i class="t" data-t="onshape">Onshape</i> public d'Open Duck Mini V2 (source des STL et du modèle de simulation).</li>
+        <li><strong>Nomenclature officielle</strong> (feuille de calcul partagée du projet) : prix et références, base 398,10 €.</li>
+        <li><strong>Outils de l'équipe Rhoban et de Pollen Robotics</strong> : <i class="t" data-t="bam">BAM</i> (identification des <i class="t" data-t="servo">servos</i>, paramètres du <i class="t" data-t="sts3215">STS3215</i> 7,4 V), onshape-to-robot (export Onshape → MJCF/<i class="t" data-t="urdf">URDF</i>), rustypot (pilote du bus servo), Open_Duck_Blender, microduck_rl (notes de transfert sim2real).</li>
+        <li><strong>Discussions publiques du projet</strong> (<i class="t" data-t="issue">issues</i> <i class="t" data-t="github">GitHub</i>) : variante de servo C001 (#48), chute de <i class="t" data-t="tension">tension</i> et erreurs <i class="t" data-t="crc">CRC</i> (#49), servos 12 V aux genoux (#52), <i class="t" data-t="firmware">firmwares</i> hétérogènes (Runtime #26), casse pendant la calibration (Runtime #32), <i class="t" data-t="python">Python</i> 3.13 (Runtime #38).</li>
+        <li><strong>Journaux de construction tiers</strong> : soyeon24 (36 STL / 51 pièces, 990 g de <i class="t" data-t="pla">PLA</i>, entraînement en 1 h 11), seanmayer (<i class="t" data-t="roulement">roulements</i> 608), <i class="t" data-t="fork">fork</i> Jetson (XiaohuiChen), variante 12 V (duck_mini_pro_headless), article Scalable Human (« configurer les moteurs avant d'assembler »), billet Frank Fu (lecture du Playground).</li>
+        <li><strong>Articles</strong> : Hackaday (avril 2025), CircuitDigest (juin 2026), Make: (août 2026), annonce Microduck (Pollen Robotics, août 2026), annonce du rachat de Pollen par Hugging Face (avril 2025), article <i class="t" data-t="mujoco">MuJoCo</i> Playground (arXiv 2502.08844).</li>
       </ul>
     </div>
     <div class="card">
-      <h3><svg><use href="#i-cart"/></svg>Composants, fournisseurs, outils</h3>
+      <h3><svg><use href="#i-cart"/></svg>Fabricants, fournisseurs, outils</h3>
       <ul class="src">
-        <li>STS3215 : <a href="https://www.waveshare.com/st3215-servo.htm?sku=33014" target="_blank" rel="noopener">Waveshare</a> · <a href="https://waveshare.com/wiki/ST3215_Servo" target="_blank" rel="noopener">wiki</a> · <a href="https://core-electronics.com.au/attachments/uploads/sts3215-smart-servo-datasheet-translated.pdf" target="_blank" rel="noopener">datasheet traduite</a> · <a href="https://openelab.com/products/seeed-studio-feetech-st3215-c001" target="_blank" rel="noopener">OpenELAB</a> · <a href="https://eckstein-shop.de/Feetech-STS3215-74V-19kgcm-plastic-case-metal-gear-magnetic-code-dual-shaft-TTL-serial-servo" target="_blank" rel="noopener">Eckstein</a> · <a href="https://eu.robotshop.com/products/magnetic-encoding-servo-sts3215-74v-19kgcm" target="_blank" rel="noopener">RobotShop EU</a> · <a href="https://github.com/TheRobotStudio/SO-ARM100" target="_blank" rel="noopener">SO-ARM100 (variantes)</a> · <a href="https://pypi.org/project/feetech-servo-sdk/" target="_blank" rel="noopener">feetech-servo-sdk</a></li>
-        <li>Carte : <a href="https://www.waveshare.com/bus-servo-adapter-a.htm" target="_blank" rel="noopener">Bus Servo Adapter (A)</a> · <a href="https://www.waveshare.com/wiki/Bus_Servo_Adapter_(A)" target="_blank" rel="noopener">wiki</a></li>
-        <li>Pi Zero 2 W : <a href="https://kubii.com/en/nano-computers/3455-raspberry-pi-zero-2-w-wh.html" target="_blank" rel="noopener">Kubii</a></li>
-        <li>BNO055 : <a href="https://www.adafruit.com/product/2472" target="_blank" rel="noopener">Adafruit 2472</a> · <a href="https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/i2c-clock-stretching" target="_blank" rel="noopener">clock stretching</a> · <a href="https://learn.adafruit.com/bno055-absolute-orientation-sensor-with-raspberry-pi-and-beaglebone-black/hardware" target="_blank" rel="noopener">UART sur Pi</a> · <a href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf" target="_blank" rel="noopener">datasheet Bosch</a></li>
-        <li>Contacts SS-10 : <a href="https://befr.rs-online.com/web/p/micro-switches/6820831" target="_blank" rel="noopener">RS Components</a></li>
-        <li>GitHub : <a href="https://github.com/pricing" target="_blank" rel="noopener">tarifs</a> · <a href="https://docs.github.com/en/billing/concepts/product-billing/git-lfs" target="_blank" rel="noopener">Git LFS</a> · <a href="https://docs.github.com/fr/repositories/working-with-files/managing-large-files/about-large-files-on-github" target="_blank" rel="noopener">gros fichiers</a> · <a href="https://docs.github.com/fr/organizations/collaborating-with-groups-in-organizations/creating-a-new-organization-from-scratch" target="_blank" rel="noopener">organisation</a> · <a href="https://docs.github.com/fr/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization" target="_blank" rel="noopener">rôles</a> · <a href="https://docs.github.com/fr/authentication/securing-your-account-with-two-factor-authentication-2fa/about-mandatory-two-factor-authentication" target="_blank" rel="noopener">2FA</a> · <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks" target="_blank" rel="noopener">forks</a> · <a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork" target="_blank" rel="noopener">sync fork</a> · <a href="https://github.community/t/create-issues-for-forks/118975" target="_blank" rel="noopener">issues sur un fork</a> · <a href="https://docs.github.com/fr/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop" target="_blank" rel="noopener">cloner un fork (Desktop)</a> · <a href="https://docs.github.com/fr/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository" target="_blank" rel="noopener">modèles d'issues</a> · <a href="https://docs.github.com/fr/repositories/releasing-projects-on-github/about-releases" target="_blank" rel="noopener">releases</a> · <a href="https://docs.github.com/fr/repositories/working-with-files/using-files/working-with-non-code-files" target="_blank" rel="noopener">aperçu STL/CSV</a> · <a href="https://docs.github.com/en/nonprofit/nonprofit-teams-plan/getting-started-with-the-github-team-plan-for-nonprofits" target="_blank" rel="noopener">nonprofits</a> · <a href="https://choosealicense.com/licenses/apache-2.0/" target="_blank" rel="noopener">Apache-2.0</a> · <a href="https://oshwa.org/resources/sharing-best-practices/" target="_blank" rel="noopener">OSHWA</a></li>
-        <li>FreeCAD / Onshape : <a href="https://linuxfr.org/news/freecad-1-0" target="_blank" rel="noopener">FreeCAD 1.0</a> · <a href="https://osarch.org/2026/03/25/freecad-1-1-released/" target="_blank" rel="noopener">FreeCAD 1.1</a> · <a href="https://blog.lambda.cx/posts/freecad-and-git/" target="_blank" rel="noopener">FreeCAD et git</a> · <a href="https://wiki.freecad.org/Macro_CenterOfMass" target="_blank" rel="noopener">Macro CenterOfMass</a> · <a href="https://www.onshape.com/en/pricing" target="_blank" rel="noopener">Onshape pricing</a> · <a href="https://cad.onshape.com/help/Content/Primer/branching.htm" target="_blank" rel="noopener">branches Onshape</a> · <a href="https://forum.onshape.com/discussion/10703/export-in-free-version" target="_blank" rel="noopener">export en version gratuite</a></li>
-        <li>Impression : <a href="https://www.help.prusa3d.com/article/how-to-import-and-export-custom-profiles-in-prusaslicer_382766" target="_blank" rel="noopener">profils PrusaSlicer</a> · <a href="https://help.prusa3d.com/article/saving-projects-as-3mf_1773" target="_blank" rel="noopener">projets 3MF</a> · <a href="https://help.prusa3d.com/fr/materials" target="_blank" rel="noopener">matériaux Prusa</a> · <a href="https://cnckitchen.com/blog/tips-and-tricks-for-heat-set-inserts" target="_blank" rel="noopener">inserts (CNC Kitchen)</a></li>
-        <li>Laser : <a href="https://the-gadgeteer.com/2025/01/05/xtool-p2s-55w-desktop-co2-laser-cutter-review-a-laser-cutting-and-engraving-dream-machine/" target="_blank" rel="noopener">test P2S (The Gadgeteer)</a> · <a href="https://support.xtool.com/article/287" target="_blank" rel="noopener">LightBurn et P2S</a> · <a href="https://support.xtool.com/article/2426" target="_blank" rel="noopener">kerf XCS</a> · <a href="https://wiki.1laser.com/en/knowledge-base/popularization/kerf-compensation" target="_blank" rel="noopener">mesurer le kerf</a> · <a href="https://makerspace.tulane.edu/index.php/Laser_Cutter_Materials" target="_blank" rel="noopener">matériaux interdits</a></li>
-        <li>Sécurité : <a href="https://www.epfl.ch/campus/security-safety/batteries-au-lithium/" target="_blank" rel="noopener">EPFL batteries lithium</a> · <a href="https://www.unmannedtechshop.co.uk/fr/blogs/knowledge-base/how-to-charge-lipo-batteries-safely-complete-guide" target="_blank" rel="noopener">charge LiPo en sécurité</a></li>
-        <li>Méthode : <a href="https://scrumguides.org/scrum-guide.html" target="_blank" rel="noopener">Scrum Guide (Definition of Done)</a> · <a href="https://openclassrooms.com/fr/courses/7162856-gerez-du-code-avec-git-et-github" target="_blank" rel="noopener">OpenClassrooms</a> · <a href="https://grafikart.fr/formations/git" target="_blank" rel="noopener">Grafikart</a></li>
+        <li><strong>Feetech STS3215</strong> : fiche <i class="t" data-t="waveshare">Waveshare</i> et wiki ST3215, fiche technique traduite (Core Electronics), fiches OpenELAB et Eckstein (prix UE), RobotShop EU, dépôt SO-ARM100 (variantes de rapport), bibliothèque feetech-servo-sdk.</li>
+        <li><strong>Carte Waveshare Bus Servo Adapter (A)</strong> : fiche et wiki Waveshare.</li>
+        <li><strong><i class="t" data-t="pi-zero-2w">Raspberry Pi Zero 2 W</i></strong> : fiche Kubii (prix, disponibilité).</li>
+        <li><strong><i class="t" data-t="bno055">BNO055</i></strong> : fiche Adafruit 2472, guides Adafruit (<i class="t" data-t="clock-stretching">clock stretching</i> <i class="t" data-t="i2c">I²C</i>, câblage <i class="t" data-t="uart">UART</i> sur <i class="t" data-t="raspberry-pi">Raspberry Pi</i>), fiche technique Bosch.</li>
+        <li><strong>Contacts Omron SS-10</strong> : fiche RS Components.</li>
+        <li><strong>GitHub</strong> : documentation officielle en français (organisations, rôles, double authentification, forks et synchronisation, <i class="t" data-t="github-desktop">GitHub Desktop</i>, modèles d'issues, Projects, releases, limites de taille, <i class="t" data-t="git">Git</i> LFS, aperçu des STL et <i class="t" data-t="csv">CSV</i>), page des tarifs, programme pour associations.</li>
+        <li><strong><i class="t" data-t="freecad">FreeCAD</i> et Onshape</strong> : annonces FreeCAD 1.0 (nov. 2024) et 1.1 (mars 2026), documentation du format <i class="t" data-t="fcstd">FCStd</i>, préférences de document (code source), tarifs et aide Onshape (branches, export), extension RobotCAD.</li>
+        <li><strong>Impression 3D</strong> : aide <i class="t" data-t="prusaslicer">PrusaSlicer</i> (profils, projets <i class="t" data-t="3mf">3MF</i>), guide des matériaux Prusa, article CNC Kitchen sur les <i class="t" data-t="insert">inserts</i> à chaud.</li>
+        <li><strong>Laser</strong> : tests de la xTool P2S (The Gadgeteer, ArchitectureLab), support xTool (LightBurn et P2S, compensation de <i class="t" data-t="kerf">kerf</i> dans <i class="t" data-t="xcs">XCS</i>), base de connaissances 1laser (mesure du kerf), liste de matériaux du makerspace de Tulane.</li>
+        <li><strong>Sécurité</strong> : consignes batteries lithium de l'EPFL, guide de charge LiPo en sécurité.</li>
+        <li><strong>Méthode</strong> : Scrum Guide (définition de <i class="t" data-t="dod">« fini »</i>), bonnes pratiques de partage OSHWA, licence Apache-2.0 (résumé choosealicense).</li>
       </ul>
     </div>
   </div>
   <div class="card flat">
-    <p class="muted" style="font-size:0.85rem">Dossier de présentation et plan d'achats de septembre 2026 (documents internes du projet) repris pour le budget et les phases. Ce dossier a été rédigé le 1er octobre 2026 ; les pages non lisibles ce jour-là (guide Tnkr, vidéo YouTube, issues via l'API) sont citées sur la foi des sources secondaires.</p>
+    <p class="muted" style="font-size:0.85rem">Documents internes repris : dossier de présentation et plan d'achats de septembre 2026 (budget et phases). Pages non lisibles le 1er octobre 2026 : guide d'assemblage Tnkr, vidéo « 4 Days of Soldering », historique des <i class="t" data-t="commit">commits</i> via l'API GitHub ; leurs informations sont citées d'après des sources secondaires.</p>
   </div>
 </section>

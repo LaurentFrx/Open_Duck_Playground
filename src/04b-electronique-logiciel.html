@@ -3,7 +3,8 @@
   <div class="page-head">
     <div class="eyebrow">Matériel embarqué</div>
     <h1>Électronique et câblage</h1>
-    <p class="lead">Un Pi Zero 2 W, une carte d'interface pour le bus série des 14 servos, une centrale inertielle en I²C, quatre contacts de pied sur les GPIO, et un pack 2S qui alimente à la fois les servos (directement) et le Pi (via un régulateur 5 V).</p>
+    <p class="lead">Un <i class="t" data-t="pi-zero-2w">Pi Zero 2 W</i>, une carte d'interface pour le <i class="t" data-t="bus-serie">bus série</i> des 14 <i class="t" data-t="servo">servos</i>, une centrale inertielle en <i class="t" data-t="i2c">I²C</i>, quatre <i class="t" data-t="contact-pied">contacts de pied</i> sur les <i class="t" data-t="gpio">GPIO</i>, et un pack <i class="t" data-t="2s">2S</i> qui alimente à la fois les servos (directement) et le Pi (via un régulateur 5 V).</p>
+    <div class="read-first"><span>Pour comprendre cette page, lire d'abord :</span> <a href="#cours-electronique"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>9 · Électronique</a> <a href="#cours-servos"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>10 · Servomoteurs</a> <a href="#cours-capteurs"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>11 · Capteurs</a> <a href="#cours-securite"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>12 · Sécurité</a></div>
   </div>
 
   <div class="card">
@@ -77,7 +78,7 @@
         <div class="wire"><span>Bus servos</span><b>USB → Waveshare (ttyACM0)</b></div>
         <div class="wire"><span>Alimentation Pi</span><b>5 V UBEC → 5V / GND</b></div>
       </div>
-      <p class="muted" style="font-size:0.85rem">Contacts actifs à l'état bas avec pull-up interne. L'IMU est montée « à l'envers » sur les photos amont : réglable par <code>imu_upside_down</code> dans la configuration.</p>
+      <p class="muted" style="font-size:0.85rem">Contacts actifs à l'état bas avec <i class="t" data-t="pull-up">pull-up</i> interne. L'<i class="t" data-t="imu">IMU</i> est montée « à l'envers » sur les photos <i class="t" data-t="amont">amont</i> : réglable par <code>imu_upside_down</code> dans la configuration.</p>
     </div>
     <div class="card">
       <h2><svg><use href="#i-zap"/></svg>Feetech STS3215 : la bonne référence</h2>
@@ -85,16 +86,16 @@
         <table>
           <thead><tr><th>Version</th><th>Couple</th><th>Vitesse à vide</th><th>Courant bloqué</th><th>Verdict</th></tr></thead>
           <tbody>
-            <tr><td><strong>7,4 V · 1/345 (C001)</strong></td><td>19,5 kg·cm</td><td>52 tr/min</td><td>2,5 A</td><td><span class="pill ok">la bonne</span></td></tr>
-            <tr><td>7,4 V · 1/191 (C044), 1/147 (C046)</td><td>moindre</td><td>plus rapide</td><td>—</td><td><span class="pill bad">à éviter</span> : hors modèle BAM</td></tr>
-            <tr><td>12 V · 30 kg·cm</td><td>30 kg·cm</td><td>45 tr/min</td><td>2,7 A</td><td><span class="pill bad">à éviter</span> : pas de paramètres BAM, pied qui ne se lève plus assez (issue #52)</td></tr>
+            <tr><td><strong>7,4 V · 1/345 (C001)</strong></td><td>19,5 <i class="t" data-t="kg-cm">kg·cm</i></td><td>52 tr/min</td><td>2,5 A</td><td><span class="pill ok">la bonne</span></td></tr>
+            <tr><td>7,4 V · 1/191 (C044), 1/147 (C046)</td><td>moindre</td><td>plus rapide</td><td>—</td><td><span class="pill bad">à éviter</span> : hors modèle <i class="t" data-t="bam">BAM</i></td></tr>
+            <tr><td>12 V · 30 kg·cm</td><td>30 kg·cm</td><td>45 tr/min</td><td>2,7 A</td><td><span class="pill bad">à éviter</span> : pas de paramètres BAM, pied qui ne se lève plus assez (<i class="t" data-t="issue">issue</i> #52)</td></tr>
           </tbody>
         </table>
       </div>
       <ul class="tight">
-        <li>Série TTL half-duplex, 1 Mbit/s, ID 0 à 253, codeur magnétique 12 bits (4096 pas/tour, 0,088°).</li>
-        <li>Protections firmware : coupure à 70 °C, surintensité &gt; 2 A pendant 2 s, blocage &gt; 80 % pendant 2 s. <strong>La boucle de marche ne surveille ni courant ni température.</strong></li>
-        <li>Plage de tension : 4 à 7,4 V selon Waveshare, 5 à 8,4 V selon Seeed. Un pack 2S chargé fait 8,4 V : prévoir la mesure sur le banc.</li>
+        <li>Série TTL <i class="t" data-t="half-duplex">half-duplex</i>, 1 Mbit/s, <i class="t" data-t="id-servo">ID</i> 0 à 253, <i class="t" data-t="codeur">codeur</i> magnétique 12 bits (4096 pas/tour, 0,088°).</li>
+        <li>Protections <i class="t" data-t="firmware">firmware</i> : coupure à 70 °C, surintensité &gt; 2 A pendant 2 s, blocage &gt; 80 % pendant 2 s. <strong>La boucle de marche ne surveille ni <i class="t" data-t="courant">courant</i> ni température.</strong></li>
+        <li>Plage de <i class="t" data-t="tension">tension</i> : 4 à 7,4 V selon <i class="t" data-t="waveshare">Waveshare</i>, 5 à 8,4 V selon Seeed. Un pack 2S chargé fait 8,4 V : prévoir la mesure sur le banc.</li>
         <li>Firmware : des sous-versions différentes entre servos provoquent « Parsing error in set_kps() » (issue Runtime #26). Mise à jour uniquement par le logiciel Feetech sous Windows. Acheter les 14 du même lot limite le risque.</li>
       </ul>
     </div>
@@ -104,8 +105,8 @@
     <div class="card">
       <h3><svg><use href="#i-info"/></svg>IMU BNO055</h3>
       <ul class="tight">
-        <li>Mode NDOF (fusion 9 axes). Le runtime lit gyroscope et accéléromètre à 50 Hz, sans filtrage ; il n'utilise pas le quaternion.</li>
-        <li><strong>Problème connu</strong> : la BNO055 fait du « clock stretching » I²C que le Raspberry Pi gère mal. Remèdes documentés : passer en UART (broche PS1 au 3,3 V) ou ralentir le bus (<code>dtparam=i2c_arm_baudrate=10000</code>). Le projet n'a pas tranché ; le code UART est commenté.</li>
+        <li>Mode <i class="t" data-t="ndof">NDOF</i> (<i class="t" data-t="fusion">fusion</i> 9 axes). Le <i class="t" data-t="runtime">runtime</i> lit <i class="t" data-t="gyroscope">gyroscope</i> et <i class="t" data-t="accelerometre">accéléromètre</i> à <i class="t" data-t="frequence-controle">50 Hz</i>, sans filtrage ; il n'utilise pas le <i class="t" data-t="quaternion">quaternion</i>.</li>
+        <li><strong>Problème connu</strong> : la <i class="t" data-t="bno055">BNO055</i> fait du « <i class="t" data-t="clock-stretching">clock stretching</i> » I²C que le <i class="t" data-t="raspberry-pi">Raspberry Pi</i> gère mal. Remèdes documentés : passer en <i class="t" data-t="uart">UART</i> (broche PS1 au 3,3 V) ou ralentir le bus (<code>dtparam=i2c_arm_baudrate=10000</code>). Le projet n'a pas tranché ; le code UART est commenté.</li>
         <li>Calibration par <code>calibrate_imu.py</code> → <code>imu_calib_data.pkl</code> dans le dossier courant. Lancer la marche depuis ce dossier.</li>
         <li>Surveiller les messages <code>[IMU]:</code> dans la console.</li>
       </ul>
@@ -113,10 +114,10 @@
     <div class="card">
       <h3><svg><use href="#i-zap"/></svg>Alimentation</h3>
       <ul class="tight">
-        <li>Pack 2S : 6,8 V vide → 8,4 V plein. Le modèle de simulation est identifié à 7,4 V : couple et gain varient de +13,5 % à 8,4 V et −8 % à 6,8 V.</li>
+        <li>Pack 2S : 6,8 V vide → 8,4 V plein. Le modèle de <i class="t" data-t="simulation">simulation</i> est identifié à 7,4 V : <i class="t" data-t="couple">couple</i> et gain varient de +13,5 % à 8,4 V et −8 % à 6,8 V.</li>
         <li>Charger les deux cellules à la même tension avant de les mettre dans le support.</li>
-        <li>Chute de tension sous charge = erreurs CRC sur le bus (issue #49) : cellules ≥ 25 A, câbles courts et de bonne section, XT30.</li>
-        <li>Banc d'essai : alimentation de laboratoire 7,4 V limitée en courant (3 A pour un servo, 10 A pour le robot complet) avant la batterie.</li>
+        <li>Chute de tension sous charge = erreurs <i class="t" data-t="crc">CRC</i> sur le bus (issue #49) : cellules ≥ 25 A, câbles courts et de bonne section, <i class="t" data-t="xt30">XT30</i>.</li>
+        <li>Banc d'essai : <i class="t" data-t="alim-labo">alimentation de laboratoire</i> 7,4 V limitée en courant (3 A pour un servo, 10 A pour le robot complet) avant la batterie.</li>
         <li>La carte Waveshare transmet la tension d'entrée directement aux servos : ne jamais la brancher sur 12 V avec des servos 7,4 V.</li>
       </ul>
     </div>
@@ -127,7 +128,7 @@
         <li>Arrêter si une cellule chauffe, gonfle ou sent.</li>
         <li>Stockage à ≈ 50 % de charge, hors du robot, dans une boîte métallique.</li>
         <li>Consigne incendie : évacuer ; n'intervenir que formé, avec un moyen d'extinction adapté (sable, extincteur classe D ou eau en grande quantité).</li>
-        <li>Ne jamais court-circuiter une 18650 : les pôles nus sont à protéger pendant le montage.</li>
+        <li>Ne jamais <i class="t" data-t="court-circuit">court-circuit</i>er une <i class="t" data-t="18650">18650</i> : les pôles nus sont à protéger pendant le montage.</li>
       </ul>
     </div>
   </div>
@@ -153,7 +154,8 @@
   <div class="page-head">
     <div class="eyebrow">Code</div>
     <h1>Le runtime sur le Raspberry Pi</h1>
-    <p class="lead">Le dépôt <code>Open_Duck_Mini_Runtime</code> (branche <code>v2</code>) contient tout ce qui tourne sur le robot : la boucle de marche, les scripts de configuration des servos, la calibration de l'IMU et des offsets, et le pilotage à la manette. Une image système prête à flasher évite l'installation manuelle.</p>
+    <p class="lead">Le dépôt <code>Open_Duck_Mini_Runtime</code> (<i class="t" data-t="branche">branche</i> <code>v2</code>) contient tout ce qui tourne sur le robot : la boucle de marche, les <i class="t" data-t="script">scripts</i> de configuration des <i class="t" data-t="servo">servos</i>, la calibration de l'<i class="t" data-t="imu">IMU</i> et des <i class="t" data-t="offset">offsets</i>, et le pilotage à la <i class="t" data-t="bluetooth-manette">manette</i>. Une image système prête à <i class="t" data-t="flasher">flasher</i> évite l'installation manuelle.</p>
+    <div class="read-first"><span>Pour comprendre cette page, lire d'abord :</span> <a href="#cours-raspberry"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>2 · Raspberry Pi et Linux</a> <a href="#cours-python"><svg style="width:12px;height:12px" aria-hidden="true"><use href="#i-book"/></svg>3 · Lire le logiciel</a></div>
   </div>
 
   <div class="grid c2">
@@ -161,17 +163,17 @@
       <h2><svg><use href="#i-code"/></svg>Deux façons d'installer</h2>
       <h4>A · Image prête à flasher (v0.2.3, maintenue par MaxMakesStuff) <span class="pill ok">recommandée pour démarrer</span></h4>
       <ul class="tight">
-        <li>Basée sur Raspberry Pi OS Bookworm, carte de 32 Go.</li>
+        <li>Basée sur <i class="t" data-t="raspberry-pi-os">Raspberry Pi OS</i> Bookworm, carte de 32 Go.</li>
         <li>Au démarrage, un pied appuyé choisit le mode : pied gauche = Head-Puppet, pied droit = Walk.</li>
         <li>Point d'accès Wi-Fi de secours « Openduck ». Identifiants par défaut <code>bdxv2</code> / <code>ilovemyduck</code>, <strong>à changer</strong>.</li>
         <li>Les offsets et la calibration IMU restent à faire : ils sont propres à chaque robot.</li>
       </ul>
       <h4>B · Installation manuelle</h4>
       <ul class="tight">
-        <li>Raspberry Pi OS Lite 64 bits, <strong>Python 3.11</strong> (les images récentes sont en 3.13 et <code>onnxruntime 1.18.1</code> n'y est pas disponible : issue #38 ; remède <code>uv</code> avec Python 3.11, ou Bookworm).</li>
-        <li><code>git checkout v2</code> puis <code>pip install -e .</code> dans un virtualenv.</li>
-        <li>Activer I²C, poser la règle udev de latence série, appairer la manette Xbox avec <code>bluetoothctl</code>.</li>
-        <li>Sur Pi 5 : remplacer RPi.GPIO par <code>lgpio</code>.</li>
+        <li><i class="t" data-t="raspberry-pi">Raspberry Pi</i> OS Lite 64 bits, <strong><i class="t" data-t="python">Python</i> 3.11</strong> (les images récentes sont en 3.13 et <code>onnxruntime 1.18.1</code> n'y est pas disponible : <i class="t" data-t="issue">issue</i> #38 ; remède <code>uv</code> avec Python 3.11, ou Bookworm).</li>
+        <li><code>git checkout v2</code> puis <code>pip install -e .</code> dans un <i class="t" data-t="venv">virtualenv</i>.</li>
+        <li>Activer <i class="t" data-t="i2c">I²C</i>, poser la règle udev de latence série, appairer la manette Xbox avec <code>bluetoothctl</code>.</li>
+        <li>Sur Pi 5 : remplacer RPi.<i class="t" data-t="gpio">GPIO</i> par <code>lgpio</code>.</li>
       </ul>
     </div>
     <div class="card">
@@ -181,16 +183,16 @@
           <thead><tr><th>Paquet</th><th>Version</th><th>Rôle</th></tr></thead>
           <tbody>
             <tr><td>rustypot</td><td>0.1.0</td><td>bus Feetech, <code>/dev/ttyACM0</code> à 1 Mbit/s</td></tr>
-            <tr><td>onnxruntime</td><td>1.18.1</td><td>exécution de la politique sur CPU</td></tr>
+            <tr><td>onnxruntime</td><td>1.18.1</td><td>exécution de la <i class="t" data-t="politique">politique</i> sur CPU</td></tr>
             <tr><td>numpy</td><td>1.26.4</td><td>—</td></tr>
             <tr><td>adafruit-circuitpython-bno055</td><td>5.4.13</td><td>IMU</td></tr>
-            <tr><td>pypot (fork Pollen)</td><td>branche <code>support-feetech-sts3215</code></td><td>scripts de configuration</td></tr>
+            <tr><td>pypot (<i class="t" data-t="fork">fork</i> Pollen)</td><td>branche <code>support-feetech-sts3215</code></td><td>scripts de configuration</td></tr>
             <tr><td>scipy, pygame</td><td>—</td><td>maths, manette</td></tr>
             <tr><td>openai</td><td>1.70.0</td><td>fonctions d'expression (optionnel)</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="note info"><svg><use href="#i-info"/></svg><div>Règle udev : le README règle <code>latency_timer=1</code> pour le pilote <code>ftdi_sio</code>, or <code>/dev/ttyACM*</code> correspond à <code>cdc_acm</code>. Vérifier quel pilote la Waveshare utilise (<code>dmesg</code>) avant de copier la règle.</div></div>
+      <div class="note info"><svg><use href="#i-info"/></svg><div>Règle udev : le README règle <code>latency_timer=1</code> pour le pilote <code>ftdi_sio</code>, or <code>/dev/ttyACM*</code> correspond à <code>cdc_acm</code>. Vérifier quel pilote la <i class="t" data-t="waveshare">Waveshare</i> utilise (<code>dmesg</code>) avant de copier la règle.</div></div>
     </div>
   </div>
 
@@ -200,16 +202,16 @@
       <table>
         <thead><tr><th>Script</th><th>Quand</th><th>Ce qu'il fait</th></tr></thead>
         <tbody>
-          <tr><td><code>scripts/configure_motor.py --id N</code></td><td>Avant le montage, un servo à la fois</td><td>Cherche l'ID usine 1, écrit P=32 I=0 D=0, accélération 0, mode 0, change l'ID, envoie en position 0. On monte alors le palonnier aligné.</td></tr>
+          <tr><td><code>scripts/configure_motor.py --id N</code></td><td>Avant le montage, un servo à la fois</td><td>Cherche l'<i class="t" data-t="id-servo">ID</i> usine 1, écrit P=32 I=0 D=0, accélération 0, mode 0, change l'ID, envoie en position 0. On monte alors le <i class="t" data-t="palonnier">palonnier</i> aligné.</td></tr>
           <tr><td><code>scripts/configure_all_motors.py</code></td><td>Robot monté</td><td>Réapplique les réglages sur tous les servos.</td></tr>
           <tr><td><code>scripts/check_motors.py</code></td><td>Après câblage</td><td>Chaque servo répond et bouge de 0,1 rad.</td></tr>
           <tr><td><code>scripts/check_voltage.py</code></td><td>Banc, batterie</td><td>Tension vue par chaque servo.</td></tr>
-          <tr><td><code>scripts/find_soft_offsets.py</code></td><td>Calibration</td><td>Coupe le couple d'un joint, on le place à zéro à la main, mesure l'écart → <code>joints_offsets</code> dans <code>~/duck_config.json</code>. <strong>Attention</strong> : issue #32, tête et jambe ont bougé en même temps et cassé des pièces. Robot sur support, mains libres.</td></tr>
-          <tr><td><code>scripts/calibrate_imu.py</code></td><td>Calibration</td><td>Attend la calibration NDOF complète, écrit <code>imu_calib_data.pkl</code> dans le dossier courant.</td></tr>
-          <tr><td><code>scripts/imu_server.py</code> + <code>imu_client.py --ip</code></td><td>Vérification</td><td>Visualise le repère de l'IMU sur le PC pour vérifier l'orientation.</td></tr>
-          <tr><td><code>mini_bdx_runtime/.../feet_contacts.py</code></td><td>Vérification</td><td>Lit les contacts de pied.</td></tr>
-          <tr><td><code>scripts/turn_on.py</code></td><td>Mise sous tension</td><td>P = 2, amène le robot en pose initiale en douceur, puis remonte le gain.</td></tr>
-          <tr><td><code>scripts/v2_rl_walk_mujoco.py --onnx_model_path BEST_WALK_ONNX_2.onnx</code></td><td>Marche</td><td>Boucle à 50 Hz, P = 30 (8 pour la tête), <code>action_scale</code> 0,25. Avec <code>start_paused: true</code>, le bouton A lance la marche. Affiche « Policy control budget exceeded » si la boucle dépasse 20 ms.</td></tr>
+          <tr><td><code>scripts/find_soft_offsets.py</code></td><td>Calibration</td><td>Coupe le <i class="t" data-t="couple">couple</i> d'un joint, on le place à zéro à la main, mesure l'écart → <code>joints_offsets</code> dans <code>~/duck_config.json</code>. <strong>Attention</strong> : issue #32, tête et jambe ont bougé en même temps et cassé des pièces. Robot sur support, mains libres.</td></tr>
+          <tr><td><code>scripts/calibrate_imu.py</code></td><td>Calibration</td><td>Attend la calibration <i class="t" data-t="ndof">NDOF</i> complète, écrit <code>imu_calib_data.pkl</code> dans le dossier <i class="t" data-t="courant">courant</i>.</td></tr>
+          <tr><td><code>scripts/imu_server.py</code> + <code>imu_client.py --ip</code></td><td>Vérification</td><td>Visualise le repère de l'IMU sur le PC pour vérifier l'<i class="t" data-t="orientation">orientation</i>.</td></tr>
+          <tr><td><code>mini_bdx_runtime/.../feet_contacts.py</code></td><td>Vérification</td><td>Lit les <i class="t" data-t="contact-pied">contacts de pied</i>.</td></tr>
+          <tr><td><code>scripts/turn_on.py</code></td><td>Mise sous <i class="t" data-t="tension">tension</i></td><td>P = 2, amène le robot en pose initiale en douceur, puis remonte le gain.</td></tr>
+          <tr><td><code>scripts/v2_rl_walk_mujoco.py --onnx_model_path BEST_WALK_ONNX_2.onnx</code></td><td>Marche</td><td>Boucle à <i class="t" data-t="frequence-controle">50 Hz</i>, P = 30 (8 pour la tête), <code>action_scale</code> 0,25. Avec <code>start_paused: true</code>, le bouton A lance la marche. Affiche « Policy control budget exceeded » si la boucle dépasse 20 ms.</td></tr>
           <tr><td><code>scripts/head_puppet.py</code></td><td>Démo</td><td>Mode marionnette de la tête.</td></tr>
         </tbody>
       </table>
@@ -220,20 +222,22 @@
     <div class="card">
       <h3><svg><use href="#i-code"/></svg>Configuration : <code>~/duck_config.json</code></h3>
 <pre><code>{
-  "joints_offsets": {
-    "right_hip_yaw": 0.0,  "right_hip_roll": 0.0,
-    "right_hip_pitch": 0.0, "right_knee": 0.0, "right_ankle": 0.0,
-    "left_hip_yaw": 0.0,   "left_hip_roll": 0.0,
-    "left_hip_pitch": 0.0, "left_knee": 0.0,  "left_ankle": 0.0,
-    "neck_pitch": 0.0, "head_pitch": 0.0,
-    "head_yaw": 0.0,   "head_roll": 0.0
-  },
-  "imu_upside_down": true,
   "start_paused": true,
+  "imu_upside_down": false,
   "phase_frequency_factor_offset": 0.0,
-  "expressive": false
+  "expression_features": {
+    "eyes": false, "projector": false, "antennas": false,
+    "speaker": false, "microphone": false, "camera": false
+  },
+  "joints_offsets": {
+    "left_hip_yaw": 0.0,  "left_hip_roll": 0.0,  "left_hip_pitch": 0.0,
+    "left_knee": 0.0,     "left_ankle": 0.0,
+    "neck_pitch": 0.0,    "head_pitch": 0.0,  "head_yaw": 0.0,  "head_roll": 0.0,
+    "right_hip_yaw": 0.0, "right_hip_roll": 0.0, "right_hip_pitch": 0.0,
+    "right_knee": 0.0,    "right_ankle": 0.0
+  }
 }</code></pre>
-      <p class="muted" style="font-size:0.85rem">Valeurs indicatives d'après <code>example_config.json</code>. <strong>Ne jamais copier les offsets d'un autre robot.</strong> L'écriture des offsets dans l'EEPROM des servos est encore un TODO amont.</p>
+      <p class="muted" style="font-size:0.85rem">Structure reprise du fichier d'exemple du dépôt (<code>example_config.json</code>) ; <code>start_paused</code> passé à <code>true</code> pour nos essais. <strong>Ne jamais copier les offsets d'un autre robot.</strong> L'écriture des offsets dans l'EEPROM des servos est encore un TODO <i class="t" data-t="amont">amont</i>.</p>
     </div>
     <div class="card">
       <h3><svg><use href="#i-walk"/></svg>Manette Xbox (Bluetooth)</h3>
@@ -262,7 +266,7 @@
       <li><code>biscalab/duck_config.json</code> : la configuration de <strong>notre</strong> robot (offsets, IMU), commitée après chaque calibration avec la date dans le message.</li>
       <li><code>biscalab/INSTALL-biscalab.md</code> : ce qui a marché chez nous (version d'image, pilote udev réel, réglage I²C retenu, commandes exactes).</li>
       <li><code>biscalab/tests/</code> : résultats de <code>check_motors</code>, <code>check_voltage</code>, courant mesuré, fréquence réelle de la boucle.</li>
-      <li>Aucun fichier amont modifié. Une correction utile à tous est proposée en pull request à Antoine Pirrone.</li>
+      <li>Aucun fichier amont modifié. Une correction utile à tous est proposée en <i class="t" data-t="pull-request">pull request</i> à Antoine Pirrone.</li>
     </ul>
   </div>
 </section>

@@ -10,6 +10,9 @@ PWA.mkdir(exist_ok=True)
 
 parts = sorted(SRC.glob("*.html"))
 body = "\n".join(p.read_text(encoding="utf-8") for p in parts)
+import json
+terms = json.loads((SRC / "terms.json").read_text(encoding="utf-8"))
+body = body.replace("__TERMS__", json.dumps(terms, ensure_ascii=False, separators=(",", ":")))
 
 # 1) Fragment pour l'Artifact (le viewer ajoute doctype/head/body)
 (ROOT / "canard-biscalab.html").write_text(body, encoding="utf-8")
@@ -86,7 +89,7 @@ manifest = """{
 (PWA / "manifest.webmanifest").write_text(manifest, encoding="utf-8")
 
 sw = """/* Canard BiscaLab — service worker : coquille applicative en cache, réseau d'abord pour index.html. */
-const VERSION = 'canard-v1.0.0';
+const VERSION = 'canard-v1.1.0';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', (event) => {
