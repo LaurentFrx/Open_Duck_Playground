@@ -1,0 +1,22 @@
+</main>
+
+<nav class="tabbar" aria-label="Navigation principale">
+  <div class="tabbar-row" id="tabbar-row"></div>
+</nav>
+
+<div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Toutes les rubriques" hidden>
+  <div class="sheet-head">
+    <h2>Rubriques</h2>
+    <button class="tb-btn" type="button" id="sheet-close" aria-label="Fermer" style="width:36px;height:36px;border-radius:9999px;border:1px solid var(--color-border);background:var(--color-card);color:var(--color-fg);display:grid;place-items:center"><svg style="width:18px;height:18px"><use href="#i-x"/></svg></button>
+  </div>
+  <label class="sheet-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="sheet-q" type="search" placeholder="Rechercher" autocomplete="off" />
+    <span class="sr-only">Rechercher une rubrique</span>
+  </label>
+  <div class="sheet-body" id="sheet-body"></div>
+  <div class="sheet-grab" aria-hidden="true"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
