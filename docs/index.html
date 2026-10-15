@@ -346,7 +346,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .card.big { border-radius: var(--radius-3xl); padding: 22px 24px; }
 .card.flat { box-shadow: var(--shadow-xs); }
 .card > h2, .card > h3 { display: flex; align-items: center; gap: 8px; }
-.card h2 > svg, .card h3 > svg { width: 18px; height: 18px; color: var(--color-primary-active); flex: none; }
+.card h2 > svg, .card h3 > svg, .card h3 > span > svg { width: 18px; height: 18px; color: var(--color-primary-active); flex: none; }
 .card > h2, .card > h3 { flex-wrap: wrap; }
 .card > h3 > span:first-child { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
 .card .sub { font-size: 0.85rem; color: var(--color-muted-fg); margin-top: -6px; }
@@ -549,7 +549,7 @@ details.quiz + details.quiz { margin-top: 8px; }
 .read-first { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.88rem; color: var(--color-muted-fg); }
 .read-first a { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--color-primary-muted); color: var(--color-primary-active); font-weight: 600; font-size: 12.5px; }
 .read-first a:hover { text-decoration: none; filter: brightness(0.95); }
-/* ─── Suivi : état des données, timeline, entrées, formulaires, modale ──── */
+/* ─── Suivi : état des données, timeline, entrées, formulaires en ligne ── */
 .data-status { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12.5px; color: var(--color-muted-fg); min-height: 20px; }
 .data-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-muted-fg); flex: none; }
 .data-status .dot.ok { background: var(--color-battery); }
@@ -593,15 +593,22 @@ details.quiz + details.quiz { margin-top: 8px; }
 .pc.montee { background: var(--color-primary-muted); color: var(--color-primary-active); border-color: transparent; }
 .pc.a_refaire { background: var(--color-alert-muted); color: var(--color-alert); border-color: transparent; }
 .phase.cur { outline: 2px solid var(--ph); outline-offset: 2px; }
-.sheet.modal { max-height: 92dvh; }
-.form { display: flex; flex-direction: column; gap: 10px; }
+.form { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.form .wide, .form .row { grid-column: 1 / -1; }
+@media (min-width: 768px) { .form { grid-template-columns: 1fr 1fr; column-gap: 14px; } }
+.form-card { border-color: var(--color-primary); }
+.form-card .entry-head h3 { margin: 0; }
+[data-form-slot]:empty { display: none; }
+[data-form-slot] { margin: 2px 0 4px; scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px)); }
+@media (min-width: 768px) { [data-form-slot] { scroll-margin-top: 16px; } }
+.f-out { scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px)); }
 .fld { display: flex; flex-direction: column; gap: 4px; }
 .fld label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-muted-fg); }
 .fld input, .fld select, .fld textarea { font: inherit; font-size: 16px; padding: 8px 10px; border-radius: var(--radius-lg); border: 1px solid var(--color-border-strong); background: var(--color-card); color: var(--color-fg); }
 .fld textarea { min-height: 70px; resize: vertical; }
 .fld .static { padding: 8px 10px; border-radius: var(--radius-lg); background: var(--color-muted); font-size: 0.95rem; }
-#f-out { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-@media (min-width: 768px) { .sheet.modal { left: 50%; right: auto; width: min(720px, 94vw); transform: translateX(-50%); top: 24px; border-radius: var(--radius-3xl); } }
+.f-out:empty { display: none; }
+.f-out { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
 </style>
 
 
@@ -687,7 +694,7 @@ details.quiz + details.quiz { margin-top: 8px; }
   </div>
   <div class="card flat">
     <h3><svg><use href="#i-info"/></svg>Comment ça marche</h3>
-    <p class="tight">Chaque bouton « Enregistrer » prépare un petit fichier texte et ouvre l'éditeur de GitHub déjà rempli ; il ne reste qu'à cliquer <strong>Commit changes</strong>. Le fichier arrive dans <code>biscalab/</code> du dépôt du club et cette page le lit à la prochaine actualisation. Il faut un compte GitHub membre du dépôt (<a href="#cours-git">cours 1</a>). Les cases « cours terminé » du parcours, elles, restent personnelles à chaque appareil.</p>
+    <p class="tight">Chaque page de suivi a son formulaire, directement dans la page : on le remplit, il prépare un petit fichier texte et ouvre l'éditeur de GitHub déjà rempli ; il ne reste qu'à cliquer <strong>Commit changes</strong>. Le fichier arrive dans <code>biscalab/</code> du dépôt du club et cette page le lit à la prochaine actualisation. Il faut un compte GitHub membre du dépôt (<a href="#cours-git">cours 1</a>). Les cases « cours terminé » du parcours, elles, restent personnelles à chaque appareil.</p>
   </div>
 </section>
 
@@ -2342,7 +2349,7 @@ Trésorier-acheteur,</code></pre>
 
   <div class="card lesson">
     <h2>9. Enregistrer depuis la page</h2>
-    <p>Pour le suivi du projet (une séance, une pièce imprimée, un achat, une mesure, une décision, une fiche de test, une case cochée), GitHub Desktop est inutile. Ce dossier est aussi le tableau de bord du projet : chaque bouton « Enregistrer » (ou « Nouvelle séance », « Nouvel achat »…) ouvre un petit formulaire. La page en tire un <i class="t" data-t="enregistrement">enregistrement</i>, un fichier Markdown de quelques lignes, puis ouvre GitHub avec ce fichier déjà écrit. Il ne reste qu'à valider. Le principe est détaillé au <a href="#cours-methode">cours 4</a> ; voici ce que l'on voit à l'écran.</p>
+    <p>Pour le suivi du projet (une séance, une pièce imprimée, un achat, une mesure, une décision, une fiche de test, une case cochée), GitHub Desktop est inutile. Ce dossier est aussi le tableau de bord du projet : chaque bouton « Enregistrer » (ou « Nouvelle séance », « Nouvel achat »…) déplie un petit formulaire dans la page ; sur une rubrique encore vide, il est déjà là. La page en tire un <i class="t" data-t="enregistrement">enregistrement</i>, un fichier Markdown de quelques lignes, puis ouvre GitHub avec ce fichier déjà écrit. Il ne reste qu'à valider. Le principe est détaillé au <a href="#cours-methode">cours 4</a> ; voici ce que l'on voit à l'écran.</p>
     <h3>Ce que GitHub affiche</h3>
     <ol class="steps">
       <li><div><b>Préparer.</b> Remplir le formulaire, cliquer <strong>Préparer l'enregistrement</strong> : la page montre le chemin du fichier et son texte. Cliquer <strong>Enregistrer sur GitHub</strong> : GitHub s'ouvre dans un nouvel onglet, connecté à votre compte.</div></li>
@@ -2962,7 +2969,7 @@ for id_servo in jambe_droite:         # une boucle : pour chaque élément…
     <p>L'image à garder : le carnet à souches du chantier. On remplit un formulaire tout prêt ; la souche, datée et signée, est rangée dans le bon classeur ; n'importe qui peut ouvrir le classeur. Ici, le classeur est le dossier <code>biscalab/</code> du dépôt du club, et chaque souche est un <i class="t" data-t="enregistrement">enregistrement</i> : un petit fichier texte.</p>
     <h3>Le mécanisme, en quatre temps</h3>
     <ol class="steps">
-      <li><div><b>Un formulaire.</b> Un bouton de la page (« Nouvelle séance », « Enregistrer une pièce », « Nouvel achat », « Nouvelle fiche de test », « Nouvelle mesure », « Nouvelle décision », ou une case du planning) ouvre un formulaire. On le remplit, puis « Préparer l'enregistrement ».</div></li>
+      <li><div><b>Un formulaire.</b> Un bouton de la page (« Nouvelle séance », « Enregistrer une pièce », « Nouvel achat », « Nouvelle fiche de test », « Nouvelle mesure », « Nouvelle décision », ou une case du planning) déplie un formulaire dans la page, sous le bouton ou sous la case. On le remplit, puis « Préparer l'enregistrement ».</div></li>
       <li><div><b>Un fichier texte.</b> La page écrit le fichier : son dossier, son nom daté, son contenu. On le voit avant de l'envoyer.</div></li>
       <li><div><b>L'éditeur GitHub pré-rempli.</b> « Enregistrer sur GitHub » ouvre la page de création de fichier de <i class="t" data-t="github">GitHub</i>, déjà remplie. Rien à taper.</div></li>
       <li><div><b>Commit.</b> Bouton vert « Commit changes… », puis, dans la fenêtre qui s'ouvre, second « Commit changes ». Le fichier entre dans le dépôt avec un <i class="t" data-t="commit">commit</i> à votre nom. Une minute plus tard, « Actualiser » le fait apparaître sur la page. Les écrans sont décrits au <a href="#cours-git">cours 1</a>.</div></li>
@@ -6201,16 +6208,6 @@ Ce que j'ai vu, quand, combien de fois.
   <div class="sheet-grab" aria-hidden="true"></div>
 </div>
 
-<div class="sheet-backdrop" id="modal-backdrop" hidden data-act="modal-close"></div>
-<div class="sheet modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
-  <div class="sheet-head">
-    <h2 id="modal-title">Enregistrer</h2>
-    <button class="tb-btn" type="button" data-act="modal-close" aria-label="Fermer" style="width:36px;height:36px;border-radius:9999px;border:1px solid var(--color-border);background:var(--color-card);color:var(--color-fg);display:grid;place-items:center"><svg style="width:18px;height:18px"><use href="#i-x"/></svg></button>
-  </div>
-  <div class="sheet-body" id="modal-body"></div>
-  <div class="sheet-grab" aria-hidden="true"></div>
-</div>
-
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -6438,9 +6435,10 @@ Ce que j'ai vu, quand, combien de fois.
     $('#tb-title').textContent = p.getAttribute('data-title') || 'Canard BiscaLab';
     $('#tb-sub').textContent = p.getAttribute('data-sub') || '';
     document.title = (p.getAttribute('data-title') || 'Canard BiscaLab') + ' · Canard BiscaLab';
-    markActive(); closeSheet(); closeModal();
+    markActive(); closeSheet();
     if (NAV_BY_ID[id].live) renderLive(id);
     if (!noScroll) window.scrollTo({ top: 0, behavior: 'auto' });
+    if (pendingForm && FORMS[pendingForm.kind] && FORMS[pendingForm.kind].page === id) { var pf = pendingForm; pendingForm = null; openForm(pf.kind, pf.pre, null); }
   }
   function markActive() { $$('[data-nav]').forEach(function (a) { if (a.getAttribute('data-nav') === current) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); }); }
   function route() { show((location.hash || '#accueil').replace('#', '')); }
@@ -6491,7 +6489,7 @@ Ce que j'ai vu, quand, combien de fois.
     if (t) { e.preventDefault(); openPop(t); return; }
     if (pop && !e.target.closest('.pop')) closePop();
   });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closePop(); closeSheet(); closeModal(); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closePop(); closeSheet(); } });
   window.addEventListener('scroll', closePop, { passive: true });
   $$('.t').forEach(function (el) { el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button'); el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPop(el); } }); });
   function renderGloss(q) {
@@ -6717,10 +6715,10 @@ Ce que j'ai vu, quand, combien de fois.
     var b = e.target.closest('[data-act]'); if (!b) return;
     var act = b.getAttribute('data-act');
     if (act === 'refresh') refresh(true);
-    else if (act === 'form') openForm(b.getAttribute('data-form'), JSON.parse(b.getAttribute('data-pre') || '{}'));
+    else if (act === 'form') openForm(b.getAttribute('data-form'), JSON.parse(b.getAttribute('data-pre') || '{}'), b);
+    else if (act === 'form-close') closeForm(b.closest('[data-form-slot]'));
     else if (act === 'toggle') { var tgt = $('#' + b.getAttribute('data-target')); if (tgt) { tgt.hidden = !tgt.hidden; b.textContent = tgt.hidden ? (b.getAttribute('data-open') || 'Voir') : (b.getAttribute('data-close') || 'Replier'); } }
-    else if (act === 'copy') copyText(b.getAttribute('data-text') || $('#' + b.getAttribute('data-src')).value, 'Texte copié');
-    else if (act === 'modal-close') closeModal();
+    else if (act === 'copy') { var fc = b.closest('.form-card'), ta = fc ? fc.querySelector('textarea.io') : null; copyText(b.getAttribute('data-text') || (ta ? ta.value : ''), 'Texte copié'); }
   });
 
   /* ══════════════════════════════════════════════════════════════════════
@@ -6732,21 +6730,40 @@ Ce que j'ai vu, quand, combien de fois.
   function pill(cls, txt) { return '<span class="pill ' + cls + '">' + esc(txt) + '</span>'; }
   function statutPill(s, labels) { var cls = { prevu: 'mute', commande: 'info', recu: 'ok', rembourse: 'ok', annule: 'bad', a_imprimer: 'mute', imprimee: 'info', controlee: 'ok', montee: 'p', a_refaire: 'bad', prise: 'ok', atrancher: 'warn', annulee: 'mute', GO: 'ok', 'NO-GO': 'bad', PARTIEL: 'warn' }[s] || 'mute'; return pill(cls, (labels && labels[s]) || (s === 'atrancher' ? 'à trancher' : s)); }
   function emptyState(what, formKind) {
-    return '<div class="note info"><svg><use href="#i-info"/></svg><div><strong>Rien d\'enregistré pour le moment.</strong> ' + esc(what) + (formKind ? ' <button type="button" class="btn primary sm" data-act="form" data-form="' + formKind + '">Enregistrer le premier</button>' : '') + '</div></div>';
+    return '<div class="note info"><svg><use href="#i-info"/></svg><div><strong>Rien d\'enregistré pour le moment.</strong> ' + esc(what) + (formKind ? ' Le premier se saisit dans le formulaire ci-dessus.' : '') + '</div></div>';
   }
+  function slotHtml() { return '<div data-form-slot></div>'; }
   function offlineNote() {
     if (data.ok || data.loading) return '';
     return '<div class="note warn"><svg><use href="#i-warn"/></svg><div><strong>Données non chargées.</strong> ' + esc(data.error || '') + ' La page lit les enregistrements dans le dépôt du club ; il faut une connexion à GitHub.</div></div>';
   }
   function who(par) { return par ? ' <span class="muted">· ' + esc(par) + '</span>' : ''; }
 
+  var AUTO_FORM = { journal: ['seance', 'seances'], pieces: ['piece', 'pieces'], achats: ['achat', 'achats'], tests: ['test', 'tests'], mesures: ['mesure', 'mesures'], decisions: ['decision', 'decisions'] };
+  var formClosedBy = {};   // pages où l'on a fermé le formulaire ouvert d'office
   function renderLive(id) {
     var box = $('[data-view="' + id + '"]');
     var st = data.state || fold([]);
     if (!box) { renderChecklists(st); return; }
     var fn = { accueil: viewAccueil, journal: viewJournal, planning: viewPlanning, pieces: viewPieces, achats: viewAchats, tests: viewTests, mesures: viewMesures, decisions: viewDecisions, equipe: viewEquipe, electronique: viewChecklist, marche: viewChecklist }[id];
-    if (fn) box.innerHTML = (data.loading && !data.ok ? '<p class="muted">Lecture du dépôt du club…</p>' : offlineNote()) + fn(st, id);
-    renderChecklists(st);
+    if (!fn) { renderChecklists(st); return; }
+    // Les formulaires en cours de saisie survivent au rafraîchissement : on détache les emplacements remplis, on les remet après.
+    var open = $$('[data-form-slot]', box).filter(function (sl) { return sl.firstChild; }).map(function (sl) { sl.parentNode.removeChild(sl); return sl; });
+    box.innerHTML = (data.loading && !data.ok ? '<p class="muted">Lecture du dépôt du club…</p>' : offlineNote()) + fn(st, id);
+    open.forEach(function (sl) {
+      var at = sl.getAttribute('data-after');
+      var anchor = at ? box.querySelector('[data-anchor="' + at + '"]') : null;
+      if (anchor) { anchor.parentNode.insertBefore(sl, anchor.nextSibling); return; }
+      var fresh = box.querySelector('[data-form-slot]:not([data-after])'); if (fresh) fresh.parentNode.replaceChild(sl, fresh); else box.insertBefore(sl, box.firstChild);
+    });
+    renderChecklists(st); renderStatus();
+    // Page de suivi vide : le formulaire est directement là, pas de bouton à chercher.
+    var af = AUTO_FORM[id];
+    if (af && data.ok && !formClosedBy[id]) {
+      var n = af[1] === 'pieces' ? Object.keys(st.pieces).length : st[af[1]].length;
+      var slot = box.querySelector('[data-form-slot]:not([data-after])');
+      if (!n && slot && !slot.firstChild) openForm(af[0], {}, null, true);
+    }
   }
 
   // Les listes de contrôle hors planning (réunion, banc servo, calibration) : partagées elles aussi
@@ -6757,7 +6774,7 @@ Ce que j'ai vu, quand, combien de fois.
       var lab = b.closest('.chk'); if (!lab) return;
       var info = lab.querySelector('.chk-who'); if (!info) { info = document.createElement('small'); info.className = 'chk-who'; lab.querySelector('.t').appendChild(info); }
       info.textContent = t && t.fait ? 'fait' + (t.par ? ' par ' + t.par : '') + (t.date ? ' le ' + frDate(t.date) : '') : '';
-      if (!b._shared) { b._shared = true; b.addEventListener('click', function (e) { e.preventDefault(); var cur = !!(st.taches[k] && st.taches[k].fait); openForm('tache', { tache: k, fait: cur ? 'non' : 'oui', label: (lab.querySelector('.t').textContent || '').replace(info.textContent, '').trim() }); }); }
+      if (!b._shared) { b._shared = true; b.addEventListener('click', function (e) { e.preventDefault(); var cur = !!(st.taches[k] && st.taches[k].fait); openForm('tache', { tache: k, fait: cur ? 'non' : 'oui', label: (lab.querySelector('.t').textContent || '').replace(info.textContent, '').trim() }, b); }); }
     });
   }
 
@@ -6803,7 +6820,7 @@ Ce que j'ai vu, quand, combien de fois.
   }
 
   function viewJournal(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="seance">' + svgUse('i-book') + 'Nouvelle séance</button></div>';
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="seance">' + svgUse('i-book') + 'Nouvelle séance</button></div>' + slotHtml();
     if (!st.seances.length) return h + emptyState('Le journal est la mémoire du projet : une entrée par séance, cinq rubriques (présents, fait, mesures, problèmes, décisions).', 'seance');
     st.seances.forEach(function (s, i) {
       var id = 'se-' + i;
@@ -6818,7 +6835,7 @@ Ce que j'ai vu, quand, combien de fois.
     h += '</div>';
     PLAN.phases.forEach(function (p) {
       var g = p.gonogo ? gonogo(st, p) : null;
-      h += '<div class="card"><h3 style="justify-content:space-between"><span>' + svgUse('i-cal') + 'Phase ' + p.n + ' · ' + esc(p.titre) + ' ' + pill('p', phasePct(st, p) + ' %') + (g ? ' ' + statutPill(g) : '') + '</span>' + (p.gonogo ? '<button type="button" class="btn sm" data-act="form" data-form="test" data-pre=\'' + JSON.stringify({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }).replace(/'/g, '&#39;') + '\'>Fiche GO / NO-GO</button>' : '') + '</h3>';
+      h += '<div class="card" data-anchor="phase-' + p.n + '"><h3 style="justify-content:space-between"><span>' + svgUse('i-cal') + 'Phase ' + p.n + ' · ' + esc(p.titre) + ' ' + pill('p', phasePct(st, p) + ' %') + (g ? ' ' + statutPill(g) : '') + '</span>' + (p.gonogo ? '<button type="button" class="btn sm" data-act="form" data-form="test" data-pre=\'' + JSON.stringify({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }).replace(/'/g, '&#39;') + '\'>Fiche GO / NO-GO</button>' : '') + '</h3>';
       h += '<p class="sub">Jalon : ' + esc(p.jalon) + ' · ' + esc(p.mois) + ' · ' + eur(p.montant) + '</p><div class="chklist">';
       p.taches.forEach(function (t) {
         var d = st.taches[t[0]], done = !!(d && d.fait);
@@ -6830,7 +6847,7 @@ Ce que j'ai vu, quand, combien de fois.
   }
 
   function viewPieces(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Enregistrer une pièce</button></div>';
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Enregistrer une pièce</button></div>' + slotHtml();
     h += '<div class="kpis"><div class="kpi"><div class="v">' + st.piecesImprimees + '<small>/ ' + st.piecesTotal + '</small></div><div class="l">Imprimées</div><div class="d">imprimée, contrôlée ou montée</div></div>';
     var cnt = {}; Object.keys(st.pieces).forEach(function (k) { var s = st.pieces[k].statut; cnt[s] = (cnt[s] || 0) + 1; });
     ['controlee', 'montee', 'a_refaire'].forEach(function (s) { h += '<div class="kpi"><div class="v">' + (cnt[s] || 0) + '</div><div class="l">' + PIECE_LABELS[s] + '</div><div class="d">exemplaires</div></div>'; });
@@ -6858,7 +6875,7 @@ Ce que j'ai vu, quand, combien de fois.
   }
 
   function viewAchats(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="achat">' + svgUse('i-cart') + 'Nouvel achat</button></div>';
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="achat">' + svgUse('i-cart') + 'Nouvel achat</button></div>' + slotHtml();
     var prevu = st.achats.filter(function (a) { return a.statut === 'prevu'; }).reduce(function (s, a) { return s + a.montant; }, 0);
     h += '<div class="kpis"><div class="kpi"><div class="v">' + eur(st.depense).replace(' €', '<small>€</small>') + '</div><div class="l">Engagé</div><div class="d">commandé, reçu ou remboursé</div></div><div class="kpi"><div class="v">' + eur(PLAN.budget).replace(' €', '<small>€</small>') + '</div><div class="l">Plan (socle)</div><div class="d">' + Math.round(100 * st.depense / PLAN.budget) + ' % engagé</div></div><div class="kpi"><div class="v">' + eur(prevu).replace(' €', '<small>€</small>') + '</div><div class="l">Prévu, pas commandé</div><div class="d">à valider par le bureau</div></div><div class="kpi"><div class="v">' + st.servosRecus + '<small>/ 14</small></div><div class="l">Servos reçus</div><div class="d">champ « servos » des achats reçus</div></div></div>';
     h += '<div class="card"><h3>' + svgUse('i-cal') + 'Par phase : prévu au plan, engagé</h3><div class="tw"><table><thead><tr><th>Phase</th><th class="num">Plan</th><th class="num">Engagé</th><th class="num">Écart</th></tr></thead><tbody>';
@@ -6874,14 +6891,14 @@ Ce que j'ai vu, quand, combien de fois.
   }
 
   function viewTests(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="test">' + svgUse('i-check') + 'Nouvelle fiche de test</button></div>';
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="test">' + svgUse('i-check') + 'Nouvelle fiche de test</button></div>' + slotHtml();
     if (!st.tests.length) return h + emptyState('Une fiche par essai : objectif, montage, procédure, critère chiffré, résultat, décision. Sans fiche validée, pas de phase suivante.', 'test');
     st.tests.slice().reverse().forEach(function (t, i) { h += '<div class="card entry"><div class="entry-head"><div><h3>' + esc(t.titre) + ' ' + (t.resultat ? statutPill(t.resultat === 'NOGO' ? 'NO-GO' : t.resultat) : '') + '</h3><div class="muted">' + frDate(t.date) + (t.phase != null ? ' · phase ' + t.phase : '') + who(t.par) + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="te-' + i + '" data-open="Lire" data-close="Replier">Lire</button><a class="btn sm" href="' + ghEditUrl(t.path) + '" target="_blank" rel="noopener">Modifier</a></div></div><div class="entry-body md" id="te-' + i + '" hidden>' + (md(t.body) || '<p class="muted">Fiche vide.</p>') + '</div></div>'; });
     return h;
   }
 
   function viewMesures(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="mesure">' + svgUse('i-zap') + 'Nouvelle mesure</button></div>';
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="mesure">' + svgUse('i-zap') + 'Nouvelle mesure</button></div>' + slotHtml();
     h += '<div class="note info"><svg><use href="#i-info"/></svg><div>Repères de la simulation, à comparer : masse totale 2,107 kg (tronc 0,699 ; cou + tête 0,582 ; jambe ≈ 0,41 chacune) ; tension nominale 7,4 V (2S : 6,0 à 8,4 V) ; coupure thermique des servos à 70 °C ; jeu modélisé ±0,5°.</div></div>';
     if (!st.mesures.length) return h + emptyState('Une mesure = une grandeur (masse, offset, courant, tension, température, jeu), un objet (jambe droite, servo 12…), une valeur et son unité.', 'mesure');
     var gs = []; st.mesures.forEach(function (m) { if (gs.indexOf(m.grandeur) < 0) gs.push(m.grandeur); });
@@ -6894,7 +6911,7 @@ Ce que j'ai vu, quand, combien de fois.
   }
 
   function viewDecisions(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="decision">' + svgUse('i-flag') + 'Nouvelle décision</button></div>';
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="decision">' + svgUse('i-flag') + 'Nouvelle décision</button></div>' + slotHtml();
     var base = [['Chargeur 2S : le « TP4056 2S » du plan est incohérent (TP4056 = 1S)'], ['Calibre du BMS, après mesure du courant crête (phase 5)'], ['Tension d\'entrée de la carte Waveshare en 2S : mesure au banc avant les 12 servos'], ['Carte graphique (GPU) disponible pour un éventuel réentraînement']];
     h += '<div class="card"><h3>' + svgUse('i-warn') + 'À trancher d\'après le dossier</h3><ul class="tight">' + base.map(function (b) { return '<li>' + esc(b[0]) + ' <button type="button" class="lnk" data-act="form" data-form="decision" data-pre=\'' + JSON.stringify({ titre: b[0].split(' :')[0].split(',')[0] }).replace(/'/g, '&#39;') + '\'>enregistrer la décision</button></li>'; }).join('') + '</ul></div>';
     if (!st.decisions.length) return h + emptyState('Une décision = un titre, un statut (prise ou à trancher), et trois paragraphes : contexte, décision, conséquences.', 'decision');
@@ -6915,41 +6932,62 @@ Ce que j'ai vu, quand, combien de fois.
      FORMULAIRES → un fichier pré-rempli dans l'éditeur GitHub
      ══════════════════════════════════════════════════════════════════════ */
   var FORMS = {
-    seance: { titre: 'Enregistrer une séance', dir: 'journal', aide: 'Une entrée par séance. Cinq rubriques, jamais plus. Les tâches cochées ici comptent dans le planning.',
+    seance: { titre: 'Enregistrer une séance', dir: 'journal', page: 'journal', icon: 'i-book', aide: 'Une entrée par séance. Cinq rubriques, jamais plus. Les tâches cochées ici comptent dans le planning.',
       fields: [['date', 'Date', 'date'], ['presents', 'Présents (prénoms, séparés par des virgules)', 'text'], ['phase', 'Phase en cours', 'phase'], ['taches', 'Tâches terminées pendant la séance', 'taches'], ['fait', 'Fait', 'textarea', 'Une ligne par chose faite, en commençant par un tiret'], ['mesures', 'Mesures', 'textarea', 'Chiffres relevés (les mesures importantes ont aussi leur propre registre)'], ['problemes', 'Problèmes', 'textarea', 'Ce qui bloque ou a surpris'], ['decisions', 'Décisions', 'textarea', 'Ce qui a été décidé (les décisions structurantes ont aussi leur propre registre)']],
       build: function (v) { var fm = ['type: seance', 'date: ' + v.date, 'presents: ' + v.presents, 'phase: ' + v.phase]; if (v.taches) fm.push('taches: ' + v.taches); return { name: v.date + '.md', text: '---\n' + fm.join('\n') + '\n---\n## Fait\n' + (v.fait || '- ') + '\n\n## Mesures\n' + (v.mesures || '- ') + '\n\n## Problèmes\n' + (v.problemes || '- ') + '\n\n## Décisions\n' + (v.decisions || '- ') + '\n' }; } },
-    tache: { titre: 'Cocher une tâche', dir: 'avancement', aide: 'Un enregistrement par case cochée (ou décochée). Pour cocher plusieurs tâches d\'un coup, préférer l\'enregistrement d\'une séance.',
+    tache: { titre: 'Cocher une tâche', dir: 'avancement', page: null, icon: 'i-check', aide: 'Un enregistrement par case cochée (ou décochée). Pour cocher plusieurs tâches d\'un coup, préférer l\'enregistrement d\'une séance.',
       fields: [['label', 'Tâche', 'static'], ['tache', 'Identifiant', 'static'], ['fait', 'État', 'select', ['oui|fait', 'non|pas fait (décocher)']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Note (facultatif)', 'text']],
       build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.tache) + '.md', text: '---\ntype: tache\ntache: ' + v.tache + '\nfait: ' + v.fait + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note ? v.note + '\n' : '') + (v.label ? '> ' + v.label + '\n' : '') }; } },
-    piece: { titre: 'Enregistrer une pièce imprimée', dir: 'pieces', aide: 'Un enregistrement par exemplaire et par changement d\'état. La pesée sert à comparer avec le modèle de simulation.',
+    piece: { titre: 'Enregistrer une pièce imprimée', dir: 'pieces', page: 'pieces', icon: 'i-printer', aide: 'Un enregistrement par exemplaire et par changement d\'état. La pesée sert à comparer avec le modèle de simulation.',
       fields: [['piece', 'Pièce', 'piece'], ['exemplaire', 'Exemplaire n°', 'number', '1'], ['statut', 'État', 'select', PIECE_STATUTS.map(function (s) { return s + '|' + PIECE_LABELS[s]; })], ['masse_g', 'Masse pesée (g, facultatif)', 'text'], ['rev', 'Révision (amont, b1, b2…)', 'text', 'amont'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Note (orientation, supports, défaut…)', 'textarea']],
       build: function (v) { if (v.piece === 'autre') v.piece = slug(v.piece_autre || 'piece'); return { name: v.date + '-' + nowHHMM() + '-' + slug(v.piece) + '-' + (v.exemplaire || 1) + '.md', text: '---\ntype: piece\npiece: ' + v.piece + '\nexemplaire: ' + (v.exemplaire || 1) + '\nstatut: ' + v.statut + '\nmasse_g: ' + (v.masse_g || '') + '\nrev: ' + (v.rev || 'amont') + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note || '') + '\n' }; } },
-    achat: { titre: 'Enregistrer un achat', dir: 'achats', aide: 'Une entrée par commande, au moment où elle est passée. Quand son statut change (commandé → reçu → remboursé), on modifie le fichier existant (lien « modifier » dans le tableau) : le réenregistrer le compterait deux fois dans le budget.',
+    achat: { titre: 'Enregistrer un achat', dir: 'achats', page: 'achats', icon: 'i-cart', aide: 'Une entrée par commande, au moment où elle est passée. Quand son statut change (commandé → reçu → remboursé), on modifie le fichier existant (lien « modifier » dans le tableau) : le réenregistrer le compterait deux fois dans le budget.',
       fields: [['titre', 'Objet (en quelques mots)', 'text'], ['fournisseur', 'Fournisseur', 'text'], ['montant', 'Montant TTC, port compris (€)', 'text'], ['phase', 'Phase', 'phase'], ['statut', 'Statut', 'select', ACHAT_STATUTS.map(function (s) { return s + '|' + ACHAT_LABELS[s]; })], ['servos', 'Nombre de servos STS3215 dans cette commande', 'number', '0'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['lignes', 'Lignes de la commande', 'textarea', '- 1 × …']],
       build: function (v) { return { name: v.date + '-' + slug(v.titre) + '.md', text: '---\ntype: achat\ntitre: ' + v.titre + '\nfournisseur: ' + v.fournisseur + '\nmontant: ' + v.montant + '\nphase: ' + v.phase + '\nstatut: ' + v.statut + '\nservos: ' + (v.servos || 0) + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.lignes || '') + '\n' }; } },
-    test: { titre: 'Fiche de test', dir: 'tests', aide: 'Le critère de réussite est chiffré et écrit AVANT l\'essai. Le résultat GO d\'une fiche de phase ouvre la phase suivante.',
+    test: { titre: 'Fiche de test', dir: 'tests', page: 'tests', icon: 'i-check', aide: 'Le critère de réussite est chiffré et écrit AVANT l\'essai. Le résultat GO d\'une fiche de phase ouvre la phase suivante.',
       fields: [['titre', 'Titre', 'text'], ['phase', 'Phase', 'phase'], ['resultat', 'Résultat', 'select', ['GO|GO', 'NO-GO|NO-GO', 'PARTIEL|partiel', '|pas encore réalisé']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['objectif', 'Objectif', 'textarea'], ['montage', 'Montage', 'textarea'], ['procedure', 'Procédure', 'textarea'], ['critere', 'Critère de réussite (chiffré)', 'textarea'], ['resultat_txt', 'Résultat obtenu', 'textarea'], ['decision', 'Décision', 'textarea']],
       build: function (v) { return { name: v.date + '-' + slug(v.titre) + '.md', text: '---\ntype: test\ntitre: ' + v.titre + '\nphase: ' + v.phase + '\nresultat: ' + v.resultat + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n## Objectif\n' + (v.objectif || '') + '\n\n## Montage\n' + (v.montage || '') + '\n\n## Procédure\n' + (v.procedure || '') + '\n\n## Critère de réussite\n' + (v.critere || '') + '\n\n## Résultat\n' + (v.resultat_txt || '') + '\n\n## Décision\n' + (v.decision || '') + '\n' }; } },
-    mesure: { titre: 'Enregistrer une mesure', dir: 'mesures', aide: 'Une mesure = une grandeur, un objet, une valeur. Les masses se comparent au modèle (2,107 kg au total).',
+    mesure: { titre: 'Enregistrer une mesure', dir: 'mesures', page: 'mesures', icon: 'i-zap', aide: 'Une mesure = une grandeur, un objet, une valeur. Les masses se comparent au modèle (2,107 kg au total).',
       fields: [['grandeur', 'Grandeur', 'select', ['masse|masse', 'offset|offset (zéro servo)', 'courant|courant', 'tension|tension', 'temperature|température', 'jeu|jeu mécanique', 'autonomie|autonomie', 'autre|autre']], ['objet', 'Objet mesuré (jambe droite, servo 12, pack…)', 'text'], ['valeur', 'Valeur', 'text'], ['unite', 'Unité (g, rad, A, V, °C, °, min)', 'text'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Conditions, instrument, remarque', 'textarea']],
       build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.grandeur + '-' + v.objet) + '.md', text: '---\ntype: mesure\ngrandeur: ' + v.grandeur + '\nobjet: ' + v.objet + '\nvaleur: ' + v.valeur + '\nunite: ' + v.unite + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note || '') + '\n' }; } },
-    decision: { titre: 'Enregistrer une décision', dir: 'decisions', aide: 'Trois paragraphes suffisent : le contexte, ce qu\'on décide, ce que ça entraîne. Une décision « à trancher » reste affichée sur le tableau de bord jusqu\'à ce qu\'on modifie son fichier (statut : prise).',
+    decision: { titre: 'Enregistrer une décision', dir: 'decisions', page: 'decisions', icon: 'i-flag', aide: 'Trois paragraphes suffisent : le contexte, ce qu\'on décide, ce que ça entraîne. Une décision « à trancher » reste affichée sur le tableau de bord jusqu\'à ce qu\'on modifie son fichier (statut : prise).',
       fields: [['titre', 'Titre', 'text'], ['statut', 'Statut', 'select', ['prise|prise', 'a-trancher|à trancher', 'annulee|annulée']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['contexte', 'Contexte', 'textarea'], ['decision', 'Décision', 'textarea'], ['consequences', 'Conséquences', 'textarea']],
       build: function (v) { return { name: v.date + '-' + slug(v.titre) + '.md', text: '---\ntype: decision\ntitre: ' + v.titre + '\nstatut: ' + v.statut + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n## Contexte\n' + (v.contexte || '') + '\n\n## Décision\n' + (v.decision || '') + '\n\n## Conséquences\n' + (v.consequences || '') + '\n' }; } }
   };
 
-  var modal = $('#modal'), modalBody = $('#modal-body'), modalTitle = $('#modal-title');
-  function closeModal() { if (!modal || modal.hidden) return; modal.hidden = true; $('#modal-backdrop').hidden = true; }
-  function openForm(kind, pre) {
+  var pendingForm = null, formSeq = 0;
+  function closeForm(slot) {
+    if (!slot) return;
+    var page = slot.closest('.page'); if (page && !slot.hasAttribute('data-after')) formClosedBy[page.id.replace('page-', '')] = true;
+    if (slot.hasAttribute('data-after')) slot.parentNode.removeChild(slot); else slot.innerHTML = '';
+  }
+  // Le formulaire s'ouvre dans la page, à l'endroit où l'on travaille : sous la ligne de tête de la rubrique,
+  // ou juste sous la carte dont on vient de cocher une case. Il reste ouvert tant qu'on ne le ferme pas.
+  function openForm(kind, pre, src, auto) {
     var F = FORMS[kind]; if (!F) return;
     pre = pre || {};
+    var cur = current || 'accueil';
+    var host = F.page || cur;
+    if (host !== cur) { pendingForm = { kind: kind, pre: pre }; location.hash = '#' + host; return; }
+    var slot;
+    if (!F.page && src) {
+      var card = src.closest('.card'); if (!card) return;
+      slot = card.nextElementSibling && card.nextElementSibling.hasAttribute('data-form-slot') ? card.nextElementSibling : null;
+      if (!slot) { slot = document.createElement('div'); slot.setAttribute('data-form-slot', ''); slot.setAttribute('data-after', card.getAttribute('data-anchor') || ('c' + (++formSeq))); if (!card.getAttribute('data-anchor')) card.setAttribute('data-anchor', slot.getAttribute('data-after')); card.parentNode.insertBefore(slot, card.nextSibling); }
+    } else {
+      slot = $('#page-' + host + ' [data-form-slot]:not([data-after])');
+      if (!slot) return;
+    }
     var st = data.state || fold([]);
     var me = lsGet(ME_KEY, '');
-    var h = '<p class="sub">' + esc(F.aide) + '</p><form id="f-' + kind + '" class="form" autocomplete="off">';
+    var uid = 'f' + (++formSeq) + '-';
+    var h = '<div class="card form-card"><div class="entry-head"><h3>' + svgUse(F.icon || 'i-git') + esc(F.titre) + '</h3><button type="button" class="btn sm" data-act="form-close">' + svgUse('i-x') + 'Fermer</button></div>';
+    h += '<p class="sub">' + esc(F.aide) + '</p><form class="form" autocomplete="off">';
     F.fields.forEach(function (f) {
-      var id = 'ff-' + f[0], lab = f[1], type = f[2], extra = f[3], val = pre[f[0]] != null ? pre[f[0]] : '';
-      if (type === 'static') { h += '<div class="fld"><label>' + esc(lab) + '</label><div class="static" data-name="' + f[0] + '" data-val="' + esc(val) + '">' + esc(val) + '</div></div>'; return; }
-      h += '<div class="fld"><label for="' + id + '">' + esc(lab) + '</label>';
+      var id = uid + f[0], lab = f[1], type = f[2], extra = f[3], val = pre[f[0]] != null ? pre[f[0]] : '';
+      var wide = type === 'textarea' || type === 'taches' || type === 'piece' || type === 'static' || f[0] === 'titre' || f[0] === 'presents';
+      if (type === 'static') { h += '<div class="fld' + (wide ? ' wide' : '') + '"><label>' + esc(lab) + '</label><div class="static" data-name="' + f[0] + '" data-val="' + esc(val) + '">' + esc(val) + '</div></div>'; return; }
+      h += '<div class="fld' + (wide ? ' wide' : '') + '"><label for="' + id + '">' + esc(lab) + '</label>';
       if (type === 'date') h += '<input id="' + id + '" name="' + f[0] + '" type="date" value="' + esc(val || todayISO()) + '" required>';
       else if (type === 'text') h += '<input id="' + id + '" name="' + f[0] + '" type="text" value="' + esc(val || extra || '') + '"' + (f[0] === 'titre' || f[0] === 'objet' || f[0] === 'valeur' ? ' required' : '') + '>';
       else if (type === 'number') h += '<input id="' + id + '" name="' + f[0] + '" type="number" min="0" step="1" value="' + esc(val || extra || '') + '">';
@@ -6959,32 +6997,35 @@ Ce que j'ai vu, quand, combien de fois.
       else if (type === 'phase') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.phases.map(function (p) { return '<option value="' + p.n + '"' + ((val !== '' ? String(val) : String(st.phase)) === String(p.n) ? ' selected' : '') + '>Phase ' + p.n + ' · ' + esc(p.titre) + '</option>'; }).join('') + '</select>';
       else if (type === 'piece') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.pieces.map(function (p) { return '<option value="' + esc(p[1]) + '"' + (val === p[1] ? ' selected' : '') + '>' + esc(p[1]) + ' (' + esc(p[0]) + ', × ' + p[2] + ')</option>'; }).join('') + '<option value="autre"' + (val === 'autre' ? ' selected' : '') + '>Autre pièce (gabarit, cale, pièce modifiée…)</option></select><input type="text" name="piece_autre" placeholder="Nom de l\'autre pièce, sans espace : gabarit-zero-servo" style="margin-top:6px">';
       else if (type === 'taches') {
-        var cur = phaseOf(st.phase);
-        h += '<div class="chklist small" id="' + id + '">' + cur.taches.filter(function (t) { return !(st.taches[t[0]] && st.taches[t[0]].fait); }).map(function (t) { return '<label class="chk"><input type="checkbox" name="taches" value="' + t[0] + '"><span class="t">' + esc(t[1]) + '</span></label>'; }).join('') + '</div><small class="muted">Tâches restantes de la phase ' + cur.n + '. Les autres phases se cochent depuis le planning.</small>';
+        var cur2 = phaseOf(st.phase);
+        h += '<div class="chklist small" id="' + id + '">' + cur2.taches.filter(function (t) { return !(st.taches[t[0]] && st.taches[t[0]].fait); }).map(function (t) { return '<label class="chk"><input type="checkbox" name="taches" value="' + t[0] + '"><span class="t">' + esc(t[1]) + '</span></label>'; }).join('') + '</div><small class="muted">Tâches restantes de la phase ' + cur2.n + '. Les autres phases se cochent depuis le planning.</small>';
       }
       h += '</div>';
     });
-    h += '<div class="row" style="margin-top:4px"><button type="submit" class="btn primary">' + svgUse('i-git') + 'Préparer l\'enregistrement</button><button type="button" class="btn" data-act="modal-close">Annuler</button></div></form><div id="f-out"></div>';
-    modalTitle.textContent = F.titre; modalBody.innerHTML = h; modal.hidden = false; $('#modal-backdrop').hidden = false;
-    modal.scrollTop = 0;
-    var first = modalBody.querySelector('input:not([type=date]):not([type=hidden]), select, textarea'); if (first) setTimeout(function () { first.focus(); }, 40);
-    $('#f-' + kind).addEventListener('submit', function (e) {
+    h += '<div class="row wide" style="margin-top:4px"><button type="submit" class="btn primary">' + svgUse('i-git') + 'Préparer l\'enregistrement</button><button type="button" class="btn" data-act="form-close">Annuler</button></div></form><div class="f-out"></div></div>';
+    slot.innerHTML = h;
+    var body = slot.querySelector('.form-card'), form = slot.querySelector('form');
+    if (!auto) {
+      slot.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var first = body.querySelector('input:not([type=date]):not([type=hidden]), select, textarea'); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 350);
+    }
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       var v = {}; F.fields.forEach(function (f) {
         if (f[2] === 'static') { v[f[0]] = pre[f[0]] || ''; return; }
-        if (f[2] === 'taches') { v[f[0]] = $$('input[name=taches]:checked', modalBody).map(function (c) { return c.value; }).join(', '); return; }
-        var el = modalBody.querySelector('[name="' + f[0] + '"]'); v[f[0]] = el ? el.value.trim() : '';
+        if (f[2] === 'taches') { v[f[0]] = $$('input[name=taches]:checked', body).map(function (c) { return c.value; }).join(', '); return; }
+        var el = body.querySelector('[name="' + f[0] + '"]'); v[f[0]] = el ? el.value.trim() : '';
       });
-      var pa = modalBody.querySelector('[name="piece_autre"]'); if (pa) v.piece_autre = pa.value.trim();
+      var pa = body.querySelector('[name="piece_autre"]'); if (pa) v.piece_autre = pa.value.trim();
       if (v.par) lsSet(ME_KEY, v.par);
       var out = F.build(v), existing = data.files.some(function (f) { return f.path === REPO.base + '/' + F.dir + '/' + out.name; });
       var name = out.name; if (existing) { name = out.name.replace(/\.md$/, '-2.md'); }
       var url = ghNewUrl(F.dir, name, out.text), tooLong = url.length > 7000;
       var o = '<div class="note ok"><svg><use href="#i-check"/></svg><div><strong>Fichier prêt :</strong> <code>' + esc(REPO.base + '/' + F.dir + '/' + name) + '</code>' + (existing ? ' <span class="muted">(un fichier du même nom existe déjà : suffixe -2)</span>' : '') + '</div></div>';
-      o += '<textarea class="io" id="f-text" rows="8" readonly>' + esc(out.text) + '</textarea>';
-      o += '<div class="row">' + (tooLong ? '<button type="button" class="btn primary" data-act="copy" data-src="f-text">1 · Copier le texte</button><a class="btn" href="' + ghNewUrl(F.dir, name, '') + '" target="_blank" rel="noopener">2 · Ouvrir l\'éditeur GitHub et coller</a>' : '<a class="btn primary" href="' + url + '" target="_blank" rel="noopener">' + svgUse('i-git') + 'Enregistrer sur GitHub</a><button type="button" class="btn" data-act="copy" data-src="f-text">Copier le texte</button>') + '</div>';
+      o += '<textarea class="io" rows="8" readonly>' + esc(out.text) + '</textarea>';
+      o += '<div class="row">' + (tooLong ? '<button type="button" class="btn primary" data-act="copy">1 · Copier le texte</button><a class="btn" href="' + ghNewUrl(F.dir, name, '') + '" target="_blank" rel="noopener">2 · Ouvrir l\'éditeur GitHub et coller</a>' : '<a class="btn primary" href="' + url + '" target="_blank" rel="noopener">' + svgUse('i-git') + 'Enregistrer sur GitHub</a><button type="button" class="btn" data-act="copy">Copier le texte</button>') + '</div>';
       o += '<p class="muted" style="font-size:0.85rem">GitHub s\'ouvre avec le fichier déjà rempli : vérifier, puis <strong>Commit changes…</strong> deux fois. Revenir ici et cliquer « Actualiser » une minute plus tard.' + (tooLong ? ' Le texte est long : il faut le coller à la main dans l\'éditeur.' : '') + '</p>';
-      $('#f-out').innerHTML = o; $('#f-out').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var fo = body.querySelector('.f-out'); fo.innerHTML = o; fo.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
