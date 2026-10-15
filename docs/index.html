@@ -358,9 +358,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 @media (min-width: 768px) { .span2 { grid-column: span 2; } }
 
 /* KPI tiles — signature Yeldra : gros chiffre, libellé uppercase discret */
-.kpis { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+.kpis { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 480px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 640px) { .kpis { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1200px) { .kpis { grid-template-columns: repeat(6, 1fr); } }
+@media (min-width: 1200px) { .kpis { grid-template-columns: repeat(3, 1fr); } }
 .kpi { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 14px 16px; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .kpi .v { font-size: 26px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 .kpi .v small { font-size: 13px; font-weight: 500; margin-left: 2px; }
@@ -379,6 +380,46 @@ a.kpi:hover .d { color: var(--color-primary-active); }
 .todo li small { color: var(--color-muted-fg); display: block; }
 .todo .tl-b { min-width: 0; }
 @media (max-width: 480px) { .todo li { grid-template-columns: 26px 1fr; } .todo li .btn { grid-column: 2; justify-self: start; } }
+.overview { gap: 14px; }
+.ov-main { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.ov-donut { flex: none; }
+.ov-txt { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.ov-phases { display: grid; gap: 4px; grid-template-columns: 1fr; border-top: 1px solid var(--color-border); padding-top: 10px; }
+@media (min-width: 1024px) { .ov-phases { grid-template-columns: 1fr 1fr; column-gap: 24px; } }
+.donut .dv { font-weight: 800; font-size: 26px; fill: var(--color-fg); letter-spacing: -0.02em; }
+.donut .ds { font-size: 11px; fill: var(--color-muted-fg); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi-ring { flex-direction: row; align-items: center; gap: 12px; }
+.kpi-ring .donut { flex: none; }
+.kpi-ring .donut .dv { font-size: 12px; font-weight: 700; }
+.kpi-b { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.kpi-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--color-primary-muted); color: var(--color-primary-active); display: grid; place-items: center; flex: none; }
+.kpi-ic svg { width: 22px; height: 22px; }
+.sbar { display: flex; gap: 2px; height: 9px; width: 100%; }
+.sbar span { display: block; border-radius: 3px; min-width: 3px; }
+.sbar .ok { background: var(--color-battery); }
+.sbar .part { background: var(--color-primary); }
+.sbar .rest { background: var(--color-muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; color: var(--color-muted-fg); margin-top: 4px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; flex: none; margin-right: 6px; vertical-align: middle; }
+.sw.ok { background: var(--color-battery); } .sw.part { background: var(--color-primary); } .sw.rest { background: var(--color-muted); border: 1px solid var(--color-border-strong); }
+.legend .sw { margin-right: 0; }
+.prog-btn .sbar { margin-top: 3px; }
+.sec-title { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; font-size: 1.15rem; }
+.sec-title svg { width: 18px; height: 18px; color: var(--color-primary-active); }
+.phase-card { gap: 8px; border-left: 4px solid var(--ph, var(--color-primary)); }
+.ph-head { display: flex; align-items: center; gap: 10px; width: 100%; background: none; border: 0; font: inherit; color: inherit; text-align: left; padding: 0; cursor: pointer; }
+.ph-head .ph-t { flex: 1 1 auto; min-width: 0; }
+.ph-head .ph-t strong { font-size: 1rem; }
+.ph-head small { display: block; color: var(--color-muted-fg); margin-top: 2px; }
+.ph-head .ph-n { font-weight: 700; font-variant-numeric: tabular-nums; flex: none; }
+.ph-head .chev { width: 18px; height: 18px; flex: none; transition: transform 200ms var(--ease-default); color: var(--color-muted-fg); }
+.ph-head.open .chev { transform: rotate(180deg); }
+.ph-body { border-top: 1px solid var(--color-border); padding-top: 8px; }
+.chk-btn .tp { display: flex; align-items: center; gap: 8px; margin-top: 3px; }
+.chk-btn .tp .bar { width: 90px; flex: none; }
+.chk-btn .tp small { margin: 0; }
+.chk-btn.part .box { border-color: var(--color-primary); }
 .flash { animation: flash 1.6s var(--ease-default); }
 @keyframes flash { 0%, 100% { box-shadow: none; } 25% { box-shadow: 0 0 0 3px var(--color-primary); } }
 
@@ -812,6 +853,7 @@ details.quiz + details.quiz { margin-top: 8px; }
     <symbol id="i-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></g></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></g></symbol>
     <symbol id="i-zap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></g></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></g></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></g></symbol>
   </defs>
@@ -3003,7 +3045,7 @@ for id_servo in jambe_droite:         # une boucle : pour chaque élément…
         <tr><td>Un exemplaire de pièce qui change d'état</td><td><a href="#pieces">Registre des pièces</a></td><td><code>pieces/AAAA-MM-JJ-HHMM-piece-n.md</code></td></tr>
         <tr><td>Une mesure</td><td><a href="#mesures">Mesures</a></td><td><code>mesures/AAAA-MM-JJ-HHMM-grandeur-objet.md</code></td></tr>
         <tr><td>Une décision</td><td><a href="#decisions">Décisions</a></td><td><code>decisions/AAAA-MM-JJ-HHMM-titre.md</code></td></tr>
-        <tr><td>Une case cochée ou décochée</td><td><a href="#planning">Planning</a> et listes partagées</td><td><code>avancement/AAAA-MM-JJ-HHMM-tache.md</code></td></tr>
+        <tr><td>L'avancement d'une tâche (0, 25, 50, 75 ou 100 %)</td><td><a href="#accueil">Tableau de bord</a>, <a href="#planning">Planning</a> et listes partagées</td><td><code>avancement/AAAA-MM-JJ-HHMM-tache.md</code></td></tr>
         <tr><td>Les rôles</td><td><a href="#equipe">Équipe et méthode</a></td><td><code>equipe/AAAA-MM-JJ-HHMM-roles.md</code></td></tr>
       </tbody>
     </table></div>
@@ -6658,9 +6700,11 @@ Ce que j'ai vu, quand, combien de fois.
         st.events.push({ key: r.key, date: r.date, kind: 'seance', titre: 'Séance' + (s.phase != null ? ' · phase ' + s.phase : ''), sub: s.presents.join(', '), href: '#journal' });
       } else if (r.kind === 'tache') {
         var fait = !/^(non|no|false|0)/i.test(m.fait || 'oui');
+        var pct = m.avancement != null && m.avancement !== '' ? Math.max(0, Math.min(100, parseInt0(m.avancement) || 0)) : (fait ? 100 : 0);
+        fait = pct >= 100;
         var prev = st.taches[m.tache];
-        if (!prev || prev.key < r.key) st.taches[m.tache] = { fait: fait, date: r.date, par: m.par || '', note: m.note || r.body, via: 'coche', key: r.key };
-        st.events.push({ key: r.key, date: r.date, kind: 'tache', titre: (fait ? 'Fait : ' : 'Décoché : ') + (allTasks[m.tache] ? allTasks[m.tache].label : m.tache), sub: m.par || '', href: '#planning' });
+        if (!prev || prev.key < r.key) st.taches[m.tache] = { fait: fait, pct: pct, date: r.date, par: m.par || '', note: m.note || r.body, via: 'coche', key: r.key };
+        st.events.push({ key: r.key, date: r.date, kind: 'tache', titre: (fait ? 'Fait : ' : pct > 0 ? pct + ' % : ' : 'Remis à zéro : ') + (allTasks[m.tache] ? allTasks[m.tache].label : m.tache), sub: m.par || '', href: '#planning' });
       } else if (r.kind === 'test') {
         var t = { key: r.key, date: r.date, phase: parseInt0(m.phase), titre: m.titre || r.name.replace(/\.md$/, ''), resultat: (m.resultat || '').toUpperCase().replace(/\s+/g, ''), par: m.par || '', body: r.body, sec: r.sections, path: r.path };
         st.tests.push(t); st.events.push({ key: r.key, date: r.date, kind: 'test', titre: 'Test : ' + t.titre, sub: t.resultat || '', href: '#tests' });
@@ -6689,7 +6733,7 @@ Ce que j'ai vu, quand, combien de fois.
     st.achats = latest(st.achats, function (a) { return slug(a.titre); });
     st.decisions = latest(st.decisions, function (d) { return slug(d.titre); });
     st.mesures = latest(st.mesures, function (m) { return m.date + '|' + m.grandeur + '|' + norm(m.objet); });
-    st.seances.forEach(function (s) { s.taches.forEach(function (t) { if (!st.taches[t] || st.taches[t].key < s.key) st.taches[t] = { fait: true, date: s.date, par: s.presents.join(', '), via: 'séance', key: s.key }; }); });
+    st.seances.forEach(function (s) { s.taches.forEach(function (t) { if (!st.taches[t] || st.taches[t].key < s.key) st.taches[t] = { fait: true, pct: 100, date: s.date, par: s.presents.join(', '), via: 'séance', key: s.key }; }); });
     st.seances.sort(function (a, b) { return a.key < b.key ? 1 : -1; });
     st.events.sort(function (a, b) { return a.key < b.key ? 1 : -1; });
     // Phase courante : celle de la dernière séance qui l'indique ; sinon la plus avancée où une tâche est faite ; sinon 0
@@ -6704,8 +6748,8 @@ Ce que j'ai vu, quand, combien de fois.
     var tot = 0, imp = 0; PLAN.pieces.forEach(function (p) { tot += p[2]; for (var e = 1; e <= p[2]; e++) { var ev = st.pieces[p[1] + '#' + e]; if (ev && ev.statut !== 'a_imprimer' && ev.statut !== 'a_refaire') imp++; } });
     st.piecesTotal = tot; st.piecesImprimees = imp;
     // Tâches
-    var tt = 0, td = 0; PLAN.phases.forEach(function (p) { p.taches.forEach(function (t) { tt++; if (st.taches[t[0]] && st.taches[t[0]].fait) td++; }); });
-    st.tachesTotal = tt; st.tachesFaites = td;
+    var tt = 0, td = 0, tp = 0, sum = 0; PLAN.phases.forEach(function (p) { p.taches.forEach(function (t) { tt++; var x = taskPct(st, t[0]); sum += x; if (x >= 100) td++; else if (x > 0) tp++; }); });
+    st.tachesTotal = tt; st.tachesFaites = td; st.tachesEnCours = tp; st.pctGlobal = tt ? Math.round(sum / tt) : 0;
     st.aTrancher = st.decisions.filter(function (d) { return d.statut === 'atrancher'; });
     return st;
   }
@@ -6738,6 +6782,7 @@ Ce que j'ai vu, quand, combien de fois.
     if (act === 'refresh') refresh(true);
     else if (act === 'form') openForm(b.getAttribute('data-form'), JSON.parse(b.getAttribute('data-pre') || '{}'), b);
     else if (act === 'form-close') closeForm(b.closest('[data-form-slot]'));
+    else if (act === 'fold') { var ft = $('#' + b.getAttribute('data-target')); if (ft) { ft.hidden = !ft.hidden; b.classList.toggle('open', !ft.hidden); b.setAttribute('aria-expanded', String(!ft.hidden)); } }
     else if (act === 'goto') { pendingAnchor = b.getAttribute('data-anchor'); if (current === b.getAttribute('data-page')) scrollToAnchor(); else location.hash = '#' + b.getAttribute('data-page'); }
     else if (act === 'toggle') { var tgt = $('#' + b.getAttribute('data-target')); if (tgt) { tgt.hidden = !tgt.hidden; b.textContent = tgt.hidden ? (b.getAttribute('data-open') || 'Voir') : (b.getAttribute('data-close') || 'Replier'); } }
     else if (act === 'copy') { var fc = b.closest('.form-card'), ta = fc ? fc.querySelector('textarea.io') : null; copyText(b.getAttribute('data-text') || (ta ? ta.value : ''), 'Texte copié'); }
@@ -6747,7 +6792,19 @@ Ce que j'ai vu, quand, combien de fois.
      3. VUES DE SUIVI
      ══════════════════════════════════════════════════════════════════════ */
   function phaseOf(n) { return PLAN.phases.filter(function (p) { return p.n === n; })[0] || PLAN.phases[0]; }
-  function phasePct(st, ph) { var d = 0; ph.taches.forEach(function (t) { if (st.taches[t[0]] && st.taches[t[0]].fait) d++; }); return ph.taches.length ? Math.round(100 * d / ph.taches.length) : 0; }
+  function taskPct(st, k) { var t = st.taches[k]; return t ? (t.pct != null ? t.pct : (t.fait ? 100 : 0)) : 0; }
+  function phasePct(st, ph) { var sum = 0; ph.taches.forEach(function (t) { sum += taskPct(st, t[0]); }); return ph.taches.length ? Math.round(sum / ph.taches.length) : 0; }
+  function phaseCounts(st, ph) { var c = { fait: 0, part: 0, rest: 0 }; ph.taches.forEach(function (t) { var x = taskPct(st, t[0]); if (x >= 100) c.fait++; else if (x > 0) c.part++; else c.rest++; }); return c; }
+  // ── Graphiques : anneau (une valeur sur un total) et barre empilée (fait / en cours / à faire) ──
+  function donut(pct, color, size, txt, sub) {
+    var r = (size - 10) / 2, c = 2 * Math.PI * r, p = Math.max(0, Math.min(100, pct || 0)), cx = size / 2;
+    return '<svg class="donut" viewBox="0 0 ' + size + ' ' + size + '" width="' + size + '" height="' + size + '" role="img" aria-label="' + esc(txt) + (sub ? ' ' + esc(sub) : '') + '"><circle cx="' + cx + '" cy="' + cx + '" r="' + r + '" fill="none" stroke="var(--color-muted)" stroke-width="9"/><circle cx="' + cx + '" cy="' + cx + '" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="9" stroke-linecap="round" stroke-dasharray="' + (c * p / 100).toFixed(1) + ' ' + c.toFixed(1) + '" transform="rotate(-90 ' + cx + ' ' + cx + ')"/><text x="50%" y="' + (sub ? '46%' : '50%') + '" text-anchor="middle" dominant-baseline="central" class="dv">' + esc(txt) + '</text>' + (sub ? '<text x="50%" y="66%" text-anchor="middle" dominant-baseline="central" class="ds">' + esc(sub) + '</text>' : '') + '</svg>';
+  }
+  function sbar(c) {
+    var tot = c.fait + c.part + c.rest || 1;
+    return '<div class="sbar" role="img" aria-label="' + c.fait + ' faites, ' + c.part + ' en cours, ' + c.rest + ' à faire">' + (c.fait ? '<span class="ok" style="flex:' + c.fait + '" title="' + c.fait + ' faite' + (c.fait > 1 ? 's' : '') + '"></span>' : '') + (c.part ? '<span class="part" style="flex:' + c.part + '" title="' + c.part + ' en cours"></span>' : '') + (c.rest ? '<span class="rest" style="flex:' + c.rest + '" title="' + c.rest + ' à faire"></span>' : '') + '</div>';
+  }
+  function legend(c) { return '<div class="legend"><span><i class="sw ok"></i>' + c.fait + ' faite' + (c.fait > 1 ? 's' : '') + '</span><span><i class="sw part"></i>' + c.part + ' en cours</span><span><i class="sw rest"></i>' + c.rest + ' à faire</span></div>'; }
   function gonogo(st, ph) { var ts = st.tests.filter(function (t) { return t.phase === ph.n && (t.resultat === 'GO' || t.resultat === 'NO-GO' || t.resultat === 'NOGO'); }); if (!ts.length) return null; var last = ts[ts.length - 1]; return last.resultat === 'GO' ? 'GO' : 'NO-GO'; }
   function pill(cls, txt) { return '<span class="pill ' + cls + '">' + esc(txt) + '</span>'; }
   function statutPill(s, labels) { var cls = { prevu: 'mute', commande: 'info', recu: 'ok', rembourse: 'ok', annule: 'bad', a_imprimer: 'mute', imprimee: 'info', controlee: 'ok', montee: 'p', a_refaire: 'bad', prise: 'ok', atrancher: 'warn', annulee: 'mute', GO: 'ok', 'NO-GO': 'bad', PARTIEL: 'warn' }[s] || 'mute'; return pill(cls, (labels && labels[s]) || (s === 'atrancher' ? 'à trancher' : s)); }
@@ -6797,23 +6854,38 @@ Ce que j'ai vu, quand, combien de fois.
       var lab = b.closest('.chk'); if (!lab) return;
       var info = lab.querySelector('.chk-who'); if (!info) { info = document.createElement('small'); info.className = 'chk-who'; lab.querySelector('.t').appendChild(info); }
       info.textContent = t && t.fait ? 'fait' + (t.par ? ' par ' + t.par : '') + (t.date ? ' le ' + frDate(t.date) : '') : '';
-      if (!b._shared) { b._shared = true; b.addEventListener('click', function (e) { e.preventDefault(); var cur = !!(st.taches[k] && st.taches[k].fait); openForm('tache', { tache: k, fait: cur ? 'non' : 'oui', label: (lab.querySelector('.t').textContent || '').replace(info.textContent, '').trim() }, b); }); }
+      if (!b._shared) { b._shared = true; b.addEventListener('click', function (e) { e.preventDefault(); var cur = !!(st.taches[k] && st.taches[k].fait); openForm('tache', { tache: k, avancement: cur ? 0 : 100, label: (lab.querySelector('.t').textContent || '').replace(info.textContent, '').trim() }, b); }); }
     });
   }
 
   function daysSince(iso) { if (!iso) return null; var d = new Date(iso + 'T12:00:00'); return Math.floor((Date.now() - d.getTime()) / 86400000); }
   function viewAccueil(st) {
     var ph = phaseOf(st.phase), last = st.seances[0], h = '';
-    var todo = ph.taches.filter(function (t) { return !(st.taches[t[0]] && st.taches[t[0]].fait); });
-    var done = ph.taches.length - todo.length;
-    var g = ph.gonogo ? gonogo(st, ph) : null;
     var rolesVides = (st.roles || PLAN.roles).filter(function (r) { return !r[1]; }).length;
     var nonRecus = st.achats.filter(function (a) { return a.statut === 'commande'; });
     var aRefaire = Object.keys(st.pieces).filter(function (k) { return st.pieces[k].statut === 'a_refaire'; }).map(function (k) { return st.pieces[k]; });
     var nogo = st.tests.filter(function (t) { return t.resultat === 'NO-GO' || t.resultat === 'NOGO'; }).slice(-3);
     var since = last ? daysSince(last.date) : null;
+    var tot = { fait: st.tachesFaites, part: st.tachesEnCours, rest: st.tachesTotal - st.tachesFaites - st.tachesEnCours };
 
-    // ── 1. Ce qu'il y a à faire, dans l'ordre, avec le bouton qui le fait ──
+    // ── 1. Vue d'ensemble : où en est le projet, en chiffres et en graphiques ──
+    h += '<div class="card big overview"><div class="ov-main"><div class="ov-donut">' + donut(st.pctGlobal, 'var(--color-primary)', 132, st.pctGlobal + ' %', 'du projet') + '</div><div class="ov-txt"><h2 style="margin:0">' + svgUse('i-flag') + 'Avancement du projet</h2><p class="sub">' + st.tachesTotal + ' tâches réparties sur 7 phases ; chaque tâche compte pour son pourcentage d\'avancement. Les phases avancent en parallèle : aucune ne bloque les autres.</p>' + sbar(tot) + legend(tot) + '<p class="muted" style="font-size:0.85rem;margin-top:6px">Dernière séance : ' + (last ? frDate(last.date) + (last.presents.length ? ' · ' + esc(last.presents.join(', ')) : '') + ' · phase déclarée ' + ph.n : 'aucune encore') + ' · ' + st.seances.length + ' séance' + (st.seances.length > 1 ? 's' : '') + '</p></div></div>';
+    h += '<div class="ov-phases">';
+    PLAN.phases.forEach(function (p) { var v = phasePct(st, p), c = phaseCounts(st, p), gg = p.gonogo ? gonogo(st, p) : null; h += '<button type="button" class="prog-btn" data-act="goto" data-page="accueil" data-anchor="dash-phase-' + p.n + '" title="Voir les tâches de la phase ' + p.n + '"><div class="prog-row"><span class="lab"><span class="sw" style="background:' + p.tint + '"></span>Phase ' + p.n + ' · ' + esc(p.titre) + (gg ? ' ' + statutPill(gg) : '') + (c.part ? ' <span class="muted">' + c.part + ' en cours</span>' : '') + '</span><span class="n">' + v + ' %</span></div>' + sbar(c) + '</button>'; });
+    h += '</div></div>';
+
+    // ── 2. Les compteurs, chacun avec son anneau et son lien ──
+    function kpi(href, pct, color, v, small, l, d) { return '<a class="kpi kpi-ring" href="' + href + '">' + (pct != null ? donut(pct, color, 56, Math.round(pct) + '%') : '<span class="kpi-ic">' + svgUse(color) + '</span>') + '<div class="kpi-b"><div class="v">' + v + (small ? '<small>' + small + '</small>' : '') + '</div><div class="l">' + l + '</div><div class="d">' + d + ' →</div></div></a>'; }
+    h += '<div class="kpis">';
+    h += kpi('#pieces', 100 * st.piecesImprimees / (st.piecesTotal || 1), 'var(--color-battery)', st.piecesImprimees, '/ ' + st.piecesTotal, 'Pièces imprimées', 'registre des pièces');
+    h += kpi('#achats', 100 * st.servosRecus / 14, 'var(--color-consumption)', st.servosRecus, '/ 14', 'Servos reçus', 'STS3215 7,4 V C001');
+    h += kpi('#achats', 100 * st.depense / PLAN.budget, 'var(--color-solar-fg)', Math.round(st.depense), '€ / ' + Math.round(PLAN.budget), 'Budget engagé', 'achats et plan par phase');
+    h += kpi('#tests', null, 'i-check', st.tests.filter(function (t) { return t.resultat === 'GO'; }).length, ' GO · ' + nogo.length + ' NO-GO', 'Fiches de test', st.tests.length + ' fiche' + (st.tests.length > 1 ? 's' : ''));
+    h += kpi('#mesures', null, 'i-zap', st.mesures.length, '', 'Mesures', 'masses, offsets, courants');
+    h += kpi('#decisions', null, 'i-flag', st.aTrancher.length, ' à trancher', 'Décisions', st.decisions.length + ' au total');
+    h += '</div>';
+
+    // ── 3. Ce qu'il y a à faire, avec le bouton qui le fait ──
     var items = [];
     if (!st.rolesRec || rolesVides) items.push({ ic: 'i-users', txt: st.rolesRec ? rolesVides + ' rôle' + (rolesVides > 1 ? 's' : '') + ' encore à attribuer' : 'Attribuer les rôles (' + rolesVides + ' sans nom)', sub: 'Qui fait quoi : maître d\'œuvre, trésorier-acheteur, référents…', btn: 'Attribuer', act: 'data-act="form" data-form="equipe"' });
     st.aTrancher.forEach(function (d) { items.push({ ic: 'i-flag', txt: 'Décision à trancher : ' + d.titre, sub: 'En attente depuis le ' + frDate(d.date) + (d.par ? ' (' + d.par + ')' : ''), btn: 'Trancher', act: 'data-act="form" data-form="decision"' + preAttr({ titre: d.titre, statut: 'prise', contexte: d.sec.contexte || '', decision: d.sec.decision || '', consequences: d.sec.consequences || '' }) }); });
@@ -6821,50 +6893,26 @@ Ce que j'ai vu, quand, combien de fois.
     aRefaire.forEach(function (pc) { items.push({ ic: 'i-printer', txt: 'Pièce à refaire : ' + pc.piece + ' n° ' + pc.exemplaire, sub: (pc.note || '').slice(0, 100), btn: 'Réimprimée', act: 'data-act="form" data-form="piece"' + preAttr({ piece: PLAN.pieces.some(function (p) { return p[1] === pc.piece; }) ? pc.piece : 'autre', piece_autre: pc.piece, exemplaire: pc.exemplaire, statut: 'imprimee', rev: pc.rev }) }); });
     nogo.forEach(function (t) { items.push({ ic: 'i-warn', txt: 'Test NO-GO : ' + t.titre, sub: 'Corriger, puis refaire la fiche (' + frDate(t.date) + ')', btn: 'Refaire', act: 'data-act="form" data-form="test"' + preAttr({ titre: t.titre, phase: t.phase == null ? '' : t.phase, objectif: t.sec.objectif || '', montage: t.sec.montage || '', procedure: t.sec.procedure || '', critere: t.sec.criteredereussite || t.sec.critere || '' }) }); });
     if (last && last.sec.problemes) items.push({ ic: 'i-warn', txt: 'Problèmes notés à la dernière séance', sub: last.sec.problemes.replace(/^[-*]\s*/gm, '').replace(/\n+/g, ' · ').slice(0, 160), btn: 'Décider', act: 'data-act="form" data-form="decision"' + preAttr({ contexte: last.sec.problemes }) });
-    if (!todo.length) {
-      if (ph.gonogo && !g) items.push({ ic: 'i-check', txt: 'Toutes les tâches de la phase ' + ph.n + ' sont faites : fiche GO / NO-GO à rédiger', sub: 'Elle décide l\'achat des 12 servos restants', btn: 'Fiche GO / NO-GO', act: 'data-act="form" data-form="test"' + preAttr({ phase: ph.n, titre: 'GO / NO-GO phase ' + ph.n }) });
-      else if (ph.n < 6) items.push({ ic: 'i-flag', txt: 'Phase ' + ph.n + ' terminée : ouvrir la phase ' + (ph.n + 1) + ' · ' + phaseOf(ph.n + 1).titre, sub: 'Enregistrer une séance en indiquant « phase ' + (ph.n + 1) + ' » : la page suit', btn: 'Ouvrir la phase ' + (ph.n + 1), act: 'data-act="form" data-form="seance"' + preAttr({ phase: ph.n + 1 }) });
-    }
+    PLAN.phases.forEach(function (p) { if (p.gonogo && phasePct(st, p) >= 100 && !gonogo(st, p)) items.push({ ic: 'i-check', txt: 'Phase ' + p.n + ' terminée : fiche GO / NO-GO à rédiger', sub: 'Elle décide l\'achat des 12 servos restants', btn: 'Fiche GO / NO-GO', act: 'data-act="form" data-form="test"' + preAttr({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }) }); });
+    if (phasePct(st, ph) >= 100 && ph.n < 6) items.push({ ic: 'i-flag', txt: 'Phase ' + ph.n + ' terminée : déclarer la phase ' + (ph.n + 1) + ' en cours', sub: 'Enregistrer une séance en indiquant « phase ' + (ph.n + 1) + ' »', btn: 'Séance phase ' + (ph.n + 1), act: 'data-act="form" data-form="seance"' + preAttr({ phase: ph.n + 1 }) });
     if (!last) items.push({ ic: 'i-book', txt: 'Enregistrer la première séance', sub: 'Qui était là, ce qui a été fait, les problèmes, les décisions', btn: 'Nouvelle séance', act: 'data-act="form" data-form="seance"' });
     else if (since > 10) items.push({ ic: 'i-book', txt: 'Aucune séance enregistrée depuis ' + since + ' jours', sub: 'Dernière : ' + frDate(last.date) + (last.presents.length ? ' · ' + last.presents.join(', ') : ''), btn: 'Nouvelle séance', act: 'data-act="form" data-form="seance"' });
 
-    h += '<div class="hero"><div class="card big" data-anchor="phase-cur">';
-    h += '<div class="row" style="justify-content:space-between"><h2 style="margin:0">' + svgUse('i-flag') + 'Phase ' + ph.n + ' · ' + esc(ph.titre) + '</h2><span class="row">' + pill('p', ph.mois) + (g ? statutPill(g) : '') + '</span></div>';
-    h += '<p class="sub">Objectif de la phase : ' + esc(ph.jalon) + '.</p>';
-    h += '<div class="prog-row"><span class="lab"><strong>' + done + '</strong> tâche' + (done > 1 ? 's' : '') + ' faite' + (done > 1 ? 's' : '') + ' sur ' + ph.taches.length + '</span><span class="n">' + phasePct(st, ph) + ' %</span></div><div class="bar"><span style="width:' + phasePct(st, ph) + '%"></span></div>';
-    if (todo.length) {
-      h += '<p class="sub" style="margin-top:8px"><strong>Reste à faire</strong> · cocher une case quand c\'est fait (ça s\'enregistre au nom de qui coche) :</p><div class="chklist">' + todo.map(function (t) { return taskBtn(st, t); }).join('') + '</div>';
-    } else {
-      h += '<p class="sub" style="margin-top:8px">Toutes les tâches de cette phase sont cochées.</p>';
-    }
-    h += '<div class="row" style="margin-top:6px"><button type="button" class="btn sm" data-act="goto" data-page="planning" data-anchor="phase-' + ph.n + '">' + svgUse('i-cal') + 'Toute la phase dans le planning</button>' + (ph.n < 6 ? '<button type="button" class="btn sm" data-act="goto" data-page="planning" data-anchor="phase-' + (ph.n + 1) + '">Phase suivante : ' + esc(phaseOf(ph.n + 1).titre) + '</button>' : '') + '</div>';
-    h += '</div>';
-
-    h += '<div class="card big"><h2>' + svgUse('i-zap') + 'À faire maintenant</h2>';
-    if (items.length) {
-      h += '<ol class="todo">' + items.map(function (it) { return '<li><span class="tl-ic">' + svgUse(it.ic) + '</span><div class="tl-b"><strong>' + esc(it.txt) + '</strong>' + (it.sub ? '<small>' + esc(it.sub) + '</small>' : '') + '</div><button type="button" class="btn sm primary" ' + it.act + '>' + esc(it.btn) + '</button></li>'; }).join('') + '</ol>';
-    } else {
-      h += '<p class="muted">Rien en attente en dehors des tâches de la phase. Les problèmes se notent dans une séance, les choix en suspens comme décision « à trancher » : ils apparaîtront ici.</p>';
-    }
-    h += '<p class="sub" style="margin-top:10px"><strong>Enregistrer quelque chose d\'autre :</strong></p><div class="row"><button type="button" class="btn primary" data-act="form" data-form="seance">' + svgUse('i-book') + 'Séance</button><button type="button" class="btn" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Pièce imprimée</button><button type="button" class="btn" data-act="form" data-form="achat">' + svgUse('i-cart') + 'Achat</button><button type="button" class="btn" data-act="form" data-form="test">' + svgUse('i-check') + 'Fiche de test</button><button type="button" class="btn" data-act="form" data-form="mesure">' + svgUse('i-zap') + 'Mesure</button><button type="button" class="btn" data-act="form" data-form="decision">' + svgUse('i-flag') + 'Décision</button></div>';
-    h += '</div></div>';
-
-    // ── 2. Les chiffres : chaque tuile est un lien vers la page qui en dit plus ──
-    function kpi(href, v, small, l, d) { return '<a class="kpi" href="' + href + '"><div class="v">' + v + (small ? '<small>' + small + '</small>' : '') + '</div><div class="l">' + l + '</div><div class="d">' + d + ' →</div></a>'; }
-    h += '<div class="kpis">';
-    h += kpi('#pieces', st.piecesImprimees, '/ ' + st.piecesTotal, 'Pièces imprimées', 'registre, pièce par pièce');
-    h += kpi('#achats', st.servosRecus, '/ 14', 'Servos reçus', 'STS3215 7,4 V C001 · achats');
-    h += kpi('#achats', Math.round(st.depense), '€ / ' + Math.round(PLAN.budget), 'Budget engagé', 'achats et plan par phase');
-    h += kpi('#tests', st.tests.filter(function (t) { return t.resultat === 'GO'; }).length, ' GO · ' + nogo.length + ' NO-GO', 'Fiches de test', st.tests.length + ' fiche' + (st.tests.length > 1 ? 's' : '') + ' au total');
-    h += kpi('#mesures', st.mesures.length, '', 'Mesures', 'masses, offsets, courants');
-    h += kpi('#decisions', st.aTrancher.length, ' à trancher', 'Décisions', st.decisions.length + ' au total');
-    h += '</div>';
-
-    // ── 3. Les 7 phases (chaque ligne mène à la phase dans le planning) et l'historique ──
-    h += '<div class="grid c2"><div class="card"><h2>' + svgUse('i-cal') + 'Les 7 phases</h2>';
-    PLAN.phases.forEach(function (p) { var v = phasePct(st, p); var gg = p.gonogo ? gonogo(st, p) : null; h += '<button type="button" class="prog-btn' + (p.n === st.phase ? ' cur' : '') + '" data-act="goto" data-page="planning" data-anchor="phase-' + p.n + '"><div class="prog-row"><span class="lab">' + (p.n === st.phase ? '<strong>' : '') + 'Phase ' + p.n + ' · ' + esc(p.titre) + (p.n === st.phase ? '</strong> <span class="pill p">en cours</span>' : '') + (gg ? ' ' + statutPill(gg) : '') + '</span><span class="n">' + v + ' %</span></div><div class="bar thin"><span style="width:' + v + '%; background:' + p.tint + '"></span></div></button>'; });
-    h += '<p class="muted" style="font-size:0.85rem">' + st.tachesFaites + ' tâches faites sur ' + st.tachesTotal + '. Cliquer une phase pour voir et cocher ses tâches.</p></div>';
+    h += '<div class="grid c2"><div class="card big"><h2>' + svgUse('i-zap') + 'À faire maintenant</h2>';
+    if (items.length) h += '<ol class="todo">' + items.map(function (it) { return '<li><span class="tl-ic">' + svgUse(it.ic) + '</span><div class="tl-b"><strong>' + esc(it.txt) + '</strong>' + (it.sub ? '<small>' + esc(it.sub) + '</small>' : '') + '</div><button type="button" class="btn sm primary" ' + it.act + '>' + esc(it.btn) + '</button></li>'; }).join('') + '</ol>';
+    else h += '<p class="muted">Rien en attente en dehors des tâches des phases, ci-dessous. Les problèmes se notent dans une séance, les choix en suspens comme décision « à trancher » : ils apparaîtront ici.</p>';
+    h += '<p class="sub" style="margin-top:10px"><strong>Enregistrer :</strong></p><div class="row"><button type="button" class="btn primary" data-act="form" data-form="seance">' + svgUse('i-book') + 'Séance</button><button type="button" class="btn" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Pièce imprimée</button><button type="button" class="btn" data-act="form" data-form="achat">' + svgUse('i-cart') + 'Achat</button><button type="button" class="btn" data-act="form" data-form="test">' + svgUse('i-check') + 'Fiche de test</button><button type="button" class="btn" data-act="form" data-form="mesure">' + svgUse('i-zap') + 'Mesure</button><button type="button" class="btn" data-act="form" data-form="decision">' + svgUse('i-flag') + 'Décision</button></div></div>';
     h += '<div class="card"><h2>' + svgUse('i-zap') + 'Derniers enregistrements</h2>' + timeline(st.events.slice(0, 10)) + '</div></div>';
+
+    // ── 4. Toutes les phases, toutes ouvertes à l'action : cocher ou noter un avancement partout ──
+    h += '<h2 class="sec-title">' + svgUse('i-cal') + 'Les 7 phases et leurs tâches</h2><p class="sub">Une phase se déplie d\'un clic. Une case = une tâche : cliquer pour la cocher ou noter 25, 50, 75 %. Rien n\'oblige à finir une phase pour avancer la suivante.</p>';
+    var anyPart = PLAN.phases.some(function (p) { var v = phasePct(st, p); return v > 0 && v < 100; });
+    PLAN.phases.forEach(function (p) {
+      var v = phasePct(st, p), c = phaseCounts(st, p), gg = p.gonogo ? gonogo(st, p) : null;
+      var open = anyPart ? (v > 0 && v < 100) : p.n === st.phase;
+      h += '<div class="card phase-card" data-anchor="dash-phase-' + p.n + '" style="--ph:' + p.tint + '"><button type="button" class="ph-head' + (open ? ' open' : '') + '" data-act="fold" data-target="dph-' + p.n + '" aria-expanded="' + open + '"><span class="ph-t"><span class="sw" style="background:' + p.tint + '"></span><strong>Phase ' + p.n + ' · ' + esc(p.titre) + '</strong>' + (p.n === st.phase ? ' <span class="pill p">déclarée en cours</span>' : '') + (gg ? ' ' + statutPill(gg) : '') + '<small>' + esc(p.jalon) + ' · ' + esc(p.mois) + ' · ' + eur(p.montant) + '</small></span><span class="ph-n">' + v + ' %</span><svg class="chev"><use href="#i-chevron"/></svg></button>' + sbar(c);
+      h += '<div class="ph-body" id="dph-' + p.n + '"' + (open ? '' : ' hidden') + '>' + legend(c) + '<div class="chklist">' + p.taches.map(function (t) { return taskBtn(st, t); }).join('') + '</div>' + (p.gonogo ? '<div class="row" style="margin-top:8px"><button type="button" class="btn sm" data-act="form" data-form="test"' + preAttr({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }) + '>' + svgUse('i-check') + 'Fiche GO / NO-GO de la phase</button></div>' : '') + '</div></div>';
+    });
     return h;
   }
   function timeline(evs) {
@@ -6884,17 +6932,18 @@ Ce que j'ai vu, quand, combien de fois.
   }
 
   function taskBtn(st, t) {
-    var d = st.taches[t[0]], done = !!(d && d.fait);
-    return '<button type="button" class="chk chk-btn' + (done ? ' done' : '') + '" data-act="form" data-form="tache"' + preAttr({ tache: t[0], fait: done ? 'non' : 'oui', label: t[1] }) + '><span class="box">' + (done ? '✓' : '') + '</span><span class="t"><span class="lbl">' + esc(t[1]) + '</span><small>' + (done ? 'fait' + (d.par ? ' par ' + esc(d.par) : '') + (d.date ? ' le ' + frDate(d.date) : '') + (d.via === 'séance' ? ' (séance)' : '') : '<code>' + t[0] + '</code>') + '</small></span></button>';
+    var d = st.taches[t[0]], pct = taskPct(st, t[0]), done = pct >= 100;
+    var who = d ? (d.par ? ' par ' + esc(d.par) : '') + (d.date ? ' le ' + frDate(d.date) : '') + (d.via === 'séance' ? ' (séance)' : '') : '';
+    return '<button type="button" class="chk chk-btn' + (done ? ' done' : pct > 0 ? ' part' : '') + '" data-act="form" data-form="tache"' + preAttr({ tache: t[0], avancement: done ? 0 : 100, label: t[1] }) + ' title="' + (done ? 'Fait · cliquer pour modifier' : 'Cliquer pour enregistrer l\'avancement') + '"><span class="box"' + (!done && pct > 0 ? ' style="background:linear-gradient(90deg, var(--color-primary) ' + pct + '%, transparent ' + pct + '%)"' : '') + '>' + (done ? '✓' : '') + '</span><span class="t"><span class="lbl">' + esc(t[1]) + '</span><span class="tp"><span class="bar thin"><span style="width:' + pct + '%' + (done ? ';background:var(--color-battery)' : '') + '"></span></span><small>' + (done ? 'fait' + who : pct > 0 ? pct + ' %' + who : '<code>' + t[0] + '</code>') + '</small></span></span></button>';
   }
   function viewPlanning(st) {
     var h = '<div class="data-status"></div><div class="phases">';
-    PLAN.phases.forEach(function (p) { var v = phasePct(st, p); var g = p.gonogo ? gonogo(st, p) : null; h += '<div class="phase' + (p.n === st.phase ? ' cur' : '') + '" style="--ph:' + p.tint + '" data-act="goto" data-page="planning" data-anchor="phase-' + p.n + '" role="button" tabindex="0" title="Voir les tâches de cette phase"><div class="n">Phase ' + p.n + (p.n === st.phase ? ' · en cours' : '') + '</div><div class="t">' + esc(p.titre) + '</div><div class="m">' + esc(p.mois) + '</div><div class="amt">' + eur(p.montant) + '</div><div class="bar thin"><span style="width:' + v + '%; background:' + p.tint + '"></span></div><div class="m">' + v + ' % · ' + esc(p.jalon) + (g ? ' ' + statutPill(g) : '') + '</div></div>'; });
+    PLAN.phases.forEach(function (p) { var v = phasePct(st, p); var g = p.gonogo ? gonogo(st, p) : null; h += '<div class="phase' + (p.n === st.phase ? ' cur' : '') + '" style="--ph:' + p.tint + '" data-act="goto" data-page="planning" data-anchor="phase-' + p.n + '" role="button" tabindex="0" title="Voir les tâches de cette phase"><div class="n">Phase ' + p.n + (p.n === st.phase ? ' · en cours' : '') + '</div><div class="t">' + esc(p.titre) + '</div><div class="m">' + esc(p.mois) + '</div><div class="amt">' + eur(p.montant) + '</div>' + sbar(phaseCounts(st, p)) + '<div class="m">' + v + ' % · ' + esc(p.jalon) + (g ? ' ' + statutPill(g) : '') + '</div></div>'; });
     h += '</div>';
     PLAN.phases.forEach(function (p) {
       var g = p.gonogo ? gonogo(st, p) : null;
       h += '<div class="card" data-anchor="phase-' + p.n + '"><h3 style="justify-content:space-between"><span>' + svgUse('i-cal') + 'Phase ' + p.n + ' · ' + esc(p.titre) + ' ' + pill('p', phasePct(st, p) + ' %') + (g ? ' ' + statutPill(g) : '') + '</span>' + (p.gonogo ? '<button type="button" class="btn sm" data-act="form" data-form="test" data-pre=\'' + JSON.stringify({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }).replace(/'/g, '&#39;') + '\'>Fiche GO / NO-GO</button>' : '') + '</h3>';
-      h += '<p class="sub">Jalon : ' + esc(p.jalon) + ' · ' + esc(p.mois) + ' · ' + eur(p.montant) + '</p><div class="chklist">';
+      h += '<p class="sub">Jalon : ' + esc(p.jalon) + ' · ' + esc(p.mois) + ' · ' + eur(p.montant) + '</p>' + sbar(phaseCounts(st, p)) + legend(phaseCounts(st, p)) + '<div class="chklist">';
       p.taches.forEach(function (t) { h += taskBtn(st, t); });
       h += '</div></div>';
     });
@@ -6992,9 +7041,9 @@ Ce que j'ai vu, quand, combien de fois.
     seance: { titre: 'Enregistrer une séance', dir: 'journal', page: 'journal', icon: 'i-book', aide: 'Une entrée par séance. Cinq rubriques, jamais plus. Les tâches cochées ici comptent dans le planning.',
       fields: [['date', 'Date', 'date'], ['presents', 'Présents (prénoms, séparés par des virgules)', 'text'], ['phase', 'Phase en cours', 'phase'], ['taches', 'Tâches terminées pendant la séance', 'taches'], ['fait', 'Fait', 'textarea', 'Une ligne par chose faite, en commençant par un tiret'], ['mesures', 'Mesures', 'textarea', 'Chiffres relevés (les mesures importantes ont aussi leur propre registre)'], ['problemes', 'Problèmes', 'textarea', 'Ce qui bloque ou a surpris'], ['decisions', 'Décisions', 'textarea', 'Ce qui a été décidé (les décisions structurantes ont aussi leur propre registre)']],
       build: function (v) { var fm = ['type: seance', 'date: ' + v.date, 'presents: ' + v.presents, 'phase: ' + v.phase]; if (v.taches) fm.push('taches: ' + v.taches); return { name: v.date + '.md', text: '---\n' + fm.join('\n') + '\n---\n## Fait\n' + (v.fait || '- ') + '\n\n## Mesures\n' + (v.mesures || '- ') + '\n\n## Problèmes\n' + (v.problemes || '- ') + '\n\n## Décisions\n' + (v.decisions || '- ') + '\n' }; } },
-    tache: { titre: 'Cocher une tâche', dir: 'avancement', page: null, icon: 'i-check', aide: 'Un enregistrement par case cochée (ou décochée). Pour cocher plusieurs tâches d\'un coup, préférer l\'enregistrement d\'une séance.',
-      fields: [['label', 'Tâche', 'static'], ['tache', 'Identifiant', 'static'], ['fait', 'État', 'select', ['oui|fait', 'non|pas fait (décocher)']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Note (facultatif)', 'text']],
-      build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.tache) + '.md', text: '---\ntype: tache\ntache: ' + v.tache + '\nfait: ' + v.fait + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note ? v.note + '\n' : '') + (v.label ? '> ' + v.label + '\n' : '') }; } },
+    tache: { titre: 'Avancement d\'une tâche', dir: 'avancement', page: null, icon: 'i-check', aide: 'Un enregistrement par changement d\'avancement ; le dernier l\'emporte. 100 % = fait. Pour cocher plusieurs tâches d\'un coup, préférer l\'enregistrement d\'une séance.',
+      fields: [['label', 'Tâche', 'static'], ['tache', 'Identifiant', 'static'], ['avancement', 'Avancement', 'select', ['100|fait (100 %)', '75|75 %', '50|50 %', '25|25 %', '0|pas commencé (0 %)']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Note (facultatif)', 'text']],
+      build: function (v) { var pct = parseInt0(v.avancement) || 0; return { name: v.date + '-' + nowHHMM() + '-' + slug(v.tache) + '.md', text: '---\ntype: tache\ntache: ' + v.tache + '\navancement: ' + pct + '\nfait: ' + (pct >= 100 ? 'oui' : 'non') + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note ? v.note + '\n' : '') + (v.label ? '> ' + v.label + '\n' : '') }; } },
     piece: { titre: 'Enregistrer une pièce imprimée', dir: 'pieces', page: 'pieces', icon: 'i-printer', aide: 'Un enregistrement par exemplaire et par changement d\'état. La pesée sert à comparer avec le modèle de simulation.',
       fields: [['piece', 'Pièce', 'piece'], ['exemplaire', 'Exemplaire n°', 'number', '1'], ['statut', 'État', 'select', PIECE_STATUTS.map(function (s) { return s + '|' + PIECE_LABELS[s]; })], ['masse_g', 'Masse pesée (g, facultatif)', 'text'], ['rev', 'Révision (amont, b1, b2…)', 'text', 'amont'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Note (orientation, supports, défaut…)', 'textarea']],
       build: function (v) { if (v.piece === 'autre') v.piece = slug(v.piece_autre || 'piece'); return { name: v.date + '-' + nowHHMM() + '-' + slug(v.piece) + '-' + (v.exemplaire || 1) + '.md', text: '---\ntype: piece\npiece: ' + v.piece + '\nexemplaire: ' + (v.exemplaire || 1) + '\nstatut: ' + v.statut + '\nmasse_g: ' + (v.masse_g || '') + '\nrev: ' + (v.rev || 'amont') + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note || '') + '\n' }; } },
