@@ -422,9 +422,25 @@ a.kpi:hover .d { color: var(--color-primary-active); }
 .task.done .lbl { color: var(--color-muted-fg); text-decoration: line-through; text-decoration-color: var(--color-border-strong); }
 .task.done .box { background: var(--color-battery); border-color: var(--color-battery); }
 .task.part .box { border-color: var(--color-primary); }
-.task-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 0 8px 0 38px; font-size: 12px; color: var(--color-muted-fg); }
-.task-foot .bar { width: 90px; flex: none; }
-.task-foot small { margin: 0; }
+.task-main { display: flex; align-items: flex-start; gap: 8px; }
+.task-main .chk-btn { flex: 1 1 auto; min-width: 0; }
+.task-pct { flex: none; display: inline-flex; align-items: center; gap: 6px; width: 128px; padding-top: 9px; font-size: 12px; }
+.task-pct .bar { width: 80px; flex: none; }
+.task-pct b { font-variant-numeric: tabular-nums; width: 44px; text-align: right; white-space: nowrap; }
+.task-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 0 8px 0 38px; font-size: 12px; color: var(--color-muted-fg); }
+.task-foot small { margin: 0; flex: 1 1 100%; }
+.task-acts { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.task-foot .chips small { flex: none; }
+@media (max-width: 640px) { .task-main { flex-wrap: wrap; } .task-pct { width: 100%; padding: 0 0 0 38px; } }
+.ph-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 8px 10px; border-radius: var(--radius-lg); background: var(--color-muted); font-size: 0.88rem; margin: 6px 0; }
+.ph-line > svg { width: 16px; height: 16px; color: var(--color-primary-active); flex: none; }
+.ph-line > span { flex: 1 1 200px; min-width: 0; }
+.tgroups { display: flex; flex-direction: column; gap: 4px; }
+.tgrp { border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 4px 8px; }
+.tgrp summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; padding: 4px 0; }
+.tgrp .chklist { margin: 2px 0 4px; }
+button.pc { font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+button.pc:hover { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 .chips { display: inline-flex; flex-wrap: wrap; gap: 4px; }
 .chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: var(--radius-pill); border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-fg); font-size: 11.5px; font-weight: 600; text-decoration: none; line-height: 1.5; }
 .chip svg { width: 11px; height: 11px; }
@@ -765,7 +781,7 @@ details.quiz + details.quiz { margin-top: 8px; }
   </div>
   <div class="card flat">
     <h3><svg><use href="#i-info"/></svg>Comment ça marche</h3>
-    <p class="tight">Chaque page de suivi a son formulaire, directement dans la page : on le remplit, il prépare un petit fichier texte et ouvre l'éditeur de GitHub déjà rempli ; il ne reste qu'à cliquer <strong>Commit changes</strong>. Le fichier arrive dans <code>biscalab/</code> du dépôt du club et cette page le lit à la prochaine actualisation. Il faut un compte GitHub membre du dépôt (<a href="#cours-git">cours 1</a>). Les cases « cours terminé » du parcours, elles, restent personnelles à chaque appareil.</p>
+    <p class="tight">Le travail se fait dans <a href="#planning">Travaux par phase</a> (une tâche, un bouton) et dans les registres (pièces, achats, tests, mesures, décisions), qui listent ce que le plan attend. Chaque formulaire, directement dans la page, prépare un petit fichier texte et ouvre l'éditeur de GitHub déjà rempli ; il ne reste qu'à cliquer <strong>Commit changes</strong>. Le fichier arrive dans <code>biscalab/</code> du dépôt du club et cette page le lit à la prochaine actualisation. Il faut un compte GitHub membre du dépôt (<a href="#cours-git">cours 1</a>). Les cases « cours terminé » du parcours, elles, restent personnelles à chaque appareil.</p>
   </div>
 </section>
 
@@ -780,11 +796,11 @@ details.quiz + details.quiz { margin-top: 8px; }
 </section>
 
 <!-- ═══════════════════════════ PLANNING ═══════════════════════════ -->
-<section class="page" id="page-planning" data-title="Planning et jalons" data-sub="7 phases, listes partagées" hidden>
+<section class="page" id="page-planning" data-title="Travaux par phase" data-sub="47 tâches, 7 phases en parallèle" hidden>
   <div class="page-head">
-    <div class="eyebrow">Suivi</div>
-    <h1>Sept phases, un jalon testable à chaque fois</h1>
-    <p class="lead">Les cases sont partagées : en cocher une crée un enregistrement au nom de celui qui coche, visible par tous. Chaque phase se ferme par une <i class="t" data-t="fiche-de-test">fiche de test</i> ; la phase 2 porte le <i class="t" data-t="go-no-go">GO / NO-GO</i> avant l'achat des 12 servos restants.</p>
+    <div class="eyebrow">Travail</div>
+    <h1>Les sept phases et leurs tâches</h1>
+    <p class="lead">C'est ici qu'on travaille. Chaque tâche dit où elle en est, d'où vient son avancement, et porte le bouton qui l'enregistre : la commande de la phase, la pièce imprimée, la mesure, la <i class="t" data-t="fiche-de-test">fiche de test</i> déjà rédigée… Les phases avancent en parallèle ; seule la phase 2 porte un <i class="t" data-t="go-no-go">GO / NO-GO</i>, avant l'achat des 12 servos restants.</p>
   </div>
   <div data-view="planning"></div>
 </section>
@@ -1045,7 +1061,7 @@ details.quiz + details.quiz { margin-top: 8px; }
         </table>
       </div>
     </div>
-    <div class="card">
+    <div class="card" data-anchor="reunion">
       <h3><svg><use href="#i-check"/></svg>Première réunion (≈ 1 h 30)</h3>
       <p class="sub">Liste partagée : cocher une case l'enregistre dans le dépôt du club au nom de celui qui coche, et tout le monde la voit cochée.</p>
       <div class="chklist">
@@ -1656,7 +1672,7 @@ inserts M3 et roulements à poser</code></pre>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" data-anchor="banc">
     <h2><svg><use href="#i-check"/></svg>Banc servo (phase 2) : ce qu'on valide avant d'acheter 12 servos</h2>
     <p class="sub">Liste partagée : cocher une case l'enregistre dans le dépôt du club au nom de celui qui coche.</p>
     <div class="chklist">
@@ -1970,7 +1986,7 @@ inserts M3 et roulements à poser</code></pre>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" data-anchor="calibration">
     <h2><svg><use href="#i-check"/></svg>Calibration du robot réel, dans l'ordre</h2>
     <p class="sub">Phase 5. Robot sur son support, batterie remplacée par l'<i class="t" data-t="alim-labo">alimentation de laboratoire</i>, mains libres pendant les scripts qui bougent.</p>
     <p class="sub">Liste partagée : cocher une case l'enregistre dans le dépôt du club au nom de celui qui coche.</p>
@@ -3058,7 +3074,7 @@ for id_servo in jambe_droite:         # une boucle : pour chaque élément…
         <tr><td>Un exemplaire de pièce qui change d'état</td><td><a href="#pieces">Registre des pièces</a></td><td><code>pieces/AAAA-MM-JJ-HHMM-piece-n.md</code></td></tr>
         <tr><td>Une mesure</td><td><a href="#mesures">Mesures</a></td><td><code>mesures/AAAA-MM-JJ-HHMM-grandeur-objet.md</code></td></tr>
         <tr><td>Une décision</td><td><a href="#decisions">Décisions</a></td><td><code>decisions/AAAA-MM-JJ-HHMM-titre.md</code></td></tr>
-        <tr><td>L'avancement d'une tâche (0, 25, 50, 75 ou 100 %)</td><td><a href="#accueil">Tableau de bord</a>, <a href="#planning">Planning</a> et listes partagées</td><td><code>avancement/AAAA-MM-JJ-HHMM-tache.md</code></td></tr>
+        <tr><td>L'avancement d'une tâche (0, 25, 50, 75 ou 100 %) ; beaucoup se calculent seules depuis les registres</td><td><a href="#planning">Travaux par phase</a>, <a href="#accueil">Tableau de bord</a> et listes partagées</td><td><code>avancement/AAAA-MM-JJ-HHMM-tache.md</code></td></tr>
         <tr><td>Les rôles</td><td><a href="#equipe">Équipe et méthode</a></td><td><code>equipe/AAAA-MM-JJ-HHMM-roles.md</code></td></tr>
       </tbody>
     </table></div>
@@ -6390,31 +6406,119 @@ Ce que j'ai vu, quand, combien de fois.
     'p5.1': 'cours-assemblage cours-servos', 'p5.2': 'cours-capteurs logiciel', 'p5.3': 'cours-calibration marche', 'p5.4': 'cours-laser risques', 'p5.5': 'marche', 'p5.6': 'mesures decisions', 'p5.7': 'tests journal',
     'p6.1': 'achats bom', 'p6.2': 'cours-electronique risques', 'p6.3': 'logiciel cours-depannage', 'p6.4': 'mesures tests', 'p6.5': 'pieces cours-assemblage', 'p6.6': 'github cours-git'
   };
+  // Les six commandes du plan d'achats (une par phase), prêtes à enregistrer
+  PLAN.achats = [
+    { phase: 1, titre: 'Achat phase 1 : filament, inserts, roulements', montant: '55,70', servos: 0, lignes: '- Filament PLA ≈ 1 kg + TPU (plan : 1,3 kg)\n- Inserts filetés M3, lot de 100 (référence BOM)\n- 3 × roulements 608ZZ\n- Consommables (colle, adhésif)' },
+    { phase: 2, titre: 'Achat phase 2 : cerveau et banc servo', montant: '99,55', servos: 2, lignes: '- Raspberry Pi Zero 2 W\n- Carte microSD 32 Go (U3 / A1)\n- Waveshare Bus Servo Adapter (A)\n- IMU BNO055\n- 2 × Feetech STS3215 7,4 V 1/345 (C001), étiquette vérifiée à la réception' },
+    { phase: 3, titre: 'Achat phase 3 : jambe 1', montant: '63,10', servos: 3, lignes: '- 3 × STS3215 7,4 V 1/345 (C001), même lot que les premiers\n- 4 × contacts Omron SS-10' },
+    { phase: 4, titre: 'Achat phase 4 : jambe 2', montant: '99,50', servos: 5, lignes: '- 5 × STS3215 7,4 V 1/345 (C001), même lot' },
+    { phase: 5, titre: 'Achat phase 5 : tête et finitions', montant: '95,25', servos: 4, lignes: '- 4 × STS3215 7,4 V 1/345 (C001), même lot\n- 2 × micro-servos 9 g (antennes)\n- Gaine spirale 6 mm, 3 m' },
+    { phase: 6, titre: 'Achat phase 6 : énergie', montant: '63,15', servos: 0, lignes: '- 2 × Molicel P30B 18650\n- Support 2S avec câbles\n- BMS 2S (calibre validé en phase 5)\n- UBEC 5 V 8 A\n- Interrupteur à verrouillage lumineux\n- Chargeur Li-ion 2S (selon la décision prise)\n- 2 × jacks DC 2,1 mm\n- 4 × paires XT30' }
+  ];
+  // Les fiches de test que le plan attend, avec leur critère écrit d'avance (chiffres du dossier)
+  PLAN.tests = [
+    { id: 'masses', phase: 1, titre: 'Masses des sous-ensembles vs simulation', objectif: 'Vérifier que notre robot a les masses du modèle de simulation : c\'est la condition pour réutiliser la marche fournie sans réentraînement.', montage: 'Balance (précision 1 g). Sous-ensembles assemblés à blanc, sans servos : tronc, cou + tête, jambe droite, jambe gauche.', procedure: 'Peser chaque sous-ensemble et le noter dans Mesures (grandeur masse). Ajouter la masse des servos prévus pour comparer au modèle.', critere: 'Chaque sous-ensemble à ±10 % du modèle : tronc 0,699 kg ; cou + tête 0,582 kg ; chaque jambe ≈ 0,41 kg ; total 2,107 kg.' },
+    { id: 'banc', phase: 2, titre: 'Banc servo : bus, IMU, contacts', objectif: 'Valider la chaîne Pi → carte Waveshare → 2 servos STS3215 en 2S, l\'IMU BNO055 et les contacts de pied, avant d\'acheter les 12 servos restants.', montage: 'Socle découpé au laser, alimentation de laboratoire 7,4 V limitée à 3 A, 2 servos, carte Waveshare, Pi Zero 2 W (image v0.2.3), BNO055, 2 contacts SS-10.', procedure: 'Dérouler la liste de contrôle « banc servo » de la rubrique Électronique (b.1 à b.9) ; relever le courant à vide, en mouvement et en butée.', critere: 'Les 9 points de la liste verts : carte et bus fonctionnent à 7,4 V, les deux servos répondent (check_motors.py, 0,1 rad), firmware identique, IMU stable 10 min sans erreur, contacts lus, protection 2 A / 2 s observée.' },
+    { id: 'gonogo-2', phase: 2, titre: 'GO / NO-GO phase 2', objectif: 'Décider l\'achat des 12 servos restants (même lot).', montage: 'Résultats de la fiche « banc servo » et de la simulation sur PC (mujoco_infer.py avec nos masses réelles).', procedure: 'Relire la fiche banc servo et le résultat de simulation ; décider GO, NO-GO ou partiel ; noter la décision dans le journal de la séance.', critere: 'GO si : banc servo entièrement vert, le canard simulé marche avec nos masses réelles, référence C001 7,4 V 1/345 lue sur l\'étiquette des deux servos.' },
+    { id: 'jambe-droite', phase: 3, titre: 'Jambe droite pilotée', objectif: 'Chaque articulation de la jambe droite répond, sans point dur, et les contacts du pied droit sont lus.', montage: 'Jambe droite montée (servos 10 à 14), sur le banc, alimentation de laboratoire 7,4 V.', procedure: 'check_motors.py, puis pilotage articulation par articulation ; mesurer le jeu à chacune ; feet_contacts.py pour les deux contacts du pied droit.', critere: 'Les 5 servos répondent et bougent de 0,1 rad ; position zéro du hip_pitch conforme ; jeu mesuré et noté à chaque articulation ; les 2 contacts du pied droit répondent.' },
+    { id: 'debout', phase: 4, titre: 'Posture debout sur le banc', objectif: 'Bas du corps complet : le robot tient la posture home sans chauffer ni perdre le bus.', montage: 'Tronc + deux jambes, servos 10-14 et 20-24 configurés, alimentation de laboratoire, potence ou support.', procedure: 'turn_on.py (P = 2 puis montée du gain) ; posture home tenue 2 min ; température des servos au toucher ; aucune erreur CRC.', critere: 'Posture tenue 2 min, servos tièdes (jamais brûlants), aucune erreur CRC, aucun câble pincé sur toute l\'amplitude.' },
+    { id: 'premiere-marche', phase: 5, titre: 'Première marche filaire', objectif: 'Le canard marche avec la politique fournie, alimenté par le laboratoire, retenu par la potence.', montage: '14 servos, offsets dans duck_config.json, IMU calibrée, potence au-dessus du centre de masse, sol plat et propre, manette appairée.', procedure: 'v2_rl_walk_mujoco.py avec start_paused : true ; bouton A ; consigne nulle (piétinement) puis vitesse faible ; filmer ; relever le courant crête et la température après 5 min.', critere: 'Piétinement stable puis quelques pas sans chute ni message « Policy control budget exceeded » ; courant crête noté (calibre du BMS) ; vidéo déposée sur le Nextcloud.' },
+    { id: 'batterie', phase: 6, titre: 'Pack batterie hors robot', objectif: 'Le pack 2S et son BMS sont sûrs avant d\'entrer dans le robot.', montage: 'Pack assemblé (2 × P30B, support, BMS, interrupteur, XT30), multimètre, sac ignifuge pour la charge.', procedure: 'Mesurer la tension de chaque cellule puis du pack ; tester la coupure basse et l\'équilibrage ; charger sous surveillance dans le sac.', critere: 'Cellules à la même tension, pack entre 6,0 et 8,4 V, coupure basse effective, aucune chauffe anormale pendant la charge.' },
+    { id: 'autonomie', phase: 6, titre: 'Marche sur batterie et autonomie', objectif: 'Marche autonome, puis durée de marche sur une charge.', montage: 'Robot complet, carrosserie fermée, batterie chargée, check_voltage.py prêt.', procedure: 'Marche sous potence puis libre ; check_voltage.py pour la tension vue par les servos en charge ; chronométrer jusqu\'à la coupure basse ou la première erreur CRC.', critere: 'Marche libre sans chute ; aucune erreur CRC sous batterie ; autonomie mesurée en minutes et notée dans Mesures.' }
+  ];
+  // Les mesures que le plan attend (clé, grandeur, objet, unité, référence du dossier)
+  PLAN.mesures = [
+    { key: 'masse-tronc', phase: 1, grandeur: 'masse', objet: 'tronc', unite: 'g', ref: 'modèle 699 g', match: ['tronc'] },
+    { key: 'masse-tete', phase: 1, grandeur: 'masse', objet: 'cou + tête', unite: 'g', ref: 'modèle 582 g', match: ['tete'] },
+    { key: 'masse-jambe-d', phase: 1, grandeur: 'masse', objet: 'jambe droite', unite: 'g', ref: 'modèle ≈ 410 g', match: ['jambe', 'droit'] },
+    { key: 'masse-jambe-g', phase: 1, grandeur: 'masse', objet: 'jambe gauche', unite: 'g', ref: 'modèle ≈ 410 g', match: ['jambe', 'gauche'] },
+    { key: 'tension-waveshare', phase: 2, grandeur: 'tension', objet: 'entrée de la carte Waveshare en 2S', unite: 'V', ref: 'fiche 9 à 12,6 V ; 2S = 6,0 à 8,4 V', match: ['waveshare'] },
+    { key: 'courant-banc', phase: 2, grandeur: 'courant', objet: 'banc : à vide, en mouvement, en butée', unite: 'A', ref: 'protection > 2 A pendant 2 s', match: ['banc'] },
+    { key: 'jeu-jambe-d', phase: 3, grandeur: 'jeu', objet: 'jambe droite : hanche, genou, cheville', unite: '°', ref: 'modèle ±0,5°', match: ['jambe'] },
+    { key: 'courant-crete', phase: 5, grandeur: 'courant', objet: 'crête en marche', unite: 'A', ref: 'dimensionne le BMS', match: ['crete'] },
+    { key: 'temperature-servos', phase: 5, grandeur: 'temperature', objet: 'servos après 5 min de marche', unite: '°C', ref: 'coupure firmware à 70 °C', match: ['servo'] },
+    { key: 'tension-batterie', phase: 6, grandeur: 'tension', objet: 'bus servo sous batterie en marche', unite: 'V', ref: '2S : 6,0 à 8,4 V', match: ['batterie'] },
+    { key: 'autonomie', phase: 6, grandeur: 'autonomie', objet: 'marche sur une charge', unite: 'min', ref: 'à noter dans la fiche de test', match: [] }
+  ];
+  [[10, 'hip_yaw', 'droite'], [11, 'hip_roll', 'droite'], [12, 'hip_pitch', 'droite'], [13, 'knee', 'droite'], [14, 'ankle', 'droite'], [20, 'hip_yaw', 'gauche'], [21, 'hip_roll', 'gauche'], [22, 'hip_pitch', 'gauche'], [23, 'knee', 'gauche'], [24, 'ankle', 'gauche'], [30, 'neck_pitch', 'cou'], [31, 'head_pitch', 'tête'], [32, 'head_yaw', 'tête'], [33, 'head_roll', 'tête']].forEach(function (o) {
+    PLAN.mesures.push({ key: 'offset-' + o[0], phase: 5, group: 'offsets', grandeur: 'offset', objet: 'servo ' + o[0] + ' ' + o[1] + ' (' + o[2] + ')', unite: 'rad', ref: 'find_soft_offsets.py → duck_config.json', match: ['servo ' + o[0]] });
+  });
   var PIECE_STATUTS = ['a_imprimer', 'imprimee', 'controlee', 'montee', 'a_refaire'];
+  // ─── Progression calculée depuis les registres (une tâche « automatique » se termine quand les enregistrements le prouvent) ───
+  function pctOf(n, d) { return d ? Math.round(100 * Math.max(0, Math.min(n, d)) / d) : 0; }
+  function piecesGroup(st, group) { var tot = 0, sum = 0; PLAN.pieces.filter(function (p) { return p[0] === group; }).forEach(function (p) { for (var e = 1; e <= p[2]; e++) { tot++; var ev = st.pieces[p[1] + '#' + e]; if (ev) sum += ev.statut === 'imprimee' ? 0.5 : (ev.statut === 'controlee' || ev.statut === 'montee') ? 1 : 0; } }); return { pct: pctOf(sum, tot), info: Math.floor(sum) + '/' + tot + ' pièces au registre' }; }
+  function achatPhase(st, n) { var best = 0, lab = 'commande non enregistrée'; st.achats.filter(function (a) { return a.phase === n; }).forEach(function (a) { var v = { recu: 100, rembourse: 100, commande: 50, prevu: 20 }[a.statut] || 0; if (v >= best) { best = v; lab = 'commande ' + (ACHAT_LABELS[a.statut] || a.statut); } }); return { pct: best, info: lab }; }
+  function testOf(st, id) { var T = PLAN.tests.filter(function (t) { return t.id === id; })[0]; if (!T) return null; var k = slug(T.titre); return st.tests.filter(function (t) { return slug(t.titre) === k; })[0] || null; }
+  function testPct(st, id) { var t = testOf(st, id); if (!t) return { pct: 0, info: 'fiche de test à rédiger' }; var r = t.resultat === 'NOGO' ? 'NO-GO' : t.resultat; return { pct: r === 'GO' ? 100 : r === 'PARTIEL' ? 50 : r === 'NO-GO' ? 25 : 10, info: 'fiche de test : ' + (r ? r.toLowerCase() : 'sans résultat') }; }
+  function mesureOf(st, M) { var want = norm(M.objet); return st.mesures.filter(function (m) { if (m.grandeur !== M.grandeur) return false; var o = norm(m.objet); return o === want || (M.match && M.match.length && M.match.every(function (w) { return o.indexOf(w) >= 0; })); })[0] || null; }
+  function mesuresPct(st, filterFn) { var exp = PLAN.mesures.filter(filterFn), n = 0; exp.forEach(function (M) { if (mesureOf(st, M)) n++; }); return { pct: pctOf(n, exp.length), info: n + '/' + exp.length + ' mesure' + (exp.length > 1 ? 's' : '') + ' notée' + (n > 1 ? 's' : '') }; }
+  function checklistPct(st, prefix, label) { var ks = Object.keys(st.allTasks || {}).filter(function (k) { return k.indexOf(prefix) === 0; }); var sum = 0, done = 0; ks.forEach(function (k) { var t = st.taches[k], v = t ? (t.pct != null ? t.pct : (t.fait ? 100 : 0)) : 0; sum += v; if (v >= 100) done++; }); return { pct: ks.length ? Math.round(sum / ks.length) : 0, info: label + ' : ' + done + '/' + ks.length + ' cases' }; }
+  function decisionsPct(st, kws) { var n = 0; kws.forEach(function (kw) { if (st.decisions.some(function (d) { return d.statut === 'prise' && norm(d.titre).indexOf(kw) >= 0; })) n++; }); return { pct: pctOf(n, kws.length), info: n + '/' + kws.length + ' décisions prises' }; }
+  var TASK_AUTO = {
+    'p0.1': function (st) { var r = st.roles || PLAN.roles, f = r.filter(function (x) { return x[1]; }).length; return { pct: st.rolesRec ? pctOf(f, r.length || 1) : 0, info: st.rolesRec ? f + '/' + r.length + ' rôles attribués' : 'rôles non enregistrés' }; },
+    'p0.9': function (st) { return decisionsPct(st, ['chargeur', 'cao', 'gpu', 'hebergement']); },
+    'p1.1': function (st) { return achatPhase(st, 1); }, 'p2.1': function (st) { return achatPhase(st, 2); }, 'p6.1': function (st) { return achatPhase(st, 6); },
+    'p1.5': function (st) { return piecesGroup(st, 'Pieds'); }, 'p1.6': function (st) { return piecesGroup(st, 'Jambes'); }, 'p1.7': function (st) { return piecesGroup(st, 'Tronc, cou, tête'); }, 'p1.8': function (st) { return piecesGroup(st, 'Carrosserie'); },
+    'p1.9': function (st) { var m = mesuresPct(st, function (M) { return M.grandeur === 'masse'; }), t = testPct(st, 'masses'); return t.pct > m.pct ? t : m; },
+    'p2.4': function (st) { return checklistPct(st, 'b.', 'liste banc servo'); },
+    'p2.7': function (st) { return testPct(st, 'gonogo-2'); },
+    'p3.4': function (st) { return testPct(st, 'jambe-droite'); },
+    'p3.6': function (st) { return testPct(st, 'debout'); },
+    'p5.3': function (st) { return mesuresPct(st, function (M) { return M.grandeur === 'offset'; }); },
+    'p5.5': function (st) { return checklistPct(st, 'c.', 'liste calibration'); },
+    'p5.6': function (st) { var m = mesuresPct(st, function (M) { return M.key === 'courant-crete'; }), d = decisionsPct(st, ['bms']); return { pct: Math.round((m.pct + d.pct) / 2), info: m.info + ' · ' + d.info }; },
+    'p5.7': function (st) { return testPct(st, 'premiere-marche'); },
+    'p6.2': function (st) { return testPct(st, 'batterie'); },
+    'p6.3': function (st) { return mesuresPct(st, function (M) { return M.key === 'tension-batterie'; }); },
+    'p6.4': function (st) { var m = mesuresPct(st, function (M) { return M.key === 'autonomie'; }), t = testPct(st, 'autonomie'); return t.pct > m.pct ? t : m; }
+  };
+  function taskAuto(st, k) { var f = TASK_AUTO[k]; if (!f) return null; try { return f(st); } catch (e) { return null; } }
+  // ─── Le bouton de chaque tâche : le formulaire qui produit la preuve, déjà rempli ───
+  function achatPre(n) { var A = PLAN.achats.filter(function (a) { return a.phase === n; })[0]; return A ? { titre: A.titre, montant: A.montant, phase: n, statut: 'commande', servos: A.servos, lignes: A.lignes } : { phase: n }; }
+  function testPre(id) { var T = PLAN.tests.filter(function (t) { return t.id === id; })[0]; return T ? { titre: T.titre, phase: T.phase, objectif: T.objectif, montage: T.montage, procedure: T.procedure, critere: T.critere } : {}; }
+  function mesurePre(key) { var M = PLAN.mesures.filter(function (m) { return m.key === key; })[0]; return M ? { grandeur: M.grandeur, objet: M.objet, unite: M.unite, note: M.ref ? 'Référence : ' + M.ref : '' } : {}; }
+  var TASK_DO = {
+    'p0.1': { form: 'equipe', label: 'Attribuer les rôles' },
+    'p0.9': { form: 'decision', pre: { titre: 'Chargeur 2S', statut: 'prise' }, label: 'Enregistrer une décision' },
+    'p1.1': { form: 'achat', pre: achatPre(1), label: 'Enregistrer la commande' }, 'p2.1': { form: 'achat', pre: achatPre(2), label: 'Enregistrer la commande' }, 'p6.1': { form: 'achat', pre: achatPre(6), label: 'Enregistrer la commande' },
+    'p1.5': { form: 'piece', pre: { piece: 'foot_top' }, label: 'Pièce imprimée' }, 'p1.6': { form: 'piece', pre: { piece: 'knee_to_ankle_left_sheet' }, label: 'Pièce imprimée' }, 'p1.7': { form: 'piece', pre: { piece: 'trunk_bottom' }, label: 'Pièce imprimée' }, 'p1.8': { form: 'piece', pre: { piece: 'body_front' }, label: 'Pièce imprimée' },
+    'p1.9': { form: 'mesure', pre: mesurePre('masse-tronc'), label: 'Noter une masse' },
+    'p2.4': { goto: 'electronique', anchor: 'banc', label: 'Liste de contrôle banc servo' },
+    'p2.7': { form: 'test', pre: testPre('gonogo-2'), label: 'Fiche GO / NO-GO' },
+    'p3.4': { form: 'test', pre: testPre('jambe-droite'), label: 'Fiche de test' },
+    'p3.6': { form: 'test', pre: testPre('debout'), label: 'Fiche de test' },
+    'p5.3': { form: 'mesure', pre: mesurePre('offset-10'), label: 'Noter un offset' },
+    'p5.5': { goto: 'marche', anchor: 'calibration', label: 'Liste de contrôle calibration' },
+    'p5.6': { form: 'mesure', pre: mesurePre('courant-crete'), label: 'Noter le courant crête' },
+    'p5.7': { form: 'test', pre: testPre('premiere-marche'), label: 'Fiche de test' },
+    'p6.2': { form: 'test', pre: testPre('batterie'), label: 'Fiche de test' },
+    'p6.3': { form: 'mesure', pre: mesurePre('tension-batterie'), label: 'Noter la tension' },
+    'p6.4': { form: 'mesure', pre: mesurePre('autonomie'), label: 'Noter l\'autonomie' }
+  };
   var PIECE_LABELS = { a_imprimer: 'à imprimer', imprimee: 'imprimée', controlee: 'contrôlée', montee: 'montée', a_refaire: 'à refaire' };
   var ACHAT_STATUTS = ['prevu', 'commande', 'recu', 'rembourse', 'annule'];
   var ACHAT_LABELS = { prevu: 'prévu', commande: 'commandé', recu: 'reçu', rembourse: 'remboursé', annule: 'annulé' };
 
   // ─── Registre de navigation (une source : barre, rail, onglets, feuille) ───
   var NAV = [
-    { id: 'accueil',      label: 'Tableau de bord',       short: 'Tableau', group: 'Suivi', icon: 'i-home',  tint: 'oklch(0.546 0.215 262)', kw: 'accueil état du projet avancement résumé', live: true },
-    { id: 'journal',      label: 'Journal des séances',   short: 'Journal', group: 'Suivi', icon: 'i-book',  tint: 'oklch(0.541 0.281 293)', kw: 'séance compte rendu présents fait problèmes décisions', live: true },
-    { id: 'planning',     label: 'Planning et jalons',    short: 'Planning', group: 'Suivi', icon: 'i-cal',  tint: 'oklch(0.546 0.215 262)', kw: 'phases jalons tâches listes go no-go', live: true },
-    { id: 'pieces',       label: 'Registre des pièces',   group: 'Suivi', icon: 'i-printer', tint: 'oklch(0.8 0.2 60)',      kw: 'pièces imprimées statut pesée stl', live: true },
-    { id: 'achats',       label: 'Achats et budget',      group: 'Suivi', icon: 'i-cart',    tint: 'oklch(0.74 0.19 30)',    kw: 'commandes dépenses budget factures', live: true },
-    { id: 'tests',        label: 'Fiches de test',        group: 'Suivi', icon: 'i-check',   tint: 'oklch(0.627 0.194 149)', kw: 'tests go no-go critères résultats', live: true },
-    { id: 'mesures',      label: 'Mesures',               group: 'Suivi', icon: 'i-zap',     tint: 'oklch(0.82 0.15 200)',   kw: 'masses offsets courant tension température jeu', live: true },
-    { id: 'decisions',    label: 'Décisions',             group: 'Suivi', icon: 'i-flag',    tint: 'oklch(0.58 0.21 300)',   kw: 'décisions à trancher prises', live: true },
-    { id: 'projet',       label: 'Le projet',             group: 'Projet', icon: 'i-flag',    tint: 'oklch(0.541 0.281 293)', kw: 'open duck mini v2 présentation dépôts communauté licence microduck' },
-    { id: 'equipe',       label: 'Équipe et méthode',     group: 'Projet', icon: 'i-users',   tint: 'oklch(0.627 0.194 149)', kw: 'rôles rituels journal fiche de test réunion communication signal', live: true },
-    { id: 'github',       label: 'Dépôt GitHub',          group: 'Projet', icon: 'i-git',     tint: 'oklch(0.3 0.03 286)',    kw: 'fork clone commit push pull desktop conventions labels licence apache' },
-    { id: 'cao',          label: 'CAO et fichiers',       group: 'Projet', icon: 'i-cube',    tint: 'oklch(0.58 0.21 300)',   kw: 'onshape freecad step stl 3mf mjcf urdf robotcad onshape-to-robot' },
-    { id: 'fabrication',  label: 'Fabrication',           group: 'Projet', icon: 'i-printer', tint: 'oklch(0.8 0.2 60)',      kw: 'impression 3d prusa prusaslicer laser xtool p2s inserts pla tpu pièces' },
-    { id: 'bom',          label: 'BOM et plan d\'achats', group: 'Projet', icon: 'i-cart',    tint: 'oklch(0.74 0.19 30)',    kw: 'nomenclature prix fournisseurs servo budget phases commandes' },
-    { id: 'electronique', label: 'Électronique',          group: 'Projet', icon: 'i-cpu',     tint: 'oklch(0.82 0.15 200)',   kw: 'câblage gpio sts3215 waveshare bno055 imu batterie bms ubec banc', live: true },
-    { id: 'logiciel',     label: 'Logiciel embarqué',     group: 'Projet', icon: 'i-code',    tint: 'oklch(0.435 0.042 286)', kw: 'runtime raspberry pi image scripts duck_config manette xbox python' },
-    { id: 'marche',       label: 'Marche et calibration', group: 'Projet', icon: 'i-walk',    tint: 'oklch(0.627 0.194 149)', kw: 'rl ppo mujoco sim2real onnx offsets réentraînement gpu bam kp', live: true },
-    { id: 'risques',      label: 'Risques et sécurité',   group: 'Projet', icon: 'i-shield',  tint: 'oklch(0.577 0.245 27.3)', kw: 'registre parades li-ion laser incendie' },
+    { id: 'accueil',      label: 'Tableau de bord',       short: 'Tableau', group: 'Travail', icon: 'i-home',  tint: 'oklch(0.546 0.215 262)', kw: 'accueil état du projet avancement résumé', live: true },
+    { id: 'journal',      label: 'Journal des séances',   short: 'Journal', group: 'Travail', icon: 'i-book',  tint: 'oklch(0.541 0.281 293)', kw: 'séance compte rendu présents fait problèmes décisions', live: true },
+    { id: 'planning',     label: 'Travaux par phase',     short: 'Travaux', group: 'Travail', icon: 'i-cal',  tint: 'oklch(0.546 0.215 262)', kw: 'phases jalons tâches listes go no-go', live: true },
+    { id: 'pieces',       label: 'Registre des pièces',   group: 'Travail', icon: 'i-printer', tint: 'oklch(0.8 0.2 60)',      kw: 'pièces imprimées statut pesée stl', live: true },
+    { id: 'achats',       label: 'Achats et budget',      group: 'Travail', icon: 'i-cart',    tint: 'oklch(0.74 0.19 30)',    kw: 'commandes dépenses budget factures', live: true },
+    { id: 'tests',        label: 'Fiches de test',        group: 'Travail', icon: 'i-check',   tint: 'oklch(0.627 0.194 149)', kw: 'tests go no-go critères résultats', live: true },
+    { id: 'mesures',      label: 'Mesures',               group: 'Travail', icon: 'i-zap',     tint: 'oklch(0.82 0.15 200)',   kw: 'masses offsets courant tension température jeu', live: true },
+    { id: 'decisions',    label: 'Décisions',             group: 'Travail', icon: 'i-flag',    tint: 'oklch(0.58 0.21 300)',   kw: 'décisions à trancher prises', live: true },
+    { id: 'equipe',       label: 'Équipe et méthode',     group: 'Travail', icon: 'i-users',   tint: 'oklch(0.627 0.194 149)', kw: 'rôles rituels journal fiche de test réunion communication signal', live: true },
+    { id: 'projet',       label: 'Le projet',             group: 'Dossier', icon: 'i-flag',    tint: 'oklch(0.541 0.281 293)', kw: 'open duck mini v2 présentation dépôts communauté licence microduck' },
+    { id: 'github',       label: 'Dépôt GitHub',          group: 'Dossier', icon: 'i-git',     tint: 'oklch(0.3 0.03 286)',    kw: 'fork clone commit push pull desktop conventions labels licence apache' },
+    { id: 'cao',          label: 'CAO et fichiers',       group: 'Dossier', icon: 'i-cube',    tint: 'oklch(0.58 0.21 300)',   kw: 'onshape freecad step stl 3mf mjcf urdf robotcad onshape-to-robot' },
+    { id: 'fabrication',  label: 'Fabrication',           group: 'Dossier', icon: 'i-printer', tint: 'oklch(0.8 0.2 60)',      kw: 'impression 3d prusa prusaslicer laser xtool p2s inserts pla tpu pièces' },
+    { id: 'bom',          label: 'BOM et plan d\'achats', group: 'Dossier', icon: 'i-cart',    tint: 'oklch(0.74 0.19 30)',    kw: 'nomenclature prix fournisseurs servo budget phases commandes' },
+    { id: 'electronique', label: 'Électronique',          group: 'Dossier', icon: 'i-cpu',     tint: 'oklch(0.82 0.15 200)',   kw: 'câblage gpio sts3215 waveshare bno055 imu batterie bms ubec banc', live: true },
+    { id: 'logiciel',     label: 'Logiciel embarqué',     group: 'Dossier', icon: 'i-code',    tint: 'oklch(0.435 0.042 286)', kw: 'runtime raspberry pi image scripts duck_config manette xbox python' },
+    { id: 'marche',       label: 'Marche et calibration', group: 'Dossier', icon: 'i-walk',    tint: 'oklch(0.627 0.194 149)', kw: 'rl ppo mujoco sim2real onnx offsets réentraînement gpu bam kp', live: true },
+    { id: 'risques',      label: 'Risques et sécurité',   group: 'Dossier', icon: 'i-shield',  tint: 'oklch(0.577 0.245 27.3)', kw: 'registre parades li-ion laser incendie' },
     { id: 'parcours',     label: "Parcours d'apprentissage", short: 'Cours', group: 'Apprendre', icon: 'i-book', tint: 'oklch(0.84 0.18 78)', kw: 'cours leçons formation débuter apprendre filières' },
     { id: 'cours-git',    label: '1 · Git et GitHub',     group: 'Apprendre', icon: 'i-git',     tint: 'oklch(0.3 0.03 286)',    kw: 'cours git github desktop commit fork clone pull push issue', lesson: true },
     { id: 'cours-raspberry', label: '2 · Raspberry Pi et Linux', group: 'Apprendre', icon: 'i-cpu', tint: 'oklch(0.546 0.215 262)', kw: 'cours raspberry pi linux ssh terminal flasher carte sd', lesson: true },
@@ -6436,7 +6540,7 @@ Ce que j'ai vu, quand, combien de fois.
     { id: 'references',   label: 'Références',            group: 'Référence', icon: 'i-link',    tint: 'oklch(0.708 0.012 280)', kw: 'sources bibliographie origine des faits' }
   ];
   var TABS = ['accueil', 'journal', 'planning', 'parcours'];
-  var GROUPS = ['Suivi', 'Projet', 'Apprendre', 'Référence'];
+  var GROUPS = ['Travail', 'Dossier', 'Apprendre', 'Référence'];
   var NAV_BY_ID = {}; NAV.forEach(function (n) { NAV_BY_ID[n.id] = n; });
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -6519,7 +6623,7 @@ Ce que j'ai vu, quand, combien de fois.
     document.title = (p.getAttribute('data-title') || 'Canard BiscaLab') + ' · Canard BiscaLab';
     markActive(); closeSheet();
     if (NAV_BY_ID[id].live) renderLive(id);
-    if (!noScroll) window.scrollTo({ top: 0, behavior: 'auto' });
+    if (!noScroll && !pendingAnchor) window.scrollTo({ top: 0, behavior: 'instant' });
     if (pendingForm && FORMS[pendingForm.kind] && FORMS[pendingForm.kind].page === id) { var pf = pendingForm; pendingForm = null; openForm(pf.kind, pf.pre, null); }
     if (pendingAnchor) setTimeout(scrollToAnchor, 30);
   }
@@ -6814,7 +6918,7 @@ Ce que j'ai vu, quand, combien de fois.
      3. VUES DE SUIVI
      ══════════════════════════════════════════════════════════════════════ */
   function phaseOf(n) { return PLAN.phases.filter(function (p) { return p.n === n; })[0] || PLAN.phases[0]; }
-  function taskPct(st, k) { var t = st.taches[k]; return t ? (t.pct != null ? t.pct : (t.fait ? 100 : 0)) : 0; }
+  function taskPct(st, k) { var t = st.taches[k], m = t ? (t.pct != null ? t.pct : (t.fait ? 100 : 0)) : 0, a = taskAuto(st, k); return a ? Math.max(m, a.pct) : m; }
   function phasePct(st, ph) { var sum = 0; ph.taches.forEach(function (t) { sum += taskPct(st, t[0]); }); return ph.taches.length ? Math.round(sum / ph.taches.length) : 0; }
   function phaseCounts(st, ph) { var c = { fait: 0, part: 0, rest: 0 }; ph.taches.forEach(function (t) { var x = taskPct(st, t[0]); if (x >= 100) c.fait++; else if (x > 0) c.part++; else c.rest++; }); return c; }
   // ── Graphiques : anneau (une valeur sur un total) et barre empilée (fait / en cours / à faire) ──
@@ -6890,51 +6994,47 @@ Ce que j'ai vu, quand, combien de fois.
     var since = last ? daysSince(last.date) : null;
     var tot = { fait: st.tachesFaites, part: st.tachesEnCours, rest: st.tachesTotal - st.tachesFaites - st.tachesEnCours };
 
-    // ── 1. Vue d'ensemble : où en est le projet, en chiffres et en graphiques ──
-    h += '<div class="card big overview"><div class="ov-main"><div class="ov-donut">' + donut(st.pctGlobal, 'var(--color-primary)', 132, st.pctGlobal + ' %', 'du projet') + '</div><div class="ov-txt"><h2 style="margin:0">' + svgUse('i-flag') + 'Avancement du projet</h2><p class="sub">' + st.tachesTotal + ' tâches réparties sur 7 phases ; chaque tâche compte pour son pourcentage d\'avancement. Les phases avancent en parallèle : aucune ne bloque les autres.</p>' + sbar(tot) + legend(tot) + '<p class="muted" style="font-size:0.85rem;margin-top:6px">Dernière séance : ' + (last ? frDate(last.date) + (last.presents.length ? ' · ' + esc(last.presents.join(', ')) : '') + ' · phase déclarée ' + ph.n : 'aucune encore') + ' · ' + st.seances.length + ' séance' + (st.seances.length > 1 ? 's' : '') + '</p></div></div>';
+    // ── 1. Vue d'ensemble ──
+    h += '<div class="card big overview"><div class="ov-main"><div class="ov-donut">' + donut(st.pctGlobal, 'var(--color-primary)', 132, st.pctGlobal + ' %', 'du projet') + '</div><div class="ov-txt"><h2 style="margin:0">' + svgUse('i-flag') + 'Avancement du projet</h2><p class="sub">' + st.tachesTotal + ' tâches sur 7 phases qui avancent en parallèle. Une tâche se termine quand les registres le prouvent (pièces, achats, mesures, fiches de test) ou quand quelqu\'un la note faite.</p>' + sbar(tot) + legend(tot) + '<p class="muted" style="font-size:0.85rem;margin-top:6px">Dernière séance : ' + (last ? frDate(last.date) + (last.presents.length ? ' · ' + esc(last.presents.join(', ')) : '') + ' · phase déclarée ' + ph.n : 'aucune encore') + ' · ' + st.seances.length + ' séance' + (st.seances.length > 1 ? 's' : '') + '</p></div></div>';
     h += '<div class="ov-phases">';
-    PLAN.phases.forEach(function (p) { var v = phasePct(st, p), c = phaseCounts(st, p), gg = p.gonogo ? gonogo(st, p) : null; h += '<button type="button" class="prog-btn" data-act="goto" data-page="accueil" data-anchor="dash-phase-' + p.n + '" title="Voir les tâches de la phase ' + p.n + '"><div class="prog-row"><span class="lab"><span class="sw" style="background:' + p.tint + '"></span>Phase ' + p.n + ' · ' + esc(p.titre) + (gg ? ' ' + statutPill(gg) : '') + (c.part ? ' <span class="muted">' + c.part + ' en cours</span>' : '') + '</span><span class="n">' + v + ' %</span></div>' + sbar(c) + '</button>'; });
-    h += '</div></div>';
+    PLAN.phases.forEach(function (p) { var v = phasePct(st, p), c = phaseCounts(st, p), gg = p.gonogo ? gonogo(st, p) : null; h += '<button type="button" class="prog-btn" data-act="goto" data-page="planning" data-anchor="phase-' + p.n + '" title="Les tâches de la phase ' + p.n + '"><div class="prog-row"><span class="lab"><span class="sw" style="background:' + p.tint + '"></span>Phase ' + p.n + ' · ' + esc(p.titre) + (gg ? ' ' + statutPill(gg) : '') + (c.part ? ' <span class="muted">' + c.part + ' en cours</span>' : '') + '</span><span class="n">' + v + ' %</span></div>' + sbar(c) + '</button>'; });
+    h += '</div><p class="muted" style="font-size:0.85rem;margin:0">Cliquer une phase ouvre ses tâches, avec leurs boutons, dans <a href="#planning">Travaux par phase</a>.</p></div>';
 
-    // ── 2. Les compteurs, chacun avec son anneau et son lien ──
-    function kpi(href, pct, color, v, small, l, d) { return '<a class="kpi kpi-ring" href="' + href + '">' + (pct != null ? donut(pct, color, 56, Math.round(pct) + '%') : '<span class="kpi-ic">' + svgUse(color) + '</span>') + '<div class="kpi-b"><div class="v">' + v + (small ? '<small>' + small + '</small>' : '') + '</div><div class="l">' + l + '</div><div class="d">' + d + ' →</div></div></a>'; }
-    h += '<div class="kpis">';
-    h += kpi('#pieces', 100 * st.piecesImprimees / (st.piecesTotal || 1), 'var(--color-battery)', st.piecesImprimees, '/ ' + st.piecesTotal, 'Pièces imprimées', 'registre des pièces');
-    h += kpi('#achats', 100 * st.servosRecus / 14, 'var(--color-consumption)', st.servosRecus, '/ 14', 'Servos reçus', 'STS3215 7,4 V C001');
-    h += kpi('#achats', 100 * st.depense / PLAN.budget, 'var(--color-solar-fg)', Math.round(st.depense), '€ / ' + Math.round(PLAN.budget), 'Budget engagé', 'achats et plan par phase');
-    h += kpi('#tests', null, 'i-check', st.tests.filter(function (t) { return t.resultat === 'GO'; }).length, ' GO · ' + nogo.length + ' NO-GO', 'Fiches de test', st.tests.length + ' fiche' + (st.tests.length > 1 ? 's' : ''));
-    h += kpi('#mesures', null, 'i-zap', st.mesures.length, '', 'Mesures', 'masses, offsets, courants');
-    h += kpi('#decisions', null, 'i-flag', st.aTrancher.length, ' à trancher', 'Décisions', st.decisions.length + ' au total');
-    h += '</div>';
-
-    // ── 3. Ce qu'il y a à faire, avec le bouton qui le fait ──
+    // ── 2. À faire maintenant : alertes calculées + prochaines tâches des phases actives ──
     var items = [];
     if (!st.rolesRec || rolesVides) items.push({ ic: 'i-users', txt: st.rolesRec ? rolesVides + ' rôle' + (rolesVides > 1 ? 's' : '') + ' encore à attribuer' : 'Attribuer les rôles (' + rolesVides + ' sans nom)', sub: 'Qui fait quoi : maître d\'œuvre, trésorier-acheteur, référents…', btn: 'Attribuer', act: 'data-act="form" data-form="equipe"' });
     st.aTrancher.forEach(function (d) { items.push({ ic: 'i-flag', txt: 'Décision à trancher : ' + d.titre, sub: 'En attente depuis le ' + frDate(d.date) + (d.par ? ' (' + d.par + ')' : ''), btn: 'Trancher', act: 'data-act="form" data-form="decision"' + preAttr({ titre: d.titre, statut: 'prise', contexte: d.sec.contexte || '', decision: d.sec.decision || '', consequences: d.sec.consequences || '' }) }); });
-    nonRecus.forEach(function (a) { items.push({ ic: 'i-cart', txt: 'Commande en attente : ' + a.titre, sub: eur(a.montant) + ' · commandé le ' + frDate(a.date) + ' · à contrôler à la réception', btn: 'Reçu', act: 'data-act="form" data-form="achat"' + preAttr({ date: a.date > todayISO() ? a.date : '', titre: a.titre, fournisseur: a.fournisseur, montant: a.montant, phase: a.phase == null ? '' : a.phase, statut: 'recu', servos: a.servos, par: a.par, lignes: a.body }) }); });
+    nonRecus.forEach(function (a) { items.push({ ic: 'i-cart', txt: 'Commande en attente : ' + a.titre, sub: eur(a.montant) + ' · commandé le ' + frDate(a.date) + ' · contrôler la référence à la réception', btn: 'Reçu', act: 'data-act="form" data-form="achat"' + preAttr({ date: a.date > todayISO() ? a.date : '', titre: a.titre, fournisseur: a.fournisseur, montant: a.montant, phase: a.phase == null ? '' : a.phase, statut: 'recu', servos: a.servos, par: a.par, lignes: a.body }) }); });
     aRefaire.forEach(function (pc) { items.push({ ic: 'i-printer', txt: 'Pièce à refaire : ' + pc.piece + ' n° ' + pc.exemplaire, sub: (pc.note || '').slice(0, 100), btn: 'Réimprimée', act: 'data-act="form" data-form="piece"' + preAttr({ piece: PLAN.pieces.some(function (p) { return p[1] === pc.piece; }) ? pc.piece : 'autre', piece_autre: pc.piece, exemplaire: pc.exemplaire, statut: 'imprimee', rev: pc.rev }) }); });
     nogo.forEach(function (t) { items.push({ ic: 'i-warn', txt: 'Test NO-GO : ' + t.titre, sub: 'Corriger, puis refaire la fiche (' + frDate(t.date) + ')', btn: 'Refaire', act: 'data-act="form" data-form="test"' + preAttr({ titre: t.titre, phase: t.phase == null ? '' : t.phase, objectif: t.sec.objectif || '', montage: t.sec.montage || '', procedure: t.sec.procedure || '', critere: t.sec.criteredereussite || t.sec.critere || '' }) }); });
     if (last && last.sec.problemes) items.push({ ic: 'i-warn', txt: 'Problèmes notés à la dernière séance', sub: last.sec.problemes.replace(/^[-*]\s*/gm, '').replace(/\n+/g, ' · ').slice(0, 160), btn: 'Décider', act: 'data-act="form" data-form="decision"' + preAttr({ contexte: last.sec.problemes }) });
-    PLAN.phases.forEach(function (p) { if (p.gonogo && phasePct(st, p) >= 100 && !gonogo(st, p)) items.push({ ic: 'i-check', txt: 'Phase ' + p.n + ' terminée : fiche GO / NO-GO à rédiger', sub: 'Elle décide l\'achat des 12 servos restants', btn: 'Fiche GO / NO-GO', act: 'data-act="form" data-form="test"' + preAttr({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }) }); });
-    if (phasePct(st, ph) >= 100 && ph.n < 6) items.push({ ic: 'i-flag', txt: 'Phase ' + ph.n + ' terminée : déclarer la phase ' + (ph.n + 1) + ' en cours', sub: 'Enregistrer une séance en indiquant « phase ' + (ph.n + 1) + ' »', btn: 'Séance phase ' + (ph.n + 1), act: 'data-act="form" data-form="seance"' + preAttr({ phase: ph.n + 1 }) });
+    PLAN.phases.forEach(function (p) { if (p.gonogo && phasePct(st, p) >= 100 && !gonogo(st, p)) items.push({ ic: 'i-check', txt: 'Phase ' + p.n + ' terminée : fiche GO / NO-GO à rédiger', sub: 'Elle décide l\'achat des 12 servos restants', btn: 'Fiche GO / NO-GO', act: 'data-act="form" data-form="test"' + preAttr(testPre('gonogo-2')) }); });
     if (!last) items.push({ ic: 'i-book', txt: 'Enregistrer la première séance', sub: 'Qui était là, ce qui a été fait, les problèmes, les décisions', btn: 'Nouvelle séance', act: 'data-act="form" data-form="seance"' });
     else if (since > 10) items.push({ ic: 'i-book', txt: 'Aucune séance enregistrée depuis ' + since + ' jours', sub: 'Dernière : ' + frDate(last.date) + (last.presents.length ? ' · ' + last.presents.join(', ') : ''), btn: 'Nouvelle séance', act: 'data-act="form" data-form="seance"' });
-
+    // Les prochaines tâches : deux par phase active (en cours, ou déclarée)
+    var next = [], active = PLAN.phases.filter(function (p) { var v = phasePct(st, p); return (v > 0 && v < 100) || p.n === st.phase; });
+    if (!active.length) active = [ph];
+    active.forEach(function (p) { p.taches.filter(function (t) { return taskPct(st, t[0]) < 100; }).slice(0, 2).forEach(function (t) { next.push([p, t]); }); });
     h += '<div class="grid c2"><div class="card big"><h2>' + svgUse('i-zap') + 'À faire maintenant</h2>';
     if (items.length) h += '<ol class="todo">' + items.map(function (it) { return '<li><span class="tl-ic">' + svgUse(it.ic) + '</span><div class="tl-b"><strong>' + esc(it.txt) + '</strong>' + (it.sub ? '<small>' + esc(it.sub) + '</small>' : '') + '</div><button type="button" class="btn sm primary" ' + it.act + '>' + esc(it.btn) + '</button></li>'; }).join('') + '</ol>';
-    else h += '<p class="muted">Rien en attente en dehors des tâches des phases, ci-dessous. Les problèmes se notent dans une séance, les choix en suspens comme décision « à trancher » : ils apparaîtront ici.</p>';
+    if (next.length) {
+      h += '<p class="sub" style="margin-top:' + (items.length ? '12px' : '0') + '"><strong>Prochaines tâches</strong> des phases en cours :</p><div class="chklist">' + next.map(function (pt) { var p = pt[0], t = pt[1], a = taskAuto(st, t[0]), pct = taskPct(st, t[0]); return '<div class="task' + (pct > 0 ? ' part' : '') + '" data-anchor="n-' + t[0] + '"><div class="task-main"><span class="sw" style="background:' + p.tint + ';margin-top:9px"></span><span class="t" style="padding:6px 0"><span class="lbl">' + esc(t[1]) + '</span><small style="display:block;color:var(--color-muted-fg)">Phase ' + p.n + (pct > 0 ? ' · ' + pct + ' %' : '') + (a ? ' · ' + esc(a.info) : '') + '</small></span></div><div class="task-foot" style="padding-left:22px"><span class="task-acts">' + taskActs(st, t) + '</span><button type="button" class="lnk" data-act="goto" data-page="planning" data-anchor="t-' + t[0] + '">voir dans les travaux</button></div></div>'; }).join('') + '</div>';
+    }
+    if (!items.length && !next.length) h += '<p class="muted">Rien en attente. Les problèmes se notent dans une séance, les choix en suspens comme décision « à trancher » : ils apparaîtront ici.</p>';
     h += '<p class="sub" style="margin-top:10px"><strong>Enregistrer :</strong></p><div class="row"><button type="button" class="btn primary" data-act="form" data-form="seance">' + svgUse('i-book') + 'Séance</button><button type="button" class="btn" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Pièce imprimée</button><button type="button" class="btn" data-act="form" data-form="achat">' + svgUse('i-cart') + 'Achat</button><button type="button" class="btn" data-act="form" data-form="test">' + svgUse('i-check') + 'Fiche de test</button><button type="button" class="btn" data-act="form" data-form="mesure">' + svgUse('i-zap') + 'Mesure</button><button type="button" class="btn" data-act="form" data-form="decision">' + svgUse('i-flag') + 'Décision</button></div></div>';
-    h += '<div class="card"><h2>' + svgUse('i-zap') + 'Derniers enregistrements</h2>' + timeline(st.events.slice(0, 10)) + '</div></div>';
+    h += '<div class="card"><h2>' + svgUse('i-zap') + 'Derniers enregistrements</h2>' + timeline(st.events.slice(0, 12)) + '</div></div>';
 
-    // ── 4. Toutes les phases, toutes ouvertes à l'action : cocher ou noter un avancement partout ──
-    h += '<h2 class="sec-title">' + svgUse('i-cal') + 'Les 7 phases et leurs tâches</h2><p class="sub">Une phase se déplie d\'un clic. Une case = une tâche : cliquer pour la cocher ou noter 25, 50, 75 %. Rien n\'oblige à finir une phase pour avancer la suivante.</p>';
-    var anyPart = PLAN.phases.some(function (p) { var v = phasePct(st, p); return v > 0 && v < 100; });
-    PLAN.phases.forEach(function (p) {
-      var v = phasePct(st, p), c = phaseCounts(st, p), gg = p.gonogo ? gonogo(st, p) : null;
-      var open = anyPart ? (v > 0 && v < 100) : p.n === st.phase;
-      h += '<div class="card phase-card" data-anchor="dash-phase-' + p.n + '" style="--ph:' + p.tint + '"><button type="button" class="ph-head' + (open ? ' open' : '') + '" data-act="fold" data-target="dph-' + p.n + '" aria-expanded="' + open + '"><span class="ph-t"><span class="sw" style="background:' + p.tint + '"></span><strong>Phase ' + p.n + ' · ' + esc(p.titre) + '</strong>' + (p.n === st.phase ? ' <span class="pill p">déclarée en cours</span>' : '') + (gg ? ' ' + statutPill(gg) : '') + '<small>' + esc(p.jalon) + ' · ' + esc(p.mois) + ' · ' + eur(p.montant) + '</small></span><span class="ph-n">' + v + ' %</span><svg class="chev"><use href="#i-chevron"/></svg></button>' + sbar(c);
-      h += '<div class="ph-body" id="dph-' + p.n + '"' + (open ? '' : ' hidden') + '>' + legend(c) + '<div class="chklist">' + p.taches.map(function (t) { return taskBtn(st, t); }).join('') + '</div>' + (p.gonogo ? '<div class="row" style="margin-top:8px"><button type="button" class="btn sm" data-act="form" data-form="test"' + preAttr({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }) + '>' + svgUse('i-check') + 'Fiche GO / NO-GO de la phase</button></div>' : '') + '</div></div>';
-    });
+    // ── 3. Les compteurs, chacun avec son anneau et son registre ──
+    function kpi(href, pct, color, v, small, l, d) { return '<a class="kpi kpi-ring" href="' + href + '">' + (pct != null ? donut(pct, color, 56, Math.round(pct) + '%') : '<span class="kpi-ic">' + svgUse(color) + '</span>') + '<div class="kpi-b"><div class="v">' + v + (small ? '<small>' + small + '</small>' : '') + '</div><div class="l">' + l + '</div><div class="d">' + d + ' →</div></div></a>'; }
+    h += '<div class="kpis">';
+    h += kpi('#pieces', 100 * st.piecesImprimees / (st.piecesTotal || 1), 'var(--color-battery)', st.piecesImprimees, '/ ' + st.piecesTotal, 'Pièces imprimées', 'registre des pièces');
+    h += kpi('#achats', 100 * st.servosRecus / 14, 'var(--color-consumption)', st.servosRecus, '/ 14', 'Servos reçus', 'achats par phase');
+    h += kpi('#achats', 100 * st.depense / PLAN.budget, 'var(--color-solar-fg)', Math.round(st.depense), '€ / ' + Math.round(PLAN.budget), 'Budget engagé', 'les six commandes du plan');
+    h += kpi('#tests', 100 * st.tests.filter(function (t) { return t.resultat === 'GO'; }).length / PLAN.tests.length, 'var(--color-battery)', st.tests.filter(function (t) { return t.resultat === 'GO'; }).length, '/ ' + PLAN.tests.length + ' GO', 'Fiches de test', nogo.length + ' NO-GO · ' + st.tests.length + ' fiche' + (st.tests.length > 1 ? 's' : ''));
+    var mesN = PLAN.mesures.filter(function (M) { return mesureOf(st, M); }).length;
+    h += kpi('#mesures', 100 * mesN / PLAN.mesures.length, 'var(--color-consumption)', mesN, '/ ' + PLAN.mesures.length, 'Mesures attendues', st.mesures.length + ' notée' + (st.mesures.length > 1 ? 's' : '') + ' en tout');
+    h += kpi('#decisions', null, 'i-flag', st.aTrancher.length, ' à trancher', 'Décisions', st.decisions.length + ' au total');
+    h += '</div>';
     return h;
   }
   function timeline(evs) {
@@ -6953,28 +7053,44 @@ Ce que j'ai vu, quand, combien de fois.
     return h;
   }
 
-  function taskBtn(st, t) {
-    var d = st.taches[t[0]], pct = taskPct(st, t[0]), done = pct >= 100;
-    var who = d ? (d.par ? ' par ' + esc(d.par) : '') + (d.date ? ' le ' + frDate(d.date) : '') + (d.via === 'séance' ? ' (séance)' : '') : '';
-    var links = (TASK_LINKS[t[0]] || '').split(' ').filter(function (id) { return NAV_BY_ID[id]; }).map(function (id, i) { return '<a class="chip' + (i === 0 ? ' go' : '') + '" href="#' + id + '">' + (i === 0 ? svgUse('i-arrow') : svgUse('i-book')) + esc(NAV_BY_ID[id].label) + '</a>'; }).join('');
-    return '<div class="task' + (done ? ' done' : pct > 0 ? ' part' : '') + '" data-anchor="t-' + t[0] + '"><button type="button" class="chk chk-btn" data-act="form" data-form="tache"' + preAttr({ tache: t[0], avancement: done ? 0 : 100, label: t[1] }) + ' title="' + (done ? 'Fait · cliquer pour modifier' : 'Cliquer pour noter l\'avancement (25, 50, 75, 100 %)') + '"><span class="box"' + (!done && pct > 0 ? ' style="background:linear-gradient(90deg, var(--color-primary) ' + pct + '%, transparent ' + pct + '%)"' : '') + '>' + (done ? '✓' : '') + '</span><span class="t"><span class="lbl">' + esc(t[1]) + '</span></span></button><div class="task-foot"><span class="bar thin"><span style="width:' + pct + '%' + (done ? ';background:var(--color-battery)' : '') + '"></span></span><small>' + (done ? 'fait' + who : pct > 0 ? pct + ' %' + who : 'à faire') + ' · <code>' + t[0] + '</code></small>' + (links ? '<span class="chips">' + links + '</span>' : '') + '</div></div>';
+  function taskActs(st, t) {
+    var k = t[0], pct = taskPct(st, k), done = pct >= 100, DO = TASK_DO[k];
+    var prim = DO ? (DO.goto ? '<button type="button" class="btn sm primary" data-act="goto" data-page="' + DO.goto + '" data-anchor="' + DO.anchor + '">' + svgUse('i-arrow') + esc(DO.label) + '</button>' : '<button type="button" class="btn sm primary" data-act="form" data-form="' + DO.form + '"' + preAttr(DO.pre || {}) + '>' + svgUse(FORMS[DO.form] ? FORMS[DO.form].icon : 'i-git') + esc(DO.label) + '</button>') : '';
+    var manual = '<button type="button" class="btn sm' + (DO ? '' : ' primary') + '" data-act="form" data-form="tache"' + preAttr({ tache: k, avancement: done ? 0 : 100, label: t[1] }) + '>' + svgUse('i-check') + (done ? 'Modifier' : DO ? 'Noter à la main' : 'Noter l\'avancement') + '</button>';
+    return prim + manual;
+  }
+  function taskRow(st, t) {
+    var k = t[0], d = st.taches[k], a = taskAuto(st, k), pct = taskPct(st, k), done = pct >= 100, DO = TASK_DO[k];
+    var who = d && d.pct != null && d.pct >= (a ? a.pct : 0) ? (d.par ? ' · ' + esc(d.par) : '') + (d.date ? ' le ' + frDate(d.date) : '') + (d.via === 'séance' ? ' (séance)' : '') : '';
+    var meta = (done ? 'fait' : pct > 0 ? 'en cours ' + pct + ' %' : 'à faire') + who + (a ? ' · ' + esc(a.info) : '') + ' · <code>' + k + '</code>';
+    var links = (TASK_LINKS[k] || '').split(' ').filter(function (id) { return NAV_BY_ID[id] && !(DO && DO.goto === id); }).map(function (id) { return '<a class="chip" href="#' + id + '">' + svgUse(/^cours-/.test(id) ? 'i-book' : 'i-link') + esc(NAV_BY_ID[id].label) + '</a>'; }).join('');
+    var boxAct = DO && DO.form ? 'data-act="form" data-form="' + DO.form + '"' + preAttr(DO.pre || {}) : DO && DO.goto ? 'data-act="goto" data-page="' + DO.goto + '" data-anchor="' + DO.anchor + '"' : 'data-act="form" data-form="tache"' + preAttr({ tache: k, avancement: done ? 0 : 100, label: t[1] });
+    return '<div class="task' + (done ? ' done' : pct > 0 ? ' part' : '') + '" data-anchor="t-' + k + '"><div class="task-main"><button type="button" class="chk chk-btn" ' + boxAct + ' title="' + (DO ? esc(DO.label) : 'Noter l\'avancement') + '"><span class="box"' + (!done && pct > 0 ? ' style="background:linear-gradient(90deg, var(--color-primary) ' + pct + '%, transparent ' + pct + '%)"' : '') + '>' + (done ? '✓' : '') + '</span><span class="t"><span class="lbl">' + esc(t[1]) + '</span></span></button><span class="task-pct"><span class="bar thin"><span style="width:' + pct + '%' + (done ? ';background:var(--color-battery)' : '') + '"></span></span><b>' + pct + ' %</b></span></div><div class="task-foot"><small>' + meta + '</small><span class="task-acts">' + taskActs(st, t) + '</span>' + (links ? '<span class="chips"><small>voir :</small>' + links + '</span>' : '') + '</div></div>';
+  }
+  function taskBtn(st, t) { return taskRow(st, t); }
+  function phaseCard(st, p, idPrefix) {
+    var v = phasePct(st, p), c = phaseCounts(st, p), gg = p.gonogo ? gonogo(st, p) : null;
+    var anyPart = PLAN.phases.some(function (q) { var x = phasePct(st, q); return x > 0 && x < 100; });
+    var open = anyPart ? (v > 0 && v < 100) : p.n === st.phase;
+    var A = PLAN.achats.filter(function (a) { return a.phase === p.n; })[0], ap = achatPhase(st, p.n);
+    var engage = st.achats.filter(function (a) { return a.phase === p.n && a.statut !== 'prevu' && a.statut !== 'annule'; }).reduce(function (x, a) { return x + a.montant; }, 0);
+    var h = '<div class="card phase-card" data-anchor="phase-' + p.n + '" style="--ph:' + p.tint + '"><button type="button" class="ph-head' + (open ? ' open' : '') + '" data-act="fold" data-target="' + idPrefix + p.n + '" aria-expanded="' + open + '"><span class="ph-t"><span class="sw" style="background:' + p.tint + '"></span><strong>Phase ' + p.n + ' · ' + esc(p.titre) + '</strong>' + (p.n === st.phase ? ' <span class="pill p">déclarée en cours</span>' : '') + (gg ? ' ' + statutPill(gg) : '') + '<small>' + esc(p.jalon) + ' · ' + esc(p.mois) + (p.montant ? ' · ' + eur(p.montant) : '') + '</small></span><span class="ph-n">' + v + ' %</span><svg class="chev"><use href="#i-chevron"/></svg></button>' + sbar(c);
+    h += '<div class="ph-body" id="' + idPrefix + p.n + '"' + (open ? '' : ' hidden') + '>' + legend(c);
+    if (A) h += '<div class="ph-line">' + svgUse('i-cart') + '<span><strong>Commande de la phase</strong> : plan ' + eur(p.montant) + (engage ? ' · engagé ' + eur(engage) : '') + ' · ' + esc(ap.info) + '</span>' + (ap.pct < 50 ? '<button type="button" class="btn sm" data-act="form" data-form="achat"' + preAttr(achatPre(p.n)) + '>' + svgUse('i-cart') + 'Enregistrer la commande</button>' : '<a class="lnk" href="#achats">achats</a>') + '</div>';
+    h += '<div class="chklist">' + p.taches.map(function (t) { return taskRow(st, t); }).join('') + '</div>';
+    if (p.gonogo) h += '<div class="ph-line">' + svgUse('i-check') + '<span><strong>GO / NO-GO</strong> : ' + (gg ? 'décidé ' + gg : 'à décider quand le banc est validé') + '</span><button type="button" class="btn sm" data-act="form" data-form="test"' + preAttr(testPre('gonogo-2')) + '>' + svgUse('i-check') + (gg ? 'Refaire la fiche' : 'Fiche GO / NO-GO') + '</button></div>';
+    return h + '</div></div>';
   }
   function viewPlanning(st) {
     var h = '<div class="data-status"></div><div class="phases">';
     PLAN.phases.forEach(function (p) { var v = phasePct(st, p); var g = p.gonogo ? gonogo(st, p) : null; h += '<div class="phase' + (p.n === st.phase ? ' cur' : '') + '" style="--ph:' + p.tint + '" data-act="goto" data-page="planning" data-anchor="phase-' + p.n + '" role="button" tabindex="0" title="Voir les tâches de cette phase"><div class="n">Phase ' + p.n + (p.n === st.phase ? ' · en cours' : '') + '</div><div class="t">' + esc(p.titre) + '</div><div class="m">' + esc(p.mois) + '</div><div class="amt">' + eur(p.montant) + '</div>' + sbar(phaseCounts(st, p)) + '<div class="m">' + v + ' % · ' + esc(p.jalon) + (g ? ' ' + statutPill(g) : '') + '</div></div>'; });
-    h += '</div>';
-    PLAN.phases.forEach(function (p) {
-      var g = p.gonogo ? gonogo(st, p) : null;
-      h += '<div class="card" data-anchor="phase-' + p.n + '"><h3 style="justify-content:space-between"><span>' + svgUse('i-cal') + 'Phase ' + p.n + ' · ' + esc(p.titre) + ' ' + pill('p', phasePct(st, p) + ' %') + (g ? ' ' + statutPill(g) : '') + '</span>' + (p.gonogo ? '<button type="button" class="btn sm" data-act="form" data-form="test" data-pre=\'' + JSON.stringify({ phase: p.n, titre: 'GO / NO-GO phase ' + p.n }).replace(/'/g, '&#39;') + '\'>Fiche GO / NO-GO</button>' : '') + '</h3>';
-      h += '<p class="sub">Jalon : ' + esc(p.jalon) + ' · ' + esc(p.mois) + ' · ' + eur(p.montant) + '</p>' + sbar(phaseCounts(st, p)) + legend(phaseCounts(st, p)) + '<div class="chklist">';
-      p.taches.forEach(function (t) { h += taskBtn(st, t); });
-      h += '</div></div>';
-    });
+    h += '</div>' + slotHtml();
+    h += '<div class="note info"><svg><use href="#i-info"/></svg><div><strong>Comment lire une tâche.</strong> La case et la barre donnent son avancement ; la ligne grise dit d\'où il vient (un registre, une fiche, une liste, ou ce que quelqu\'un a noté) ; le bouton violet fait l\'action qui la prouve, déjà pré-remplie ; « voir » renvoie à la page ou au cours qui explique. Les sept phases avancent en parallèle.</div></div>';
+    PLAN.phases.forEach(function (p) { h += phaseCard(st, p, 'ph-'); });
     return h;
   }
-
   function viewPieces(st) {
-    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Enregistrer une pièce</button></div>' + slotHtml();
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="piece">' + svgUse('i-printer') + 'Enregistrer une pièce</button></div>' + slotHtml() + '<p class="sub">Chaque pastille est un exemplaire : cliquer dessus prépare l\'enregistrement de son état suivant (à imprimer → imprimée → contrôlée → montée). Une pièce ratée se note « à refaire ».</p>';
     h += '<div class="kpis"><div class="kpi"><div class="v">' + st.piecesImprimees + '<small>/ ' + st.piecesTotal + '</small></div><div class="l">Imprimées</div><div class="d">imprimée, contrôlée ou montée</div></div>';
     var cnt = {}; Object.keys(st.pieces).forEach(function (k) { var s = st.pieces[k].statut; cnt[s] = (cnt[s] || 0) + 1; });
     ['controlee', 'montee', 'a_refaire'].forEach(function (s) { h += '<div class="kpi"><div class="v">' + (cnt[s] || 0) + '</div><div class="l">' + PIECE_LABELS[s] + '</div><div class="d">exemplaires</div></div>'; });
@@ -6985,7 +7101,7 @@ Ce que j'ai vu, quand, combien de fois.
       h += '<div class="card"><h3>' + svgUse('i-printer') + esc(g) + '</h3><div class="tw"><table><thead><tr><th>Pièce</th><th>Matière</th><th class="num">Qté</th><th>Exemplaires</th><th></th></tr></thead><tbody>';
       PLAN.pieces.filter(function (p) { return p[0] === g; }).forEach(function (p) {
         var cells = [];
-        for (var e = 1; e <= p[2]; e++) { var ev = st.pieces[p[1] + '#' + e]; cells.push('<span class="pc' + (ev ? ' ' + ev.statut : '') + '" title="' + (ev ? esc(PIECE_LABELS[ev.statut] + (ev.par ? ' · ' + ev.par : '') + (ev.date ? ' · ' + frDate(ev.date) : '') + (isNaN(ev.masse) ? '' : ' · ' + ev.masse + ' g')) : 'à imprimer') + '">' + e + (ev && !isNaN(ev.masse) ? '<small>' + ev.masse + ' g</small>' : '') + '</span>'); }
+        for (var e = 1; e <= p[2]; e++) { var ev = st.pieces[p[1] + '#' + e], cur = ev ? ev.statut : 'a_imprimer', nxt = { a_imprimer: 'imprimee', imprimee: 'controlee', controlee: 'montee', montee: 'montee', a_refaire: 'imprimee' }[cur] || 'imprimee'; cells.push('<button type="button" class="pc' + (ev ? ' ' + ev.statut : '') + '" data-act="form" data-form="piece"' + preAttr({ piece: p[1], exemplaire: e, statut: nxt, rev: ev ? ev.rev : '', masse_g: ev && !isNaN(ev.masse) ? ev.masse : '' }) + ' title="' + esc('Exemplaire ' + e + ' : ' + (ev ? PIECE_LABELS[ev.statut] + (ev.par ? ' · ' + ev.par : '') + (ev.date ? ' · ' + frDate(ev.date) : '') + (isNaN(ev.masse) ? '' : ' · ' + ev.masse + ' g') : 'à imprimer') + ' → cliquer : ' + PIECE_LABELS[nxt]) + '">' + e + (ev && !isNaN(ev.masse) ? '<small>' + ev.masse + ' g</small>' : '') + '</button>'); }
         h += '<tr><td><code>' + esc(p[1]) + '</code></td><td>' + esc(p[3]) + '</td><td class="num">' + p[2] + '</td><td><span class="pcs">' + cells.join('') + '</span></td><td class="nw"><button type="button" class="btn sm" data-act="form" data-form="piece" data-pre=\'' + JSON.stringify({ piece: p[1] }) + '\'>Enregistrer</button></td></tr>';
       });
       h += '</tbody></table></div></div>';
@@ -7005,11 +7121,11 @@ Ce que j'ai vu, quand, combien de fois.
     var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="achat">' + svgUse('i-cart') + 'Nouvel achat</button></div>' + slotHtml();
     var prevu = st.achats.filter(function (a) { return a.statut === 'prevu'; }).reduce(function (s, a) { return s + a.montant; }, 0);
     h += '<div class="kpis"><div class="kpi"><div class="v">' + eur(st.depense).replace(' €', '<small>€</small>') + '</div><div class="l">Engagé</div><div class="d">commandé, reçu ou remboursé</div></div><div class="kpi"><div class="v">' + eur(PLAN.budget).replace(' €', '<small>€</small>') + '</div><div class="l">Plan (socle)</div><div class="d">' + Math.round(100 * st.depense / PLAN.budget) + ' % engagé</div></div><div class="kpi"><div class="v">' + eur(prevu).replace(' €', '<small>€</small>') + '</div><div class="l">Prévu, pas commandé</div><div class="d">à valider par le bureau</div></div><div class="kpi"><div class="v">' + st.servosRecus + '<small>/ 14</small></div><div class="l">Servos reçus</div><div class="d">champ « servos » des achats reçus</div></div></div>';
-    h += '<div class="card"><h3>' + svgUse('i-cal') + 'Par phase : prévu au plan, engagé</h3><div class="tw"><table><thead><tr><th>Phase</th><th class="num">Plan</th><th class="num">Engagé</th><th class="num">Écart</th></tr></thead><tbody>';
-    PLAN.phases.forEach(function (p) { var e = st.achats.filter(function (a) { return a.phase === p.n && a.statut !== 'prevu' && a.statut !== 'annule'; }).reduce(function (s, a) { return s + a.montant; }, 0); if (!p.montant && !e) return; var ec = e - p.montant; h += '<tr><td>Phase ' + p.n + ' · ' + esc(p.titre) + '</td><td class="num">' + eur(p.montant) + '</td><td class="num">' + eur(e) + '</td><td class="num" style="color:' + (ec > 0 ? 'var(--color-alert)' : 'var(--color-battery)') + '">' + (ec > 0 ? '+' : '') + eur(ec) + '</td></tr>'; });
+    h += '<div class="card"><h3>' + svgUse('i-cal') + 'Les six commandes du plan</h3><p class="sub">Une commande par phase, prête à enregistrer avec ses lignes ; le trésorier-acheteur ajuste le fournisseur et le montant réel. L\'écart compare le plan au montant engagé.</p><div class="tw"><table><thead><tr><th>Phase</th><th class="num">Plan</th><th class="num">Engagé</th><th class="num">Écart</th><th>État</th><th></th></tr></thead><tbody>';
+    PLAN.phases.forEach(function (p) { var e = st.achats.filter(function (a) { return a.phase === p.n && a.statut !== 'prevu' && a.statut !== 'annule'; }).reduce(function (s, a) { return s + a.montant; }, 0); if (!p.montant && !e) return; var ec = e - p.montant, ap = achatPhase(st, p.n); h += '<tr><td>Phase ' + p.n + ' · ' + esc(p.titre) + '</td><td class="num">' + eur(p.montant) + '</td><td class="num">' + eur(e) + '</td><td class="num" style="color:' + (ec > 0 ? 'var(--color-alert)' : 'var(--color-battery)') + '">' + (ec > 0 ? '+' : '') + eur(ec) + '</td><td>' + esc(ap.info) + '</td><td class="nw">' + (ap.pct < 50 ? '<button type="button" class="btn sm primary" data-act="form" data-form="achat"' + preAttr(achatPre(p.n)) + '>Enregistrer la commande</button>' : '') + '</td></tr>'; });
     var sans = st.achats.filter(function (a) { return a.phase == null && a.statut !== 'prevu' && a.statut !== 'annule'; }).reduce(function (s, a) { return s + a.montant; }, 0);
-    if (sans) h += '<tr><td>Sans phase</td><td class="num">—</td><td class="num">' + eur(sans) + '</td><td></td></tr>';
-    h += '</tbody><tfoot><tr><td>Total</td><td class="num">' + eur(PLAN.budget) + '</td><td class="num">' + eur(st.depense) + '</td><td class="num">' + (st.depense - PLAN.budget > 0 ? '+' : '') + eur(st.depense - PLAN.budget) + '</td></tr></tfoot></table></div></div>';
+    if (sans) h += '<tr><td>Sans phase</td><td class="num">—</td><td class="num">' + eur(sans) + '</td><td></td><td></td><td></td></tr>';
+    h += '</tbody><tfoot><tr><td>Total</td><td class="num">' + eur(PLAN.budget) + '</td><td class="num">' + eur(st.depense) + '</td><td class="num">' + (st.depense - PLAN.budget > 0 ? '+' : '') + eur(st.depense - PLAN.budget) + '</td><td></td><td></td></tr></tfoot></table></div></div>';
     if (!st.achats.length) return h + emptyState('Un enregistrement par commande : fournisseur, montant, phase, statut (prévu → commandé → reçu → remboursé).', 'achat');
     h += '<div class="card"><h3>' + svgUse('i-cart') + 'Toutes les commandes</h3><div class="tw"><table><thead><tr><th>Date</th><th>Objet</th><th>Fournisseur</th><th class="num">Montant</th><th>Phase</th><th>Statut</th><th>Par</th><th></th></tr></thead><tbody>';
     st.achats.slice().reverse().forEach(function (a, i) { h += '<tr><td class="nw">' + frDate(a.date) + '</td><td>' + esc(a.titre) + (a.body ? ' <button type="button" class="lnk" data-act="toggle" data-target="ac-' + i + '" data-open="détail" data-close="replier">détail</button><div id="ac-' + i + '" class="md" hidden>' + md(a.body) + '</div>' : '') + '</td><td>' + esc(a.fournisseur) + '</td><td class="num">' + eur(a.montant) + '</td><td>' + (a.phase != null ? a.phase : '—') + '</td><td>' + statutPill(a.statut, ACHAT_LABELS) + '</td><td>' + esc(a.par) + '</td><td class="nw"><button type="button" class="lnk" data-act="form" data-form="achat"' + preAttr({ date: a.date > todayISO() ? a.date : '', titre: a.titre, fournisseur: a.fournisseur, montant: a.montant, phase: a.phase == null ? '' : a.phase, statut: a.statut, servos: a.servos, par: a.par, lignes: a.body }) + '>modifier</button> · ' + fileLnk(a.path) + '</td></tr>'; });
@@ -7019,6 +7135,9 @@ Ce que j'ai vu, quand, combien de fois.
 
   function viewTests(st) {
     var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="test">' + svgUse('i-check') + 'Nouvelle fiche de test</button></div>' + slotHtml();
+    h += '<div class="card"><h3>' + svgUse('i-cal') + 'Les fiches que le plan attend</h3><p class="sub">Objectif, montage, procédure et critère de réussite sont déjà écrits ; il reste à faire l\'essai et à noter le résultat.</p><div class="tw"><table><thead><tr><th>Phase</th><th>Fiche</th><th>Critère</th><th>État</th><th></th></tr></thead><tbody>';
+    PLAN.tests.forEach(function (T) { var t = testOf(st, T.id), r = t ? (t.resultat === 'NOGO' ? 'NO-GO' : t.resultat) : ''; h += '<tr><td class="nw">' + T.phase + '</td><td><strong>' + esc(T.titre) + '</strong></td><td class="muted" style="font-size:0.85rem">' + esc(T.critere) + '</td><td class="nw">' + (t ? (r ? statutPill(r) : pill('mute', 'sans résultat')) : pill('mute', 'à faire')) + '</td><td class="nw"><button type="button" class="btn sm' + (t && r === 'GO' ? '' : ' primary') + '" data-act="form" data-form="test"' + preAttr(t ? { titre: t.titre, phase: t.phase == null ? T.phase : t.phase, resultat: r, par: t.par, objectif: t.sec.objectif || T.objectif, montage: t.sec.montage || T.montage, procedure: t.sec.procedure || T.procedure, critere: t.sec.criteredereussite || t.sec.critere || T.critere, resultat_txt: t.sec.resultat || '', decision: t.sec.decision || '' } : testPre(T.id)) + '>' + (t ? 'Refaire' : 'Rédiger') + '</button></td></tr>'; });
+    h += '</tbody></table></div></div>';
     if (!st.tests.length) return h + emptyState('Une fiche par essai : objectif, montage, procédure, critère chiffré, résultat, décision. Sans fiche validée, pas de phase suivante.', 'test');
     st.tests.slice().reverse().forEach(function (t, i) { h += '<div class="card entry"><div class="entry-head"><div><h3>' + esc(t.titre) + ' ' + (t.resultat ? statutPill(t.resultat === 'NOGO' ? 'NO-GO' : t.resultat) : '') + '</h3><div class="muted">' + frDate(t.date) + (t.phase != null ? ' · phase ' + t.phase : '') + who(t.par) + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="te-' + i + '" data-open="Lire" data-close="Replier">Lire</button><button type="button" class="btn sm" data-act="form" data-form="test"' + preAttr({ date: t.date > todayISO() ? t.date : '', titre: t.titre, phase: t.phase == null ? '' : t.phase, resultat: t.resultat === 'NOGO' ? 'NO-GO' : t.resultat, par: t.par, objectif: t.sec.objectif || '', montage: t.sec.montage || '', procedure: t.sec.procedure || '', critere: t.sec.criteredereussite || t.sec.critere || '', resultat_txt: t.sec.resultat || '', decision: t.sec.decision || '' }) + '>Modifier</button></div></div><div class="entry-body md" id="te-' + i + '" hidden>' + (md(t.body) || '<p class="muted">Fiche vide.</p>') + '<p class="muted" style="font-size:0.8rem">' + fileLnk(t.path) + '</p></div></div>'; });
     return h;
@@ -7027,6 +7146,14 @@ Ce que j'ai vu, quand, combien de fois.
   function viewMesures(st) {
     var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="mesure">' + svgUse('i-zap') + 'Nouvelle mesure</button></div>' + slotHtml();
     h += '<div class="note info"><svg><use href="#i-info"/></svg><div>Repères de la simulation, à comparer : masse totale 2,107 kg (tronc 0,699 ; cou + tête 0,582 ; jambe ≈ 0,41 chacune) ; tension nominale 7,4 V (2S : 6,0 à 8,4 V) ; coupure thermique des servos à 70 °C ; jeu modélisé ±0,5°.</div></div>';
+    h += '<div class="card"><h3>' + svgUse('i-cal') + 'Les mesures que le plan attend</h3><p class="sub">Chaque ligne se note d\'un clic : grandeur, objet et unité sont déjà remplis, il reste la valeur.</p><div class="tw"><table><thead><tr><th>Phase</th><th>Grandeur</th><th>Objet</th><th>Référence</th><th>Mesuré</th><th></th></tr></thead><tbody>';
+    var grp = {};
+    PLAN.mesures.forEach(function (M) {
+      if (M.group) { var g = grp[M.group] = grp[M.group] || { n: 0, tot: 0, first: null, M: M }; g.tot++; if (mesureOf(st, M)) g.n++; else if (!g.first) g.first = M; if (g.tot < 14) return; var gm = grp[M.group]; h += '<tr><td class="nw">' + M.phase + '</td><td>' + esc(M.grandeur) + '</td><td>les 14 servos (find_soft_offsets.py)</td><td class="muted">' + esc(M.ref) + '</td><td class="nw">' + (gm.n ? pill(gm.n >= gm.tot ? 'ok' : 'info', gm.n + '/' + gm.tot) : pill('mute', '0/' + gm.tot)) + '</td><td class="nw">' + (gm.first ? '<button type="button" class="btn sm primary" data-act="form" data-form="mesure"' + preAttr(mesurePre(gm.first.key)) + '>Noter ' + esc(gm.first.objet.split(' ').slice(0, 2).join(' ')) + '</button>' : '') + '</td></tr>'; return; }
+      var m = mesureOf(st, M);
+      h += '<tr><td class="nw">' + M.phase + '</td><td>' + esc(M.grandeur) + '</td><td>' + esc(M.objet) + '</td><td class="muted">' + esc(M.ref) + '</td><td class="nw">' + (m ? pill('ok', m.valeur + ' ' + m.unite) + (m.par ? ' <span class="muted">' + esc(m.par) + '</span>' : '') : pill('mute', 'à mesurer')) + '</td><td class="nw"><button type="button" class="btn sm' + (m ? '' : ' primary') + '" data-act="form" data-form="mesure"' + preAttr(mesurePre(M.key)) + '>' + (m ? 'Refaire' : 'Mesurer') + '</button></td></tr>';
+    });
+    h += '</tbody></table></div></div>';
     if (!st.mesures.length) return h + emptyState('Une mesure = une grandeur (masse, offset, courant, tension, température, jeu), un objet (jambe droite, servo 12…), une valeur et son unité.', 'mesure');
     var gs = []; st.mesures.forEach(function (m) { if (gs.indexOf(m.grandeur) < 0) gs.push(m.grandeur); });
     gs.forEach(function (g) {
@@ -7131,9 +7258,15 @@ Ce que j'ai vu, quand, combien de fois.
       else if (type === 'phase') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.phases.map(function (p) { return '<option value="' + p.n + '"' + ((val !== '' ? String(val) : String(st.phase)) === String(p.n) ? ' selected' : '') + '>Phase ' + p.n + ' · ' + esc(p.titre) + '</option>'; }).join('') + '</select>';
       else if (type === 'piece') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.pieces.map(function (p) { return '<option value="' + esc(p[1]) + '"' + (val === p[1] ? ' selected' : '') + '>' + esc(p[1]) + ' (' + esc(p[0]) + ', × ' + p[2] + ')</option>'; }).join('') + '<option value="autre"' + (val === 'autre' ? ' selected' : '') + '>Autre pièce (gabarit, cale, pièce modifiée…)</option></select><input type="text" name="piece_autre" value="' + esc(pre.piece_autre || '') + '" placeholder="Nom de l\'autre pièce, sans espace : gabarit-zero-servo" style="margin-top:6px">';
       else if (type === 'taches') {
-        var cur2 = phaseOf(st.phase);
         var preT = parseList(val);
-        h += '<div class="chklist small" id="' + id + '">' + cur2.taches.filter(function (t) { return preT.indexOf(t[0]) >= 0 || !(st.taches[t[0]] && st.taches[t[0]].fait); }).map(function (t) { return '<label class="chk"><input type="checkbox" name="taches" value="' + t[0] + '"' + (preT.indexOf(t[0]) >= 0 ? ' checked' : '') + '><span class="t">' + esc(t[1]) + '</span></label>'; }).join('') + preT.filter(function (k) { return !cur2.taches.some(function (t) { return t[0] === k; }); }).map(function (k) { return '<label class="chk"><input type="checkbox" name="taches" value="' + esc(k) + '" checked><span class="t">' + esc(st.allTasks[k] ? st.allTasks[k].label : k) + '</span></label>'; }).join('') + '</div><small class="muted">Tâches restantes de la phase ' + cur2.n + '. Les autres phases se cochent depuis le planning.</small>';
+        h += '<div class="tgroups" id="' + id + '">';
+        PLAN.phases.forEach(function (p) {
+          var rows = p.taches.filter(function (t) { return preT.indexOf(t[0]) >= 0 || taskPct(st, t[0]) < 100; });
+          if (!rows.length) return;
+          var v = phasePct(st, p), openG = rows.some(function (t) { return preT.indexOf(t[0]) >= 0; }) || (v > 0 && v < 100) || p.n === st.phase;
+          h += '<details class="tgrp"' + (openG ? ' open' : '') + '><summary>Phase ' + p.n + ' · ' + esc(p.titre) + ' <span class="muted">(' + rows.length + ' restante' + (rows.length > 1 ? 's' : '') + ')</span></summary><div class="chklist small">' + rows.map(function (t) { var x = taskPct(st, t[0]); return '<label class="chk"><input type="checkbox" name="taches" value="' + t[0] + '"' + (preT.indexOf(t[0]) >= 0 ? ' checked' : '') + '><span class="t">' + esc(t[1]) + (x > 0 && x < 100 ? ' <small>(' + x + ' %)</small>' : '') + '</span></label>'; }).join('') + '</div></details>';
+        });
+        h += '</div><small class="muted">Cocher les tâches terminées pendant la séance, toutes phases confondues. Un avancement partiel se note depuis Travaux par phase.</small>';
       }
       h += '</div>';
     });
