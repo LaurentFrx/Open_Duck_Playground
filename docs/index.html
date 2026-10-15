@@ -6974,7 +6974,7 @@ Ce que j'ai vu, quand, combien de fois.
   function fileLnk(path) { return '<a class="lnk" href="' + ghBlobUrl(path) + '" target="_blank" rel="noopener" title="Le fichier dans le dépôt">fichier</a>'; }
   function who(par) { return par ? ' <span class="muted">· ' + esc(par) + '</span>' : ''; }
 
-  var AUTO_FORM = { journal: ['seance', function (st) { return st.seances.length; }], pieces: ['piece', function (st) { return Object.keys(st.pieces).length; }], achats: ['achat', function (st) { return st.achats.length; }], tests: ['test', function (st) { return st.tests.length; }], mesures: ['mesure', function (st) { return st.mesures.length; }], decisions: ['decision', function (st) { return st.decisions.length; }], equipe: ['equipe', function (st) { return st.rolesRec ? 1 : 0; }] };
+  var AUTO_FORM = { journal: ['seance', function (st) { return st.seances.length; }], achats: ['achat', function (st) { return st.achats.length; }], tests: ['test', function (st) { return st.tests.length; }], mesures: ['mesure', function (st) { return st.mesures.length; }], decisions: ['decision', function (st) { return st.decisions.length; }], equipe: ['equipe', function (st) { return st.rolesRec ? 1 : 0; }] };
   var formClosedBy = {};   // pages où l'on a fermé le formulaire ouvert d'office
   function renderLive(id) {
     var box = $('[data-view="' + id + '"]');
