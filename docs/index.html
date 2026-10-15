@@ -416,10 +416,22 @@ a.kpi:hover .d { color: var(--color-primary-active); }
 .ph-head .chev { width: 18px; height: 18px; flex: none; transition: transform 200ms var(--ease-default); color: var(--color-muted-fg); }
 .ph-head.open .chev { transform: rotate(180deg); }
 .ph-body { border-top: 1px solid var(--color-border); padding-top: 8px; }
-.chk-btn .tp { display: flex; align-items: center; gap: 8px; margin-top: 3px; }
-.chk-btn .tp .bar { width: 90px; flex: none; }
-.chk-btn .tp small { margin: 0; }
-.chk-btn.part .box { border-color: var(--color-primary); }
+.task { padding: 2px 0 6px; border-bottom: 1px dashed var(--color-border); }
+.task:last-child { border-bottom: 0; }
+.task .chk-btn { padding: 6px 8px; }
+.task.done .lbl { color: var(--color-muted-fg); text-decoration: line-through; text-decoration-color: var(--color-border-strong); }
+.task.done .box { background: var(--color-battery); border-color: var(--color-battery); }
+.task.part .box { border-color: var(--color-primary); }
+.task-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 0 8px 0 38px; font-size: 12px; color: var(--color-muted-fg); }
+.task-foot .bar { width: 90px; flex: none; }
+.task-foot small { margin: 0; }
+.chips { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: var(--radius-pill); border: 1px solid var(--color-border); background: var(--color-card); color: var(--color-fg); font-size: 11.5px; font-weight: 600; text-decoration: none; line-height: 1.5; }
+.chip svg { width: 11px; height: 11px; }
+.chip.go { background: var(--color-primary-muted); color: var(--color-primary-active); border-color: transparent; }
+.chip:hover { border-color: var(--color-primary); }
+.inline-slot { margin: 4px 0 8px; }
+.inline-slot .form-card { padding: 12px 14px; }
 .flash { animation: flash 1.6s var(--ease-default); }
 @keyframes flash { 0%, 100% { box-shadow: none; } 25% { box-shadow: 0 0 0 3px var(--color-primary); } }
 
@@ -640,6 +652,7 @@ details.quiz + details.quiz { margin-top: 8px; }
 .chk-btn .box { width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--color-border-strong); flex: none; display: grid; place-items: center; font-size: 13px; font-weight: 800; color: var(--color-primary-fg); margin-top: 1px; }
 .chk-btn.done .box { background: var(--color-battery); border-color: var(--color-battery); }
 .chk-btn.done .lbl { color: var(--color-muted-fg); text-decoration: line-through; text-decoration-color: var(--color-border-strong); }
+.chklist .task + .task { margin-top: 2px; }
 .chk-btn small, .chk-who { display: block; color: var(--color-muted-fg); margin-top: 2px; }
 .chk-who:empty { display: none; }
 .chklist.small .chk { padding: 4px 8px; font-size: 0.9rem; }
@@ -6368,6 +6381,15 @@ Ce que j'ai vu, quand, combien de fois.
       ['Trésorier-acheteur', ''], ['Référent impression 3D', ''], ['Référent laser', ''], ['Référent électronique et code', 'Laurent'], ['Référent sécurité', '']
     ]
   };
+  // Où se fait chaque tâche : la ou les pages de ce dossier qui servent à la faire (la première = le lieu de l'action)
+  var TASK_LINKS = {
+    'p0.1': 'equipe', 'p0.2': 'github cours-git', 'p0.3': 'github', 'p0.4': 'github cao', 'p0.5': 'cours-git', 'p0.6': 'cao cours-cao', 'p0.7': 'equipe', 'p0.8': 'risques cours-securite', 'p0.9': 'decisions', 'p0.10': 'github planning',
+    'p1.1': 'achats bom', 'p1.2': 'fabrication cours-impression', 'p1.3': 'pieces cao', 'p1.4': 'fabrication cours-impression', 'p1.5': 'pieces fabrication', 'p1.6': 'pieces fabrication', 'p1.7': 'pieces fabrication', 'p1.8': 'pieces fabrication', 'p1.9': 'mesures tests', 'p1.10': 'cours-assemblage pieces',
+    'p2.1': 'achats bom', 'p2.2': 'cours-laser electronique', 'p2.3': 'logiciel cours-raspberry', 'p2.4': 'electronique', 'p2.5': 'logiciel', 'p2.6': 'marche cours-rl', 'p2.7': 'tests journal',
+    'p3.1': 'electronique cours-servos', 'p3.2': 'cours-assemblage', 'p3.3': 'electronique cours-capteurs', 'p3.4': 'tests mesures', 'p3.5': 'cours-assemblage cours-servos', 'p3.6': 'logiciel tests', 'p3.7': 'cours-assemblage electronique',
+    'p5.1': 'cours-assemblage cours-servos', 'p5.2': 'cours-capteurs logiciel', 'p5.3': 'cours-calibration marche', 'p5.4': 'cours-laser risques', 'p5.5': 'marche', 'p5.6': 'mesures decisions', 'p5.7': 'tests journal',
+    'p6.1': 'achats bom', 'p6.2': 'cours-electronique risques', 'p6.3': 'logiciel cours-depannage', 'p6.4': 'mesures tests', 'p6.5': 'pieces cours-assemblage', 'p6.6': 'github cours-git'
+  };
   var PIECE_STATUTS = ['a_imprimer', 'imprimee', 'controlee', 'montee', 'a_refaire'];
   var PIECE_LABELS = { a_imprimer: 'à imprimer', imprimee: 'imprimée', controlee: 'contrôlée', montee: 'montée', a_refaire: 'à refaire' };
   var ACHAT_STATUTS = ['prevu', 'commande', 'recu', 'rembourse', 'annule'];
@@ -6934,7 +6956,8 @@ Ce que j'ai vu, quand, combien de fois.
   function taskBtn(st, t) {
     var d = st.taches[t[0]], pct = taskPct(st, t[0]), done = pct >= 100;
     var who = d ? (d.par ? ' par ' + esc(d.par) : '') + (d.date ? ' le ' + frDate(d.date) : '') + (d.via === 'séance' ? ' (séance)' : '') : '';
-    return '<button type="button" class="chk chk-btn' + (done ? ' done' : pct > 0 ? ' part' : '') + '" data-act="form" data-form="tache"' + preAttr({ tache: t[0], avancement: done ? 0 : 100, label: t[1] }) + ' title="' + (done ? 'Fait · cliquer pour modifier' : 'Cliquer pour enregistrer l\'avancement') + '"><span class="box"' + (!done && pct > 0 ? ' style="background:linear-gradient(90deg, var(--color-primary) ' + pct + '%, transparent ' + pct + '%)"' : '') + '>' + (done ? '✓' : '') + '</span><span class="t"><span class="lbl">' + esc(t[1]) + '</span><span class="tp"><span class="bar thin"><span style="width:' + pct + '%' + (done ? ';background:var(--color-battery)' : '') + '"></span></span><small>' + (done ? 'fait' + who : pct > 0 ? pct + ' %' + who : '<code>' + t[0] + '</code>') + '</small></span></span></button>';
+    var links = (TASK_LINKS[t[0]] || '').split(' ').filter(function (id) { return NAV_BY_ID[id]; }).map(function (id, i) { return '<a class="chip' + (i === 0 ? ' go' : '') + '" href="#' + id + '">' + (i === 0 ? svgUse('i-arrow') : svgUse('i-book')) + esc(NAV_BY_ID[id].label) + '</a>'; }).join('');
+    return '<div class="task' + (done ? ' done' : pct > 0 ? ' part' : '') + '" data-anchor="t-' + t[0] + '"><button type="button" class="chk chk-btn" data-act="form" data-form="tache"' + preAttr({ tache: t[0], avancement: done ? 0 : 100, label: t[1] }) + ' title="' + (done ? 'Fait · cliquer pour modifier' : 'Cliquer pour noter l\'avancement (25, 50, 75, 100 %)') + '"><span class="box"' + (!done && pct > 0 ? ' style="background:linear-gradient(90deg, var(--color-primary) ' + pct + '%, transparent ' + pct + '%)"' : '') + '>' + (done ? '✓' : '') + '</span><span class="t"><span class="lbl">' + esc(t[1]) + '</span></span></button><div class="task-foot"><span class="bar thin"><span style="width:' + pct + '%' + (done ? ';background:var(--color-battery)' : '') + '"></span></span><small>' + (done ? 'fait' + who : pct > 0 ? pct + ' %' + who : 'à faire') + ' · <code>' + t[0] + '</code></small>' + (links ? '<span class="chips">' + links + '</span>' : '') + '</div></div>';
   }
   function viewPlanning(st) {
     var h = '<div class="data-status"></div><div class="phases">';
@@ -7081,9 +7104,10 @@ Ce que j'ai vu, quand, combien de fois.
     if (host !== cur) { pendingForm = { kind: kind, pre: pre }; location.hash = '#' + host; return; }
     var slot;
     if (!F.page && src) {
-      var card = src.closest('.card'); if (!card) return;
+      var card = src.closest('.task') || src.closest('.chk, .card'); if (!card) return;
       slot = card.nextElementSibling && card.nextElementSibling.hasAttribute('data-form-slot') ? card.nextElementSibling : null;
       if (!slot) { slot = document.createElement('div'); slot.setAttribute('data-form-slot', ''); slot.setAttribute('data-after', card.getAttribute('data-anchor') || ('c' + (++formSeq))); if (!card.getAttribute('data-anchor')) card.setAttribute('data-anchor', slot.getAttribute('data-after')); card.parentNode.insertBefore(slot, card.nextSibling); }
+      slot.classList.add('inline-slot');
     } else {
       slot = $('#page-' + host + ' [data-form-slot]:not([data-after])');
       if (!slot) return;
