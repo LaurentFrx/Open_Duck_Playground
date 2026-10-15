@@ -925,7 +925,7 @@ details.quiz + details.quiz { margin-top: 8px; }
 
   <div class="card">
     <h2><svg><use href="#i-users"/></svg>Rôles</h2>
-    <p class="sub">Une même personne peut en cumuler plusieurs. L'important est que chaque rôle ait un nom le jour de la première réunion. La liste vit dans le dépôt du club (<code>biscalab/equipe.csv</code>) : tout le monde voit la même.</p>
+    <p class="sub">Une même personne peut en cumuler plusieurs. L'important est que chaque rôle ait un nom le jour de la première réunion. La liste s'enregistre depuis cette page (bouton « Attribuer les rôles ») et vit dans le dépôt du club (<code>biscalab/equipe/</code>) : tout le monde voit la même, et on la ré-enregistre quand elle change.</p>
     <div data-view="equipe"></div>
   </div>
 
@@ -1026,7 +1026,7 @@ details.quiz + details.quiz { margin-top: 8px; }
       <ul class="tight">
         <li>Avertissement au-delà de 50 Mio par fichier, <strong>blocage à 100 Mio</strong>, 25 Mio maximum par envoi depuis le navigateur.</li>
         <li>Les STL du canard sont petits : <strong><i class="t" data-t="git">Git</i> LFS est inutile</strong> au départ (et sa configuration demande la ligne de commande).</li>
-        <li>GitHub affiche les <strong>STL en 3D</strong> (&lt; 10 Mo) et les <strong><i class="t" data-t="csv">CSV</i> en tableau</strong> (&lt; 512 Ko) : <code>equipe.csv</code>, la liste des rôles, se lit comme un tableau en ligne. Les enregistrements <code>.md</code> du suivi s'affichent mis en forme.</li>
+        <li>GitHub affiche les <strong>STL en 3D</strong> (&lt; 10 Mo) et les <strong><i class="t" data-t="csv">CSV</i> en tableau</strong> (&lt; 512 Ko). Les enregistrements <code>.md</code> du suivi s'affichent mis en forme.</li>
         <li>L'app GitHub Desktop n'a pas de version française ; la documentation officielle, elle, existe en français.</li>
       </ul>
     </div>
@@ -1042,7 +1042,7 @@ details.quiz + details.quiz { margin-top: 8px; }
     ├── README.md             <span class="c">but, état d'avancement, liens</span>
     ├── CREDITS.md            <span class="c">attribution Apache-2.0</span>
     ├── CHANGELOG.md          <span class="c">pièces modifiées / ajoutées</span>
-    ├── equipe.csv            <span class="c">rôles (role,nom), modifié sur GitHub</span>
+    ├── <span class="d">equipe/</span>               <span class="c">← page : les rôles, un fichier par attribution</span>
     ├── <span class="d">journal/</span>              <span class="c">← page : séances, 2026-10-08.md …</span>
     ├── <span class="d">tests/</span>                <span class="c">← page : fiches, AAAA-MM-JJ-banc-servo.md …</span>
     ├── <span class="d">achats/</span>               <span class="c">← page : un fichier par commande</span>
@@ -1064,7 +1064,7 @@ details.quiz + details.quiz { margin-top: 8px; }
     │   ├── <span class="d">svg-dxf/</span>
     │   └── <span class="d">xcs/</span>
     └── <span class="d">electronics/</span>          <span class="c">câblage, photos, BOM élec, offsets servos</span></div>
-      <p>Les dossiers marqués « ← page » se remplissent depuis cette page : chaque bouton « Enregistrer » y dépose un petit fichier texte, un enregistrement, sans passer par GitHub Desktop (mécanisme au <a href="#cours-methode">cours 4</a>). Inutile d'y créer des fichiers à la main ; pour corriger un enregistrement, on le modifie sur GitHub. <code>equipe.csv</code>, le seul CSV, se modifie lui aussi directement sur GitHub.</p>
+      <p>Les dossiers marqués « ← page » se remplissent depuis cette page : chaque bouton « Enregistrer » y dépose un petit fichier texte, un enregistrement, sans passer par GitHub Desktop (mécanisme au <a href="#cours-methode">cours 4</a>). Inutile d'y créer des fichiers à la main. Pour corriger ou faire évoluer un enregistrement (un achat reçu, une décision prise), bouton « Modifier » sur la page : le formulaire revient pré-rempli, on ré-enregistre, et le dernier enregistrement l'emporte ; les précédents restent dans le dépôt, c'est l'historique.</p>
       <p class="muted" style="font-size:0.85rem">À la racine, un <code>.gitattributes</code> et un <code>.gitignore</code> (ci-contre). Le second dépôt du club, copie de <code>Open_Duck_Mini_Runtime</code> (à créer), aura son propre dossier <code>biscalab/</code> pour <code>duck_config.json</code> et les notes d'installation.</p>
     </div>
     <div class="card">
@@ -2343,8 +2343,8 @@ Prochaine séance : jeudi, découpe du banc
     <pre><code>role,nom
 Maître d'œuvre,Jean-Marie
 Trésorier-acheteur,</code></pre>
-    <div class="ex"><b>Exemple sur notre canard</b><p>Notre seul CSV est <code>biscalab/equipe.csv</code> : la liste des rôles, affichée dans <a href="#equipe">Équipe et méthode</a>. On le modifie directement sur GitHub (icône crayon, « Edit this file »). Tout le reste du suivi est fait de petits fichiers Markdown créés depuis la page (section 9).</p></div>
-    <div class="note warn"><svg><use href="#i-warn"/></svg><div><strong>Erreur classique.</strong> Une virgule dans une valeur : « Référent laser, impression » se coupe en deux colonnes. Mettre la valeur entre guillemets droits. Un tableur réglé en français enregistre souvent avec des points-virgules : modifier le fichier sur GitHub plutôt que dans un tableur, et vérifier que le tableau s'affiche bien.</div></div>
+    <div class="ex"><b>Exemple sur notre canard</b><p>Le suivi n'utilise pas de CSV : tout, rôles compris, est fait de petits fichiers Markdown créés depuis la page (section 9). Le CSV sert ailleurs : la BOM exportée d'un tableur, une liste de mesures relevées en série, qu'on dépose dans <code>biscalab/</code> et que GitHub affiche en tableau.</p></div>
+    <div class="note warn"><svg><use href="#i-warn"/></svg><div><strong>Erreur classique.</strong> Une virgule dans une valeur : « Référent laser, impression » se coupe en deux colonnes. Mettre la valeur entre guillemets droits. Un tableur réglé en français enregistre souvent avec des points-virgules : vérifier sur GitHub que le tableau s'affiche bien avant de s'en servir.</div></div>
   </div>
 
   <div class="card lesson">
@@ -2972,6 +2972,7 @@ for id_servo in jambe_droite:         # une boucle : pour chaque élément…
       <li><div><b>Un formulaire.</b> Un bouton de la page (« Nouvelle séance », « Enregistrer une pièce », « Nouvel achat », « Nouvelle fiche de test », « Nouvelle mesure », « Nouvelle décision », ou une case du planning) déplie un formulaire dans la page, sous le bouton ou sous la case. On le remplit, puis « Préparer l'enregistrement ».</div></li>
       <li><div><b>Un fichier texte.</b> La page écrit le fichier : son dossier, son nom daté, son contenu. On le voit avant de l'envoyer.</div></li>
       <li><div><b>L'éditeur GitHub pré-rempli.</b> « Enregistrer sur GitHub » ouvre la page de création de fichier de <i class="t" data-t="github">GitHub</i>, déjà remplie. Rien à taper.</div></li>
+      <li><div><b>Corriger, faire évoluer.</b> On ne retouche jamais un fichier : bouton « Modifier » sur l'enregistrement, le formulaire revient pré-rempli, on change ce qu'il faut, on ré-enregistre. Le dernier enregistrement d'un même objet (même titre, même tâche, même exemplaire) l'emporte ; les précédents restent dans le dépôt et font l'historique.</div></li>
       <li><div><b>Commit.</b> Bouton vert « Commit changes… », puis, dans la fenêtre qui s'ouvre, second « Commit changes ». Le fichier entre dans le dépôt avec un <i class="t" data-t="commit">commit</i> à votre nom. Une minute plus tard, « Actualiser » le fait apparaître sur la page. Les écrans sont décrits au <a href="#cours-git">cours 1</a>.</div></li>
     </ol>
     <p>Il suffit d'un compte GitHub collaborateur du dépôt du club, connecté dans le navigateur : ni GitHub Desktop, ni copie du dépôt sur le PC.</p>
@@ -2979,14 +2980,14 @@ for id_servo in jambe_droite:         # une boucle : pour chaque élément…
     <div class="tw"><table>
       <thead><tr><th>Ce qu'on enregistre</th><th>Depuis</th><th>Fichier créé dans <code>biscalab/</code></th></tr></thead>
       <tbody>
-        <tr><td>Une séance (journal de bord)</td><td><a href="#journal">Journal des séances</a></td><td><code>journal/AAAA-MM-JJ.md</code></td></tr>
-        <tr><td>Une fiche de test</td><td><a href="#tests">Fiches de test</a></td><td><code>tests/AAAA-MM-JJ-titre.md</code></td></tr>
-        <tr><td>Un achat</td><td><a href="#achats">Achats et budget</a></td><td><code>achats/AAAA-MM-JJ-objet.md</code></td></tr>
+        <tr><td>Une séance (journal de bord)</td><td><a href="#journal">Journal des séances</a></td><td><code>journal/AAAA-MM-JJ.md</code> (corrigée : <code>AAAA-MM-JJ-HHMM.md</code>)</td></tr>
+        <tr><td>Une fiche de test</td><td><a href="#tests">Fiches de test</a></td><td><code>tests/AAAA-MM-JJ-HHMM-titre.md</code></td></tr>
+        <tr><td>Un achat</td><td><a href="#achats">Achats et budget</a></td><td><code>achats/AAAA-MM-JJ-HHMM-objet.md</code></td></tr>
         <tr><td>Un exemplaire de pièce qui change d'état</td><td><a href="#pieces">Registre des pièces</a></td><td><code>pieces/AAAA-MM-JJ-HHMM-piece-n.md</code></td></tr>
         <tr><td>Une mesure</td><td><a href="#mesures">Mesures</a></td><td><code>mesures/AAAA-MM-JJ-HHMM-grandeur-objet.md</code></td></tr>
-        <tr><td>Une décision</td><td><a href="#decisions">Décisions</a></td><td><code>decisions/AAAA-MM-JJ-titre.md</code></td></tr>
+        <tr><td>Une décision</td><td><a href="#decisions">Décisions</a></td><td><code>decisions/AAAA-MM-JJ-HHMM-titre.md</code></td></tr>
         <tr><td>Une case cochée ou décochée</td><td><a href="#planning">Planning</a> et listes partagées</td><td><code>avancement/AAAA-MM-JJ-HHMM-tache.md</code></td></tr>
-        <tr><td>Les rôles</td><td>directement sur GitHub</td><td><code>equipe.csv</code>, le seul tableau CSV</td></tr>
+        <tr><td>Les rôles</td><td><a href="#equipe">Équipe et méthode</a></td><td><code>equipe/AAAA-MM-JJ-HHMM-roles.md</code></td></tr>
       </tbody>
     </table></div>
     <h3>L'en-tête : ce que la page sait lire</h3>
@@ -3132,7 +3133,7 @@ phase: 1
       <li><div><b>Réception contrôlée.</b> On ouvre le colis à deux, on compare à la commande, on vérifie la référence et on photographie l'étiquette. Le statut de l'achat passe à « reçu ».</div></li>
       <li><div><b>Facture.</b> Elle est déposée sur le Nextcloud ; note de frais si un membre a avancé l'argent, statut « remboursé » une fois payé ; issue fermée.</div></li>
     </ol>
-    <p>Changer le statut, c'est modifier le fichier de l'achat sur GitHub (section 4), pas en créer un second. La page additionne les achats commandés, reçus et remboursés pour donner le budget engagé, à comparer au plan de chaque phase.</p>
+    <p>Changer le statut, c'est ré-enregistrer l'achat depuis la page (bouton « modifier » sur sa ligne : même objet, nouveau statut), pas en créer un second avec un autre nom. La page additionne les achats commandés, reçus et remboursés pour donner le budget engagé, à comparer au plan de chaque phase.</p>
     <p>On privilégie les fournisseurs de l'Union européenne : pas de douane, délais connus.</p>
     <div class="ex"><b>Exemple sur notre canard</b><p>Commande de la phase 2 (99,55 €) : Pi Zero 2 W, carte microSD, carte Waveshare, capteur BNO055, deux STS3215. À la réception, on lit sur l'étiquette des servos « 7,4 V », le rapport 1/345 et la référence C001. Une version 12 V serait renvoyée.</p></div>
     <div class="note warn"><svg><use href="#i-warn"/></svg><div><strong>Erreur classique.</strong> Un membre commande « en passant » avec sa carte, sans issue. Le même article arrive deux fois, et personne ne sait qui rembourser.</div></div>
@@ -3220,7 +3221,7 @@ leur révision figure aussi dans le champ « rev » du registre des pièces
     <div class="tw"><table>
       <thead><tr><th>Titre</th><th>Étiquettes</th></tr></thead>
       <tbody>
-        <tr><td>Attribuer les rôles et les noter dans biscalab/equipe.csv</td><td>phase-0</td></tr>
+        <tr><td>Attribuer les rôles et les enregistrer depuis la page Équipe</td><td>phase-0</td></tr>
         <tr><td>Activer la double authentification pour tous les membres</td><td>phase-0, securite</td></tr>
         <tr><td>Rédiger et afficher securite.md</td><td>phase-0, securite</td></tr>
         <tr><td>Valider l'achat de la phase 1 (55,70 €)</td><td>phase-1, achat</td></tr>
@@ -6230,7 +6231,7 @@ Ce que j'ai vu, quand, combien de fois.
     budget: 476.25,
     phases: [
       { n: 0, id: 'p0', titre: 'Organisation', mois: 'oct. 2026', montant: 0, jalon: 'Dépôt, rôles, outils et sécurité en place ; issues de la phase 1 créées', tint: 'var(--color-primary)', taches: [
-        ['p0.1', 'Rôles attribués et notés dans biscalab/equipe.csv'],
+        ['p0.1', 'Rôles attribués et enregistrés depuis la page Équipe'],
         ['p0.2', 'Dépôt du club JMTRIP/Open_Duck_Mini_Fablab créé (fait le 5 oct.), chaque membre ajouté comme collaborateur, 2FA activée pour tous'],
         ['p0.3', 'Second dépôt du club (copie de Open_Duck_Mini_Runtime) créé ; Issues activées, labels, 7 jalons, tableau Projects'],
         ['p0.4', 'Arborescence biscalab/, .gitattributes, .gitignore, CREDITS.md poussés'],
@@ -6514,7 +6515,7 @@ Ce que j'ai vu, quand, combien de fois.
      entre deux lignes ---, puis du texte) dans biscalab/<dossier>/.
      Lecture : 1 appel à l'API GitHub (arborescence), puis les fichiers bruts.
      ══════════════════════════════════════════════════════════════════════ */
-  var DIRS = { journal: 'seance', tests: 'test', achats: 'achat', decisions: 'decision', mesures: 'mesure', pieces: 'piece', avancement: 'tache' };
+  var DIRS = { journal: 'seance', tests: 'test', achats: 'achat', decisions: 'decision', mesures: 'mesure', pieces: 'piece', avancement: 'tache', equipe: 'equipe' };
   var TREE_KEY = 'canard.tree.v1', BLOB_KEY = 'canard.blobs.v1', ME_KEY = 'canard.me.v1';
   var data = { ok: false, loading: false, error: '', when: 0, files: [], records: [], state: null, source: '' };
 
@@ -6557,25 +6558,16 @@ Ce que j'ai vu, quand, combien de fois.
     flushP();
     return out.join('');
   }
-  function csvRows(text) {
-    return text.replace(/\r\n/g, '\n').split('\n').map(function (l) { return l.trim(); }).filter(Boolean).map(function (l) {
-      var cells = [], cur = '', q = false;
-      for (var k = 0; k < l.length; k++) { var c = l[k]; if (c === '"') { if (q && l[k + 1] === '"') { cur += '"'; k++; } else q = !q; } else if ((c === ',' || c === ';') && !q) { cells.push(cur.trim()); cur = ''; } else cur += c; }
-      cells.push(cur.trim()); return cells;
-    });
-  }
 
   function apiUrl(p) { return 'https://api.github.com/repos/' + REPO.owner + '/' + REPO.repo + p; }
   function rawUrl(path, sha) { return 'https://raw.githubusercontent.com/' + REPO.owner + '/' + REPO.repo + '/' + REPO.branch + '/' + path.split('/').map(encodeURIComponent).join('/') + (sha ? '?sha=' + sha : ''); }
   function ghNewUrl(dir, filename, content) { return 'https://github.com/' + REPO.owner + '/' + REPO.repo + '/new/' + REPO.branch + '/' + REPO.base + '/' + dir + '?filename=' + encodeURIComponent(filename) + '&value=' + encodeURIComponent(content); }
-  function ghEditUrl(path) { return 'https://github.com/' + REPO.owner + '/' + REPO.repo + '/edit/' + REPO.branch + '/' + path; }
   function ghBlobUrl(path) { return 'https://github.com/' + REPO.owner + '/' + REPO.repo + '/blob/' + REPO.branch + '/' + path; }
   function ghTreeUrl(dir) { return 'https://github.com/' + REPO.owner + '/' + REPO.repo + '/tree/' + REPO.branch + '/' + REPO.base + '/' + dir; }
 
   function wanted(path) {
     if (path.indexOf(REPO.base + '/') !== 0) return null;
     var rel = path.slice(REPO.base.length + 1), parts = rel.split('/');
-    if (rel === 'equipe.csv') return 'equipe';
     if (parts.length === 2 && DIRS[parts[0]] && /\.md$/i.test(parts[1]) && !/^readme/i.test(parts[1])) return DIRS[parts[0]];
     return null;
   }
@@ -6613,13 +6605,12 @@ Ce que j'ai vu, quand, combien de fois.
     var m = /^(\d{4}-\d{2}-\d{2})(?:-(\d{4}))?/.exec(name);
     var d = meta.date && /^\d{4}-\d{2}-\d{2}/.test(meta.date) ? meta.date.slice(0, 10) : (m ? m[1] : '');
     var t = m && m[2] ? m[2] : (meta.heure ? meta.heure.replace(':', '') : '0000');
-    return { date: d, key: d + '-' + t + '-' + name };
+    return { date: d, key: d + '-' + t + '-' + name.replace(/\.md$/i, '') };
   }
   function toRecords(files) {
     var recs = [];
     files.forEach(function (f) {
       var kind = wanted(f.path), name = f.path.split('/').pop();
-      if (kind === 'equipe') { recs.push({ kind: 'equipe', path: f.path, rows: csvRows(f.text) }); return; }
       var p = parseFront(f.text), meta = p.meta;
       if (meta.type && DIRS[Object.keys(DIRS).filter(function (d) { return DIRS[d] === meta.type; })[0]] && meta.type !== kind) kind = meta.type;
       var fd = fileDate(name, meta);
@@ -6637,11 +6628,15 @@ Ce que j'ai vu, quand, combien de fois.
     st.allTasks = allTasks;
     recs.forEach(function (r) {
       var m = r.meta;
-      if (r.kind === 'equipe') { st.roles = r.rows.filter(function (row) { return row.length >= 2 && norm(row[0]) !== 'role'; }); return; }
+      if (r.kind === 'equipe') {
+        var roles = []; r.body.split('\n').forEach(function (l) { var i = l.indexOf(':'); if (i > 0) roles.push([l.slice(0, i).trim(), l.slice(i + 1).trim()]); });
+        if (!st.rolesRec || st.rolesRec.key < r.key) { st.roles = roles; st.rolesRec = { key: r.key, date: r.date, par: m.par || '', path: r.path }; }
+        st.events.push({ key: r.key, date: r.date, kind: 'equipe', titre: 'Rôles attribués', sub: m.par || '', href: '#equipe' });
+        return;
+      }
       if (r.kind === 'seance') {
-        var s = { date: r.date, presents: parseList(m.presents), phase: parseInt0(m.phase), taches: parseList(m.taches), body: r.body, sec: r.sections, path: r.path, par: m.par || '' };
+        var s = { key: r.key, date: r.date, presents: parseList(m.presents), phase: parseInt0(m.phase), taches: parseList(m.taches), body: r.body, sec: r.sections, path: r.path, par: m.par || '' };
         st.seances.push(s);
-        s.taches.forEach(function (t) { st.taches[t] = { fait: true, date: s.date, par: s.presents.join(', '), via: 'séance', key: r.key }; });
         st.events.push({ key: r.key, date: r.date, kind: 'seance', titre: 'Séance' + (s.phase != null ? ' · phase ' + s.phase : ''), sub: s.presents.join(', '), href: '#journal' });
       } else if (r.kind === 'tache') {
         var fait = !/^(non|no|false|0)/i.test(m.fait || 'oui');
@@ -6649,17 +6644,17 @@ Ce que j'ai vu, quand, combien de fois.
         if (!prev || prev.key < r.key) st.taches[m.tache] = { fait: fait, date: r.date, par: m.par || '', note: m.note || r.body, via: 'coche', key: r.key };
         st.events.push({ key: r.key, date: r.date, kind: 'tache', titre: (fait ? 'Fait : ' : 'Décoché : ') + (allTasks[m.tache] ? allTasks[m.tache].label : m.tache), sub: m.par || '', href: '#planning' });
       } else if (r.kind === 'test') {
-        var t = { date: r.date, phase: parseInt0(m.phase), titre: m.titre || r.name.replace(/\.md$/, ''), resultat: (m.resultat || '').toUpperCase().replace(/\s+/g, ''), par: m.par || '', body: r.body, sec: r.sections, path: r.path };
+        var t = { key: r.key, date: r.date, phase: parseInt0(m.phase), titre: m.titre || r.name.replace(/\.md$/, ''), resultat: (m.resultat || '').toUpperCase().replace(/\s+/g, ''), par: m.par || '', body: r.body, sec: r.sections, path: r.path };
         st.tests.push(t); st.events.push({ key: r.key, date: r.date, kind: 'test', titre: 'Test : ' + t.titre, sub: t.resultat || '', href: '#tests' });
       } else if (r.kind === 'achat') {
-        var a = { date: r.date, fournisseur: m.fournisseur || '', montant: parseNum(m.montant), phase: parseInt0(m.phase), statut: norm(m.statut || 'commande').replace(/[^a-z]/g, ''), par: m.par || '', servos: parseInt0(m.servos) || 0, titre: m.titre || m.objet || r.name.replace(/^\d{4}-\d{2}-\d{2}-?/, '').replace(/\.md$/, ''), body: r.body, path: r.path };
+        var a = { key: r.key, date: r.date, fournisseur: m.fournisseur || '', montant: parseNum(m.montant), phase: parseInt0(m.phase), statut: norm(m.statut || 'commande').replace(/[^a-z]/g, ''), par: m.par || '', servos: parseInt0(m.servos) || 0, titre: m.titre || m.objet || r.name.replace(/^\d{4}-\d{2}-\d{2}-?/, '').replace(/\.md$/, ''), body: r.body, path: r.path };
         if (isNaN(a.montant)) a.montant = 0;
         st.achats.push(a); st.events.push({ key: r.key, date: r.date, kind: 'achat', titre: 'Achat : ' + a.titre, sub: eur(a.montant) + ' · ' + (ACHAT_LABELS[a.statut] || a.statut), href: '#achats' });
       } else if (r.kind === 'decision') {
-        var d = { date: r.date, titre: m.titre || r.name.replace(/^\d{4}-\d{2}-\d{2}-?/, '').replace(/\.md$/, ''), statut: norm(m.statut || 'prise').replace(/[^a-z]/g, ''), par: m.par || '', body: r.body, sec: r.sections, path: r.path };
+        var d = { key: r.key, date: r.date, titre: m.titre || r.name.replace(/^\d{4}-\d{2}-\d{2}-?/, '').replace(/\.md$/, ''), statut: norm(m.statut || 'prise').replace(/[^a-z]/g, ''), par: m.par || '', body: r.body, sec: r.sections, path: r.path };
         st.decisions.push(d); st.events.push({ key: r.key, date: r.date, kind: 'decision', titre: 'Décision : ' + d.titre, sub: d.statut === 'atrancher' ? 'à trancher' : d.statut, href: '#decisions' });
       } else if (r.kind === 'mesure') {
-        var me = { date: r.date, grandeur: norm(m.grandeur || 'autre'), objet: m.objet || '', valeur: m.valeur || '', unite: m.unite || '', par: m.par || '', body: r.body, path: r.path };
+        var me = { key: r.key, date: r.date, grandeur: norm(m.grandeur || 'autre'), objet: m.objet || '', valeur: m.valeur || '', unite: m.unite || '', par: m.par || '', body: r.body, path: r.path };
         st.mesures.push(me); st.events.push({ key: r.key, date: r.date, kind: 'mesure', titre: 'Mesure : ' + me.objet, sub: me.valeur + ' ' + me.unite, href: '#mesures' });
       } else if (r.kind === 'piece') {
         var ex = parseInt0(m.exemplaire) || 1, pk = (m.piece || '').trim() + '#' + ex;
@@ -6669,7 +6664,15 @@ Ce que j'ai vu, quand, combien de fois.
         st.events.push({ key: r.key, date: r.date, kind: 'piece', titre: 'Pièce ' + pe.piece + (ex > 1 || true ? ' n° ' + ex : '') + ' : ' + (PIECE_LABELS[pe.statut] || pe.statut), sub: pe.par + (isNaN(pe.masse) ? '' : ' · ' + pe.masse + ' g'), href: '#pieces' });
       }
     });
-    st.seances.sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    // Une correction = un nouvel enregistrement sur le même objet : le dernier l'emporte, les précédents restent dans le dépôt.
+    function latest(arr, keyOf) { var mm = {}; arr.forEach(function (r) { var k = keyOf(r); if (!mm[k] || mm[k].key < r.key) mm[k] = r; }); return Object.keys(mm).map(function (k) { return mm[k]; }).sort(function (a, b) { return a.key < b.key ? -1 : a.key > b.key ? 1 : 0; }); }
+    st.seances = latest(st.seances, function (s) { return s.date; });
+    st.tests = latest(st.tests, function (t) { return slug(t.titre); });
+    st.achats = latest(st.achats, function (a) { return slug(a.titre); });
+    st.decisions = latest(st.decisions, function (d) { return slug(d.titre); });
+    st.mesures = latest(st.mesures, function (m) { return m.date + '|' + m.grandeur + '|' + norm(m.objet); });
+    st.seances.forEach(function (s) { s.taches.forEach(function (t) { if (!st.taches[t] || st.taches[t].key < s.key) st.taches[t] = { fait: true, date: s.date, par: s.presents.join(', '), via: 'séance', key: s.key }; }); });
+    st.seances.sort(function (a, b) { return a.key < b.key ? 1 : -1; });
     st.events.sort(function (a, b) { return a.key < b.key ? 1 : -1; });
     // Phase courante : celle de la dernière séance qui l'indique ; sinon la plus avancée où une tâche est faite ; sinon 0
     var ph = null;
@@ -6737,9 +6740,11 @@ Ce que j'ai vu, quand, combien de fois.
     if (data.ok || data.loading) return '';
     return '<div class="note warn"><svg><use href="#i-warn"/></svg><div><strong>Données non chargées.</strong> ' + esc(data.error || '') + ' La page lit les enregistrements dans le dépôt du club ; il faut une connexion à GitHub.</div></div>';
   }
+  function preAttr(obj) { return ' data-pre="' + esc(JSON.stringify(obj)) + '"'; }
+  function fileLnk(path) { return '<a class="lnk" href="' + ghBlobUrl(path) + '" target="_blank" rel="noopener" title="Le fichier dans le dépôt">fichier</a>'; }
   function who(par) { return par ? ' <span class="muted">· ' + esc(par) + '</span>' : ''; }
 
-  var AUTO_FORM = { journal: ['seance', 'seances'], pieces: ['piece', 'pieces'], achats: ['achat', 'achats'], tests: ['test', 'tests'], mesures: ['mesure', 'mesures'], decisions: ['decision', 'decisions'] };
+  var AUTO_FORM = { journal: ['seance', function (st) { return st.seances.length; }], pieces: ['piece', function (st) { return Object.keys(st.pieces).length; }], achats: ['achat', function (st) { return st.achats.length; }], tests: ['test', function (st) { return st.tests.length; }], mesures: ['mesure', function (st) { return st.mesures.length; }], decisions: ['decision', function (st) { return st.decisions.length; }], equipe: ['equipe', function (st) { return st.rolesRec ? 1 : 0; }] };
   var formClosedBy = {};   // pages où l'on a fermé le formulaire ouvert d'office
   function renderLive(id) {
     var box = $('[data-view="' + id + '"]');
@@ -6760,9 +6765,8 @@ Ce que j'ai vu, quand, combien de fois.
     // Page de suivi vide : le formulaire est directement là, pas de bouton à chercher.
     var af = AUTO_FORM[id];
     if (af && data.ok && !formClosedBy[id]) {
-      var n = af[1] === 'pieces' ? Object.keys(st.pieces).length : st[af[1]].length;
-      var slot = box.querySelector('[data-form-slot]:not([data-after])');
-      if (!n && slot && !slot.firstChild) openForm(af[0], {}, null, true);
+      var n = af[1](st), slot = box.querySelector('[data-form-slot]:not([data-after])'), btn = box.querySelector('button[data-form="' + af[0] + '"]');
+      if (!n && slot && !slot.firstChild) openForm(af[0], btn ? JSON.parse(btn.getAttribute('data-pre') || '{}') : {}, null, true);
     }
   }
 
@@ -6815,7 +6819,7 @@ Ce que j'ai vu, quand, combien de fois.
   }
   function timeline(evs) {
     if (!evs.length) return '<p class="muted">Aucun enregistrement.</p>';
-    var ic = { seance: 'i-book', tache: 'i-check', test: 'i-check', achat: 'i-cart', decision: 'i-flag', mesure: 'i-zap', piece: 'i-printer' };
+    var ic = { seance: 'i-book', tache: 'i-check', test: 'i-check', achat: 'i-cart', decision: 'i-flag', mesure: 'i-zap', piece: 'i-printer', equipe: 'i-users' };
     return '<ul class="tl">' + evs.map(function (e) { return '<li><span class="tl-ic">' + svgUse(ic[e.kind] || 'i-info') + '</span><span class="tl-b"><a href="' + e.href + '">' + esc(e.titre) + '</a><small>' + frDate(e.date) + (e.sub ? ' · ' + esc(e.sub) : '') + '</small></span></li>'; }).join('') + '</ul>';
   }
 
@@ -6824,7 +6828,7 @@ Ce que j'ai vu, quand, combien de fois.
     if (!st.seances.length) return h + emptyState('Le journal est la mémoire du projet : une entrée par séance, cinq rubriques (présents, fait, mesures, problèmes, décisions).', 'seance');
     st.seances.forEach(function (s, i) {
       var id = 'se-' + i;
-      h += '<div class="card entry"><div class="entry-head"><div><h3>Séance du ' + frDate(s.date) + (s.phase != null ? ' ' + pill('p', 'phase ' + s.phase) : '') + '</h3><div class="muted">' + (s.presents.length ? 'Présents : ' + esc(s.presents.join(', ')) : 'Présents non indiqués') + (s.taches.length ? ' · ' + s.taches.length + ' tâche' + (s.taches.length > 1 ? 's' : '') + ' cochée' + (s.taches.length > 1 ? 's' : '') : '') + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="' + id + '" data-open="Lire" data-close="Replier">' + (i === 0 ? 'Replier' : 'Lire') + '</button><a class="btn sm" href="' + ghEditUrl(s.path) + '" target="_blank" rel="noopener">Modifier</a></div></div><div class="entry-body md" id="' + id + '"' + (i === 0 ? '' : ' hidden') + '>' + (md(s.body) || '<p class="muted">Entrée vide.</p>') + (s.taches.length ? '<p class="muted"><strong>Tâches cochées :</strong> ' + s.taches.map(function (t) { return '<code>' + esc(t) + '</code> ' + esc(st.allTasks[t] ? st.allTasks[t].label : ''); }).join(' ; ') + '</p>' : '') + '</div></div>';
+      h += '<div class="card entry"><div class="entry-head"><div><h3>Séance du ' + frDate(s.date) + (s.phase != null ? ' ' + pill('p', 'phase ' + s.phase) : '') + '</h3><div class="muted">' + (s.presents.length ? 'Présents : ' + esc(s.presents.join(', ')) : 'Présents non indiqués') + (s.taches.length ? ' · ' + s.taches.length + ' tâche' + (s.taches.length > 1 ? 's' : '') + ' cochée' + (s.taches.length > 1 ? 's' : '') : '') + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="' + id + '" data-open="Lire" data-close="Replier">' + (i === 0 ? 'Replier' : 'Lire') + '</button><button type="button" class="btn sm" data-act="form" data-form="seance"' + preAttr({ date: s.date, presents: s.presents.join(', '), phase: s.phase == null ? '' : s.phase, taches: s.taches.join(', '), fait: s.sec.fait || '', mesures: s.sec.mesures || '', problemes: s.sec.problemes || '', decisions: s.sec.decisions || '' }) + '>Modifier</button></div></div><div class="entry-body md" id="' + id + '"' + (i === 0 ? '' : ' hidden') + '>' + (md(s.body) || '<p class="muted">Entrée vide.</p>') + (s.taches.length ? '<p class="muted"><strong>Tâches cochées :</strong> ' + s.taches.map(function (t) { return '<code>' + esc(t) + '</code> ' + esc(st.allTasks[t] ? st.allTasks[t].label : ''); }).join(' ; ') + '</p>' : '') + '<p class="muted" style="font-size:0.8rem">' + fileLnk(s.path) + '</p></div></div>';
     });
     return h;
   }
@@ -6867,7 +6871,7 @@ Ce que j'ai vu, quand, combien de fois.
     var autres = Object.keys(st.pieces).filter(function (k) { return !known[st.pieces[k].piece]; });
     if (autres.length) {
       h += '<div class="card"><h3>' + svgUse('i-printer') + 'Autres pièces (outillage, pièces modifiées)</h3><div class="tw"><table><thead><tr><th>Pièce</th><th class="num">Ex.</th><th>État</th><th>Masse</th><th>Rév.</th><th>Par</th><th>Date</th><th>Note</th><th></th></tr></thead><tbody>';
-      autres.sort().forEach(function (k) { var ev = st.pieces[k]; h += '<tr><td><code>' + esc(ev.piece) + '</code></td><td class="num">' + ev.exemplaire + '</td><td>' + statutPill(ev.statut, PIECE_LABELS) + '</td><td>' + (isNaN(ev.masse) ? '' : ev.masse + ' g') + '</td><td>' + esc(ev.rev) + '</td><td>' + esc(ev.par) + '</td><td class="nw">' + frDate(ev.date) + '</td><td>' + esc(ev.note.slice(0, 100)) + '</td><td class="nw"><a class="lnk" href="' + ghEditUrl(ev.path) + '" target="_blank" rel="noopener">modifier</a></td></tr>'; });
+      autres.sort().forEach(function (k) { var ev = st.pieces[k]; h += '<tr><td><code>' + esc(ev.piece) + '</code></td><td class="num">' + ev.exemplaire + '</td><td>' + statutPill(ev.statut, PIECE_LABELS) + '</td><td>' + (isNaN(ev.masse) ? '' : ev.masse + ' g') + '</td><td>' + esc(ev.rev) + '</td><td>' + esc(ev.par) + '</td><td class="nw">' + frDate(ev.date) + '</td><td>' + esc(ev.note.slice(0, 100)) + '</td><td class="nw"><button type="button" class="lnk" data-act="form" data-form="piece"' + preAttr({ piece: 'autre', piece_autre: ev.piece, exemplaire: ev.exemplaire, statut: ev.statut, masse_g: isNaN(ev.masse) ? '' : ev.masse, rev: ev.rev, par: ev.par, note: ev.note }) + '>modifier</button></td></tr>'; });
       h += '</tbody></table></div></div>';
     }
     h += '<p class="muted" style="font-size:0.85rem">Légende : chiffre = numéro d\'exemplaire ; gris = à imprimer, bleu = imprimée, vert = contrôlée, violet = montée, rouge = à refaire. Survoler pour le détail.</p>';
@@ -6885,7 +6889,7 @@ Ce que j'ai vu, quand, combien de fois.
     h += '</tbody><tfoot><tr><td>Total</td><td class="num">' + eur(PLAN.budget) + '</td><td class="num">' + eur(st.depense) + '</td><td class="num">' + (st.depense - PLAN.budget > 0 ? '+' : '') + eur(st.depense - PLAN.budget) + '</td></tr></tfoot></table></div></div>';
     if (!st.achats.length) return h + emptyState('Un enregistrement par commande : fournisseur, montant, phase, statut (prévu → commandé → reçu → remboursé).', 'achat');
     h += '<div class="card"><h3>' + svgUse('i-cart') + 'Toutes les commandes</h3><div class="tw"><table><thead><tr><th>Date</th><th>Objet</th><th>Fournisseur</th><th class="num">Montant</th><th>Phase</th><th>Statut</th><th>Par</th><th></th></tr></thead><tbody>';
-    st.achats.slice().reverse().forEach(function (a, i) { h += '<tr><td class="nw">' + frDate(a.date) + '</td><td>' + esc(a.titre) + (a.body ? ' <button type="button" class="lnk" data-act="toggle" data-target="ac-' + i + '" data-open="détail" data-close="replier">détail</button><div id="ac-' + i + '" class="md" hidden>' + md(a.body) + '</div>' : '') + '</td><td>' + esc(a.fournisseur) + '</td><td class="num">' + eur(a.montant) + '</td><td>' + (a.phase != null ? a.phase : '—') + '</td><td>' + statutPill(a.statut, ACHAT_LABELS) + '</td><td>' + esc(a.par) + '</td><td class="nw"><a class="lnk" href="' + ghEditUrl(a.path) + '" target="_blank" rel="noopener">modifier</a></td></tr>'; });
+    st.achats.slice().reverse().forEach(function (a, i) { h += '<tr><td class="nw">' + frDate(a.date) + '</td><td>' + esc(a.titre) + (a.body ? ' <button type="button" class="lnk" data-act="toggle" data-target="ac-' + i + '" data-open="détail" data-close="replier">détail</button><div id="ac-' + i + '" class="md" hidden>' + md(a.body) + '</div>' : '') + '</td><td>' + esc(a.fournisseur) + '</td><td class="num">' + eur(a.montant) + '</td><td>' + (a.phase != null ? a.phase : '—') + '</td><td>' + statutPill(a.statut, ACHAT_LABELS) + '</td><td>' + esc(a.par) + '</td><td class="nw"><button type="button" class="lnk" data-act="form" data-form="achat"' + preAttr({ date: a.date > todayISO() ? a.date : '', titre: a.titre, fournisseur: a.fournisseur, montant: a.montant, phase: a.phase == null ? '' : a.phase, statut: a.statut, servos: a.servos, par: a.par, lignes: a.body }) + '>modifier</button> · ' + fileLnk(a.path) + '</td></tr>'; });
     h += '</tbody></table></div></div>';
     return h;
   }
@@ -6893,7 +6897,7 @@ Ce que j'ai vu, quand, combien de fois.
   function viewTests(st) {
     var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="test">' + svgUse('i-check') + 'Nouvelle fiche de test</button></div>' + slotHtml();
     if (!st.tests.length) return h + emptyState('Une fiche par essai : objectif, montage, procédure, critère chiffré, résultat, décision. Sans fiche validée, pas de phase suivante.', 'test');
-    st.tests.slice().reverse().forEach(function (t, i) { h += '<div class="card entry"><div class="entry-head"><div><h3>' + esc(t.titre) + ' ' + (t.resultat ? statutPill(t.resultat === 'NOGO' ? 'NO-GO' : t.resultat) : '') + '</h3><div class="muted">' + frDate(t.date) + (t.phase != null ? ' · phase ' + t.phase : '') + who(t.par) + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="te-' + i + '" data-open="Lire" data-close="Replier">Lire</button><a class="btn sm" href="' + ghEditUrl(t.path) + '" target="_blank" rel="noopener">Modifier</a></div></div><div class="entry-body md" id="te-' + i + '" hidden>' + (md(t.body) || '<p class="muted">Fiche vide.</p>') + '</div></div>'; });
+    st.tests.slice().reverse().forEach(function (t, i) { h += '<div class="card entry"><div class="entry-head"><div><h3>' + esc(t.titre) + ' ' + (t.resultat ? statutPill(t.resultat === 'NOGO' ? 'NO-GO' : t.resultat) : '') + '</h3><div class="muted">' + frDate(t.date) + (t.phase != null ? ' · phase ' + t.phase : '') + who(t.par) + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="te-' + i + '" data-open="Lire" data-close="Replier">Lire</button><button type="button" class="btn sm" data-act="form" data-form="test"' + preAttr({ date: t.date > todayISO() ? t.date : '', titre: t.titre, phase: t.phase == null ? '' : t.phase, resultat: t.resultat === 'NOGO' ? 'NO-GO' : t.resultat, par: t.par, objectif: t.sec.objectif || '', montage: t.sec.montage || '', procedure: t.sec.procedure || '', critere: t.sec.criteredereussite || t.sec.critere || '', resultat_txt: t.sec.resultat || '', decision: t.sec.decision || '' }) + '>Modifier</button></div></div><div class="entry-body md" id="te-' + i + '" hidden>' + (md(t.body) || '<p class="muted">Fiche vide.</p>') + '<p class="muted" style="font-size:0.8rem">' + fileLnk(t.path) + '</p></div></div>'; });
     return h;
   }
 
@@ -6904,7 +6908,7 @@ Ce que j'ai vu, quand, combien de fois.
     var gs = []; st.mesures.forEach(function (m) { if (gs.indexOf(m.grandeur) < 0) gs.push(m.grandeur); });
     gs.forEach(function (g) {
       h += '<div class="card"><h3>' + svgUse('i-zap') + esc(g.charAt(0).toUpperCase() + g.slice(1)) + '</h3><div class="tw"><table><thead><tr><th>Date</th><th>Objet</th><th class="num">Valeur</th><th>Par</th><th>Note</th><th></th></tr></thead><tbody>';
-      st.mesures.filter(function (m) { return m.grandeur === g; }).slice().reverse().forEach(function (m) { h += '<tr><td class="nw">' + frDate(m.date) + '</td><td>' + esc(m.objet) + '</td><td class="num">' + esc(m.valeur) + ' ' + esc(m.unite) + '</td><td>' + esc(m.par) + '</td><td>' + esc(m.body.slice(0, 120)) + '</td><td class="nw"><a class="lnk" href="' + ghEditUrl(m.path) + '" target="_blank" rel="noopener">modifier</a></td></tr>'; });
+      st.mesures.filter(function (m) { return m.grandeur === g; }).slice().reverse().forEach(function (m) { h += '<tr><td class="nw">' + frDate(m.date) + '</td><td>' + esc(m.objet) + '</td><td class="num">' + esc(m.valeur) + ' ' + esc(m.unite) + '</td><td>' + esc(m.par) + '</td><td>' + esc(m.body.slice(0, 120)) + '</td><td class="nw"><button type="button" class="lnk" data-act="form" data-form="mesure"' + preAttr({ grandeur: m.grandeur, objet: m.objet, valeur: m.valeur, unite: m.unite, date: m.date, par: m.par, note: m.body }) + '>modifier</button></td></tr>'; });
       h += '</tbody></table></div></div>';
     });
     return h;
@@ -6915,15 +6919,17 @@ Ce que j'ai vu, quand, combien de fois.
     var base = [['Chargeur 2S : le « TP4056 2S » du plan est incohérent (TP4056 = 1S)'], ['Calibre du BMS, après mesure du courant crête (phase 5)'], ['Tension d\'entrée de la carte Waveshare en 2S : mesure au banc avant les 12 servos'], ['Carte graphique (GPU) disponible pour un éventuel réentraînement']];
     h += '<div class="card"><h3>' + svgUse('i-warn') + 'À trancher d\'après le dossier</h3><ul class="tight">' + base.map(function (b) { return '<li>' + esc(b[0]) + ' <button type="button" class="lnk" data-act="form" data-form="decision" data-pre=\'' + JSON.stringify({ titre: b[0].split(' :')[0].split(',')[0] }).replace(/'/g, '&#39;') + '\'>enregistrer la décision</button></li>'; }).join('') + '</ul></div>';
     if (!st.decisions.length) return h + emptyState('Une décision = un titre, un statut (prise ou à trancher), et trois paragraphes : contexte, décision, conséquences.', 'decision');
-    st.decisions.slice().reverse().forEach(function (d, i) { h += '<div class="card entry"><div class="entry-head"><div><h3>' + esc(d.titre) + ' ' + statutPill(d.statut) + '</h3><div class="muted">' + frDate(d.date) + who(d.par) + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="de-' + i + '" data-open="Lire" data-close="Replier">Lire</button><a class="btn sm" href="' + ghEditUrl(d.path) + '" target="_blank" rel="noopener">Modifier</a></div></div><div class="entry-body md" id="de-' + i + '" hidden>' + (md(d.body) || '<p class="muted">Sans détail.</p>') + '</div></div>'; });
+    st.decisions.slice().reverse().forEach(function (d, i) { h += '<div class="card entry"><div class="entry-head"><div><h3>' + esc(d.titre) + ' ' + statutPill(d.statut) + '</h3><div class="muted">' + frDate(d.date) + who(d.par) + '</div></div><div class="row"><button type="button" class="btn sm" data-act="toggle" data-target="de-' + i + '" data-open="Lire" data-close="Replier">Lire</button><button type="button" class="btn sm" data-act="form" data-form="decision"' + preAttr({ date: d.date > todayISO() ? d.date : '', titre: d.titre, statut: d.statut === 'atrancher' ? 'a-trancher' : d.statut, par: d.par, contexte: d.sec.contexte || '', decision: d.sec.decision || '', consequences: d.sec.consequences || '' }) + '>Modifier</button></div></div><div class="entry-body md" id="de-' + i + '" hidden>' + (md(d.body) || '<p class="muted">Sans détail.</p>') + '<p class="muted" style="font-size:0.8rem">' + fileLnk(d.path) + '</p></div></div>'; });
     return h;
   }
 
   function viewEquipe(st) {
-    var rows = st.roles || PLAN.roles;
-    var h = '<div class="tw"><table><thead><tr><th>Rôle</th><th>Qui</th></tr></thead><tbody>' + rows.map(function (r) { return '<tr><td><strong>' + esc(r[0]) + '</strong></td><td>' + (r[1] ? pill('p', r[1]) : pill('mute', 'à attribuer')) + '</td></tr>'; }).join('') + '</tbody></table></div>';
-    var csv = 'role,nom\n' + rows.map(function (r) { return '"' + r[0].replace(/"/g, '""') + '","' + (r[1] || '').replace(/"/g, '""') + '"'; }).join('\n') + '\n';
-    h += '<p class="muted" style="font-size:0.85rem">' + (st.roles ? 'Lu dans <code>biscalab/equipe.csv</code> du dépôt du club. <a href="' + ghEditUrl(REPO.base + '/equipe.csv') + '" target="_blank" rel="noopener">Modifier sur GitHub</a>' : 'Valeurs du dossier ; le fichier <code>biscalab/equipe.csv</code> n\'existe pas encore. <a href="' + ghNewUrl('', 'equipe.csv', csv) + '" target="_blank" rel="noopener">Le créer sur GitHub</a> (pré-rempli, un clic « Commit »).') + '</p>';
+    var rows = st.roles || PLAN.roles, pre = {};
+    PLAN.roles.forEach(function (r, i) { var f = rows.filter(function (x) { return norm(x[0]) === norm(r[0]); })[0]; pre['r' + i] = f ? f[1] : ''; });
+    pre.autres = rows.filter(function (x) { return !PLAN.roles.some(function (r) { return norm(r[0]) === norm(x[0]); }); }).map(function (x) { return x[0] + ' : ' + x[1]; }).join('\n');
+    var h = '<div class="row" style="justify-content:space-between"><div class="data-status"></div><button type="button" class="btn primary" data-act="form" data-form="equipe"' + preAttr(pre) + '>' + svgUse('i-users') + (st.rolesRec ? 'Modifier les rôles' : 'Attribuer les rôles') + '</button></div>' + slotHtml();
+    h += '<div class="tw"><table><thead><tr><th>Rôle</th><th>Qui</th></tr></thead><tbody>' + rows.map(function (r) { return '<tr><td><strong>' + esc(r[0]) + '</strong></td><td>' + (r[1] ? pill('p', r[1]) : pill('mute', 'à attribuer')) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+    h += '<p class="muted" style="font-size:0.85rem">' + (st.rolesRec ? 'Enregistré le ' + frDate(st.rolesRec.date) + (st.rolesRec.par ? ' par ' + esc(st.rolesRec.par) : '') + ' · ' + fileLnk(st.rolesRec.path) + '. Chaque nouvel enregistrement remplace le précédent ; l\'historique reste dans <code>biscalab/equipe/</code>.' : 'Rôles proposés par le dossier, personne n\'est encore enregistré. Le formulaire ci-dessus écrit le premier enregistrement dans <code>biscalab/equipe/</code>.') + '</p>';
     return h;
   }
   function viewChecklist() { return ''; }
@@ -6941,18 +6947,21 @@ Ce que j'ai vu, quand, combien de fois.
     piece: { titre: 'Enregistrer une pièce imprimée', dir: 'pieces', page: 'pieces', icon: 'i-printer', aide: 'Un enregistrement par exemplaire et par changement d\'état. La pesée sert à comparer avec le modèle de simulation.',
       fields: [['piece', 'Pièce', 'piece'], ['exemplaire', 'Exemplaire n°', 'number', '1'], ['statut', 'État', 'select', PIECE_STATUTS.map(function (s) { return s + '|' + PIECE_LABELS[s]; })], ['masse_g', 'Masse pesée (g, facultatif)', 'text'], ['rev', 'Révision (amont, b1, b2…)', 'text', 'amont'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Note (orientation, supports, défaut…)', 'textarea']],
       build: function (v) { if (v.piece === 'autre') v.piece = slug(v.piece_autre || 'piece'); return { name: v.date + '-' + nowHHMM() + '-' + slug(v.piece) + '-' + (v.exemplaire || 1) + '.md', text: '---\ntype: piece\npiece: ' + v.piece + '\nexemplaire: ' + (v.exemplaire || 1) + '\nstatut: ' + v.statut + '\nmasse_g: ' + (v.masse_g || '') + '\nrev: ' + (v.rev || 'amont') + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note || '') + '\n' }; } },
-    achat: { titre: 'Enregistrer un achat', dir: 'achats', page: 'achats', icon: 'i-cart', aide: 'Une entrée par commande, au moment où elle est passée. Quand son statut change (commandé → reçu → remboursé), on modifie le fichier existant (lien « modifier » dans le tableau) : le réenregistrer le compterait deux fois dans le budget.',
+    achat: { titre: 'Enregistrer un achat', dir: 'achats', page: 'achats', icon: 'i-cart', aide: 'Une entrée par commande, au moment où elle est passée. Quand son statut change (commandé → reçu → remboursé), bouton « modifier » sur la ligne : même objet, nouveau statut. Le dernier enregistrement l\'emporte, rien n\'est compté deux fois.',
       fields: [['titre', 'Objet (en quelques mots)', 'text'], ['fournisseur', 'Fournisseur', 'text'], ['montant', 'Montant TTC, port compris (€)', 'text'], ['phase', 'Phase', 'phase'], ['statut', 'Statut', 'select', ACHAT_STATUTS.map(function (s) { return s + '|' + ACHAT_LABELS[s]; })], ['servos', 'Nombre de servos STS3215 dans cette commande', 'number', '0'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['lignes', 'Lignes de la commande', 'textarea', '- 1 × …']],
-      build: function (v) { return { name: v.date + '-' + slug(v.titre) + '.md', text: '---\ntype: achat\ntitre: ' + v.titre + '\nfournisseur: ' + v.fournisseur + '\nmontant: ' + v.montant + '\nphase: ' + v.phase + '\nstatut: ' + v.statut + '\nservos: ' + (v.servos || 0) + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.lignes || '') + '\n' }; } },
+      build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.titre) + '.md', text: '---\ntype: achat\ntitre: ' + v.titre + '\nfournisseur: ' + v.fournisseur + '\nmontant: ' + v.montant + '\nphase: ' + v.phase + '\nstatut: ' + v.statut + '\nservos: ' + (v.servos || 0) + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.lignes || '') + '\n' }; } },
     test: { titre: 'Fiche de test', dir: 'tests', page: 'tests', icon: 'i-check', aide: 'Le critère de réussite est chiffré et écrit AVANT l\'essai. Le résultat GO d\'une fiche de phase ouvre la phase suivante.',
       fields: [['titre', 'Titre', 'text'], ['phase', 'Phase', 'phase'], ['resultat', 'Résultat', 'select', ['GO|GO', 'NO-GO|NO-GO', 'PARTIEL|partiel', '|pas encore réalisé']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['objectif', 'Objectif', 'textarea'], ['montage', 'Montage', 'textarea'], ['procedure', 'Procédure', 'textarea'], ['critere', 'Critère de réussite (chiffré)', 'textarea'], ['resultat_txt', 'Résultat obtenu', 'textarea'], ['decision', 'Décision', 'textarea']],
-      build: function (v) { return { name: v.date + '-' + slug(v.titre) + '.md', text: '---\ntype: test\ntitre: ' + v.titre + '\nphase: ' + v.phase + '\nresultat: ' + v.resultat + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n## Objectif\n' + (v.objectif || '') + '\n\n## Montage\n' + (v.montage || '') + '\n\n## Procédure\n' + (v.procedure || '') + '\n\n## Critère de réussite\n' + (v.critere || '') + '\n\n## Résultat\n' + (v.resultat_txt || '') + '\n\n## Décision\n' + (v.decision || '') + '\n' }; } },
+      build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.titre) + '.md', text: '---\ntype: test\ntitre: ' + v.titre + '\nphase: ' + v.phase + '\nresultat: ' + v.resultat + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n## Objectif\n' + (v.objectif || '') + '\n\n## Montage\n' + (v.montage || '') + '\n\n## Procédure\n' + (v.procedure || '') + '\n\n## Critère de réussite\n' + (v.critere || '') + '\n\n## Résultat\n' + (v.resultat_txt || '') + '\n\n## Décision\n' + (v.decision || '') + '\n' }; } },
     mesure: { titre: 'Enregistrer une mesure', dir: 'mesures', page: 'mesures', icon: 'i-zap', aide: 'Une mesure = une grandeur, un objet, une valeur. Les masses se comparent au modèle (2,107 kg au total).',
       fields: [['grandeur', 'Grandeur', 'select', ['masse|masse', 'offset|offset (zéro servo)', 'courant|courant', 'tension|tension', 'temperature|température', 'jeu|jeu mécanique', 'autonomie|autonomie', 'autre|autre']], ['objet', 'Objet mesuré (jambe droite, servo 12, pack…)', 'text'], ['valeur', 'Valeur', 'text'], ['unite', 'Unité (g, rad, A, V, °C, °, min)', 'text'], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['note', 'Conditions, instrument, remarque', 'textarea']],
       build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.grandeur + '-' + v.objet) + '.md', text: '---\ntype: mesure\ngrandeur: ' + v.grandeur + '\nobjet: ' + v.objet + '\nvaleur: ' + v.valeur + '\nunite: ' + v.unite + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + (v.note || '') + '\n' }; } },
-    decision: { titre: 'Enregistrer une décision', dir: 'decisions', page: 'decisions', icon: 'i-flag', aide: 'Trois paragraphes suffisent : le contexte, ce qu\'on décide, ce que ça entraîne. Une décision « à trancher » reste affichée sur le tableau de bord jusqu\'à ce qu\'on modifie son fichier (statut : prise).',
+    equipe: { titre: 'Attribuer les rôles', dir: 'equipe', page: 'equipe', icon: 'i-users', aide: 'Un prénom par rôle ; une même personne peut en cumuler plusieurs ; vide = à attribuer. Chaque enregistrement remplace le précédent.',
+      fields: PLAN.roles.map(function (r, i) { return ['r' + i, r[0], 'text']; }).concat([['autres', 'Autres rôles (un par ligne : Rôle : Prénom)', 'textarea'], ['date', 'Date', 'date'], ['par', 'Par', 'me']]),
+      build: function (v) { var lines = PLAN.roles.map(function (r, i) { return r[0] + ': ' + (v['r' + i] || ''); }); (v.autres || '').split('\n').forEach(function (l) { var i = l.indexOf(':'); if (i > 0) lines.push(l.slice(0, i).trim() + ': ' + l.slice(i + 1).trim()); }); return { name: v.date + '-' + nowHHMM() + '-roles.md', text: '---\ntype: equipe\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n' + lines.join('\n') + '\n' }; } },
+    decision: { titre: 'Enregistrer une décision', dir: 'decisions', page: 'decisions', icon: 'i-flag', aide: 'Trois paragraphes suffisent : le contexte, ce qu\'on décide, ce que ça entraîne. Une décision « à trancher » reste sur le tableau de bord jusqu\'à ce qu\'on la ré-enregistre (bouton Modifier) avec le statut « prise ».',
       fields: [['titre', 'Titre', 'text'], ['statut', 'Statut', 'select', ['prise|prise', 'a-trancher|à trancher', 'annulee|annulée']], ['date', 'Date', 'date'], ['par', 'Par', 'me'], ['contexte', 'Contexte', 'textarea'], ['decision', 'Décision', 'textarea'], ['consequences', 'Conséquences', 'textarea']],
-      build: function (v) { return { name: v.date + '-' + slug(v.titre) + '.md', text: '---\ntype: decision\ntitre: ' + v.titre + '\nstatut: ' + v.statut + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n## Contexte\n' + (v.contexte || '') + '\n\n## Décision\n' + (v.decision || '') + '\n\n## Conséquences\n' + (v.consequences || '') + '\n' }; } }
+      build: function (v) { return { name: v.date + '-' + nowHHMM() + '-' + slug(v.titre) + '.md', text: '---\ntype: decision\ntitre: ' + v.titre + '\nstatut: ' + v.statut + '\ndate: ' + v.date + '\npar: ' + v.par + '\n---\n## Contexte\n' + (v.contexte || '') + '\n\n## Décision\n' + (v.decision || '') + '\n\n## Conséquences\n' + (v.consequences || '') + '\n' }; } }
   };
 
   var pendingForm = null, formSeq = 0;
@@ -6995,10 +7004,11 @@ Ce que j'ai vu, quand, combien de fois.
       else if (type === 'textarea') h += '<textarea id="' + id + '" name="' + f[0] + '" rows="3" placeholder="' + esc(extra || '') + '">' + esc(val) + '</textarea>';
       else if (type === 'select') h += '<select id="' + id + '" name="' + f[0] + '">' + extra.map(function (o) { var p = o.split('|'); return '<option value="' + esc(p[0]) + '"' + (String(val) === p[0] ? ' selected' : '') + '>' + esc(p[1]) + '</option>'; }).join('') + '</select>';
       else if (type === 'phase') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.phases.map(function (p) { return '<option value="' + p.n + '"' + ((val !== '' ? String(val) : String(st.phase)) === String(p.n) ? ' selected' : '') + '>Phase ' + p.n + ' · ' + esc(p.titre) + '</option>'; }).join('') + '</select>';
-      else if (type === 'piece') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.pieces.map(function (p) { return '<option value="' + esc(p[1]) + '"' + (val === p[1] ? ' selected' : '') + '>' + esc(p[1]) + ' (' + esc(p[0]) + ', × ' + p[2] + ')</option>'; }).join('') + '<option value="autre"' + (val === 'autre' ? ' selected' : '') + '>Autre pièce (gabarit, cale, pièce modifiée…)</option></select><input type="text" name="piece_autre" placeholder="Nom de l\'autre pièce, sans espace : gabarit-zero-servo" style="margin-top:6px">';
+      else if (type === 'piece') h += '<select id="' + id + '" name="' + f[0] + '">' + PLAN.pieces.map(function (p) { return '<option value="' + esc(p[1]) + '"' + (val === p[1] ? ' selected' : '') + '>' + esc(p[1]) + ' (' + esc(p[0]) + ', × ' + p[2] + ')</option>'; }).join('') + '<option value="autre"' + (val === 'autre' ? ' selected' : '') + '>Autre pièce (gabarit, cale, pièce modifiée…)</option></select><input type="text" name="piece_autre" value="' + esc(pre.piece_autre || '') + '" placeholder="Nom de l\'autre pièce, sans espace : gabarit-zero-servo" style="margin-top:6px">';
       else if (type === 'taches') {
         var cur2 = phaseOf(st.phase);
-        h += '<div class="chklist small" id="' + id + '">' + cur2.taches.filter(function (t) { return !(st.taches[t[0]] && st.taches[t[0]].fait); }).map(function (t) { return '<label class="chk"><input type="checkbox" name="taches" value="' + t[0] + '"><span class="t">' + esc(t[1]) + '</span></label>'; }).join('') + '</div><small class="muted">Tâches restantes de la phase ' + cur2.n + '. Les autres phases se cochent depuis le planning.</small>';
+        var preT = parseList(val);
+        h += '<div class="chklist small" id="' + id + '">' + cur2.taches.filter(function (t) { return preT.indexOf(t[0]) >= 0 || !(st.taches[t[0]] && st.taches[t[0]].fait); }).map(function (t) { return '<label class="chk"><input type="checkbox" name="taches" value="' + t[0] + '"' + (preT.indexOf(t[0]) >= 0 ? ' checked' : '') + '><span class="t">' + esc(t[1]) + '</span></label>'; }).join('') + preT.filter(function (k) { return !cur2.taches.some(function (t) { return t[0] === k; }); }).map(function (k) { return '<label class="chk"><input type="checkbox" name="taches" value="' + esc(k) + '" checked><span class="t">' + esc(st.allTasks[k] ? st.allTasks[k].label : k) + '</span></label>'; }).join('') + '</div><small class="muted">Tâches restantes de la phase ' + cur2.n + '. Les autres phases se cochent depuis le planning.</small>';
       }
       h += '</div>';
     });
@@ -7018,10 +7028,13 @@ Ce que j'ai vu, quand, combien de fois.
       });
       var pa = body.querySelector('[name="piece_autre"]'); if (pa) v.piece_autre = pa.value.trim();
       if (v.par) lsSet(ME_KEY, v.par);
-      var out = F.build(v), existing = data.files.some(function (f) { return f.path === REPO.base + '/' + F.dir + '/' + out.name; });
-      var name = out.name; if (existing) { name = out.name.replace(/\.md$/, '-2.md'); }
+      var out = F.build(v), name = out.name;
+      function taken(n) { return data.files.some(function (f) { return f.path === REPO.base + '/' + F.dir + '/' + n; }); }
+      var existing = taken(name);
+      if (existing && kind === 'seance') name = v.date + '-' + nowHHMM() + '.md';
+      for (var k2 = 2; taken(name) && k2 < 20; k2++) name = name.replace(/(-\d+)?\.md$/, '-' + k2 + '.md');
       var url = ghNewUrl(F.dir, name, out.text), tooLong = url.length > 7000;
-      var o = '<div class="note ok"><svg><use href="#i-check"/></svg><div><strong>Fichier prêt :</strong> <code>' + esc(REPO.base + '/' + F.dir + '/' + name) + '</code>' + (existing ? ' <span class="muted">(un fichier du même nom existe déjà : suffixe -2)</span>' : '') + '</div></div>';
+      var o = '<div class="note ok"><svg><use href="#i-check"/></svg><div><strong>Fichier prêt :</strong> <code>' + esc(REPO.base + '/' + F.dir + '/' + name) + '</code>' + (existing ? ' <span class="muted">(remplace l\'enregistrement précédent du même objet)</span>' : '') + '</div></div>';
       o += '<textarea class="io" rows="8" readonly>' + esc(out.text) + '</textarea>';
       o += '<div class="row">' + (tooLong ? '<button type="button" class="btn primary" data-act="copy">1 · Copier le texte</button><a class="btn" href="' + ghNewUrl(F.dir, name, '') + '" target="_blank" rel="noopener">2 · Ouvrir l\'éditeur GitHub et coller</a>' : '<a class="btn primary" href="' + url + '" target="_blank" rel="noopener">' + svgUse('i-git') + 'Enregistrer sur GitHub</a><button type="button" class="btn" data-act="copy">Copier le texte</button>') + '</div>';
       o += '<p class="muted" style="font-size:0.85rem">GitHub s\'ouvre avec le fichier déjà rempli : vérifier, puis <strong>Commit changes…</strong> deux fois. Revenir ici et cliquer « Actualiser » une minute plus tard.' + (tooLong ? ' Le texte est long : il faut le coller à la main dans l\'éditeur.' : '') + '</p>';
